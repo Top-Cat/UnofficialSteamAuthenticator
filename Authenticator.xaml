@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="SteamAppNative.Authenticator"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SteamAppNative"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot" Background="#1b2838">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="12,17,12,28">
+            <!--Title-->
+            <TextBlock Text="Add Authenticator" Foreground="White" FontSize="40" />
+        </StackPanel>
+        <StackPanel x:Name="PhoneNumGrid" Grid.Row="1" Margin="12,17,12,28" Visibility="Collapsed">
+                <!--Phone number-->
+            <TextBlock x:Name="PhoneNumLabel" Text="Enter your phone number in the following format: +{cC} phoneNumber.&#13;&#13;EG, +1 123-456-7890" Foreground="White" FontSize="20" TextWrapping="Wrap"/>
+            <TextBox  BorderBrush="LightGray" Name="PhoneNum" />
+        </StackPanel>
+        <StackPanel x:Name="RevocationGrid" Grid.Row="1" Margin="12,17,12,28" Visibility="Collapsed">
+            <!--Revocation Code-->
+            <TextBlock x:Name="RevocationExpLabel" Text="The Mobile Authenticator has not yet been linked.&#13;&#13;Before finalizing the authenticator, please write down your revocation code" Foreground="White" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,20"/>
+            <TextBlock x:Name="RevocationCode" Text="R71386" Foreground="Red" FontSize="40" HorizontalAlignment="Center" FontWeight="Bold" />
+        </StackPanel>
+        <StackPanel x:Name="SMSGrid" Grid.Row="1" Margin="12,17,12,28" Visibility="Collapsed">
+            <!--SMS Code-->
+            <TextBlock x:Name="SMSCodeLabel" Text="Enter SMS Code" Foreground="White" FontSize="20" TextWrapping="Wrap"/>
+            <TextBox  BorderBrush="LightGray" Name="SMSCode" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="12,17,12,28">
+            <!--Login Button-->
+            <TextBlock x:Name="ErrorLabel" Text="" Foreground="Red" FontSize="20" Margin="0,0,0,10" HorizontalAlignment="Center" Visibility="Collapsed"/>
+            <Button Content="Continue" Foreground="White" BorderBrush="LightGray" Name="LoginBtn" Click="LoginBtn_Click" HorizontalAlignment="Center" Visibility="Collapsed" />
+            <!--Margin="0,-40,0,0"-->
+            <ProgressBar x:Name="Progress" Height="40" VerticalAlignment="Stretch" IsIndeterminate="True" />
+
+        </StackPanel>
+
+    </Grid>
+</Page>
