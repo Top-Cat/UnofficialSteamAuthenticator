@@ -74,8 +74,8 @@ namespace SteamAppNative
                 login = new UserLogin(UserName.Text, PassWord.Password);
             }
 
-            login.TwoFactorCode = TwoFactorCode.Text;
-            login.EmailCode = EmailCode.Text;
+            login.TwoFactorCode = TwoFactorCode.Text.ToUpper();
+            login.EmailCode = EmailCode.Text.ToUpper();
             login.CaptchaText = CaptchaText.Text;
 
             login.DoLogin(response =>
@@ -109,7 +109,7 @@ namespace SteamAppNative
             {
                 Progress.IsEnabled = true;
                 SteamGuardAccount account = Storage.SGAFromStore(UserName.Text);
-                if (login.TwoFactorCode == null && account != null)
+                if ((login.TwoFactorCode == null || login.TwoFactorCode.Length == 0) && account != null)
                 {
                     LoginGrid.Visibility = Visibility.Visible;
                     account.GenerateSteamGuardCode(code =>

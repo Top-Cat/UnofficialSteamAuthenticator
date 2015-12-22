@@ -241,7 +241,7 @@ namespace SteamAppNative
 
         private void UnlinkBtn_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog("Are you sure? This will incur a 7 day trade ban.");
+            var dialog = new MessageDialog("Are you sure? This will incur trade holds for at least 7 days.");
             dialog.Title = "Unlink?";
             dialog.Commands.Add(new UICommand("Ok", new UICommandInvokedHandler(DoUnlink)));
             dialog.Commands.Add(new UICommand("Cancel")); // Take no action
