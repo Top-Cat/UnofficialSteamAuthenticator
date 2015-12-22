@@ -114,6 +114,16 @@ namespace SteamAppNative
                     LoginGrid.Visibility = Visibility.Visible;
                     account.GenerateSteamGuardCode(code =>
                     {
+                        if (code == null || code.Length == 0)
+                        {
+                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                ErrorLabel.Text = "Need 2FA";
+                                TwoFactorCode.Text = "";
+                                TwoFactorGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                            });
+                        }
+
                         login.TwoFactorCode = code;
 
                         login.DoLogin(res =>
