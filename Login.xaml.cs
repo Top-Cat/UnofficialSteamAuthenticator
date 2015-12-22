@@ -122,6 +122,7 @@ namespace SteamAppNative
                                 TwoFactorCode.Text = "";
                                 TwoFactorGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
                             });
+                            return;
                         }
 
                         login.TwoFactorCode = code;
