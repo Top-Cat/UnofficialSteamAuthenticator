@@ -75,9 +75,9 @@ namespace SteamAppNative
             }
             else if (SMSGrid.Visibility == Visibility.Visible)
             {
-                linker.FinalizeAddAuthenticator(response =>
+                linker.FinalizeAddAuthenticator(async response =>
                 {
-                    Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
                         FinaliseResponse(response);
                     });
@@ -86,7 +86,7 @@ namespace SteamAppNative
             
         }
 
-        private void FinaliseResponse(AuthenticatorLinker.FinalizeResult response)
+        private async void FinaliseResponse(AuthenticatorLinker.FinalizeResult response)
         {
             if (response == AuthenticatorLinker.FinalizeResult.BadSMSCode)
             {
@@ -102,7 +102,7 @@ namespace SteamAppNative
                 var dialog = new MessageDialog("Unknown error linking authenticator");
                 dialog.Title = "Error";
                 dialog.Commands.Add(new UICommand("Ok"));
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
 
                 Frame.Navigate(typeof(MainPage));
             }
@@ -113,7 +113,7 @@ namespace SteamAppNative
             }
         }
 
-        private void LinkResponseReal(AuthenticatorLinker.LinkResult linkResponse)
+        private async void LinkResponseReal(AuthenticatorLinker.LinkResult linkResponse)
         {
             bool firstRun = PhoneNumGrid.Visibility == Visibility.Collapsed;
             Progress.Visibility = ErrorLabel.Visibility = SMSGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
@@ -143,7 +143,7 @@ namespace SteamAppNative
                     "You already have another device set up as an authenticator. Remove it from your account and try again.");
                 dialog.Title = "Error";
                 dialog.Commands.Add(new UICommand("Ok"));
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
 
                 Frame.Navigate(typeof(MainPage));
             }
@@ -158,9 +158,9 @@ namespace SteamAppNative
             LoginBtn.Visibility = Visibility.Visible;
         }
 
-        private void LinkResponse(AuthenticatorLinker.LinkResult linkResponse)
+        private async void LinkResponse(AuthenticatorLinker.LinkResult linkResponse)
         {
-            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 LinkResponseReal(linkResponse);
             });

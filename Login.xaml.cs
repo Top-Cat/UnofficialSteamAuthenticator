@@ -78,9 +78,9 @@ namespace SteamAppNative
             login.EmailCode = EmailCode.Text.ToUpper();
             login.CaptchaText = CaptchaText.Text;
 
-            login.DoLogin(response =>
+            login.DoLogin(async response =>
             {
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     ProcessLoginResponse(response);
                 });
@@ -112,11 +112,11 @@ namespace SteamAppNative
                 if ((login.TwoFactorCode == null || login.TwoFactorCode.Length == 0) && account != null)
                 {
                     LoginGrid.Visibility = Visibility.Visible;
-                    account.GenerateSteamGuardCode(code =>
+                    account.GenerateSteamGuardCode(async code =>
                     {
                         if (code == null || code.Length == 0)
                         {
-                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
                                 ErrorLabel.Text = "Need 2FA";
                                 TwoFactorCode.Text = "";
@@ -127,9 +127,9 @@ namespace SteamAppNative
 
                         login.TwoFactorCode = code;
 
-                        login.DoLogin(res =>
+                        login.DoLogin(async res =>
                         {
-                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
                                 ProcessLoginResponse(res);
                             });

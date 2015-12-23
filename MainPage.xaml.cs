@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using System.Threading.Tasks;
 
 namespace SteamAppNative
 {
@@ -93,13 +94,16 @@ namespace SteamAppNative
                     // I'm not entirely sure if this is applicable
                     // Sets values like title=Confirmations or title=Chat
                     break;
+                case "lostauth":
+                    LogoutButton_Click(null, null);
+                    break;
                 case "steamguard":
                     if (query["op"] != "conftag") break;
 
-                    account.GenerateConfirmationQueryParams(response =>
+                    account.GenerateConfirmationQueryParams(async response =>
                     {
                         string[] args = { "window.SGHandler.update('" + response + "', 'ok');" };
-                        ConfirmationWeb.InvokeScriptAsync("eval", args);
+                        await ConfirmationWeb.InvokeScriptAsync("eval", args);
                     }, query["arg1"]);
 
                     break;
@@ -113,11 +117,11 @@ namespace SteamAppNative
         {
             if (SteamGuardGrid.Visibility != Visibility.Visible) return;
 
-            TimeAligner.GetSteamTime(time =>
+            TimeAligner.GetSteamTime(async time =>
             {
                 ulong currentChunk = (ulong)time / 30L;
                 long timeRemaining = 31 - (time % 30);
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     var storyboard = new Storyboard();
                     var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
@@ -160,12 +164,12 @@ namespace SteamAppNative
 
             ConfirmationWeb.Visibility = Visibility.Visible;
 
-            account.GenerateConfirmationURL(response =>
+            account.GenerateConfirmationURL(async response =>
             {
                 confUrl = response;
                 HttpRequestMessage message = GetMessageForUrl(response);
                 
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     ConfirmationWeb.NavigateWithHttpRequestMessage(message);
                 });
@@ -189,7 +193,7 @@ namespace SteamAppNative
             return new HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, baseUri);
         }
 
-        private void InjectCode(object sender, WebViewNavigationCompletedEventArgs e)
+        private async void InjectCode(object sender, WebViewNavigationCompletedEventArgs e)
         {
             confWebUrl = e.Uri.AbsoluteUri;
 
@@ -217,12 +221,12 @@ namespace SteamAppNative
                         };
                         runLocalUrlO = runLocalUrl;
                         runLocalUrl = function(url) {
-                            window.SGHandler.Status = 'busy';
+                            window.SGHandler.update(0, 'busy');
                             runLocalUrlO(url);
                         }
                     }"
                 };
-                ConfirmationWeb.InvokeScriptAsync("eval", args);
+                await ConfirmationWeb.InvokeScriptAsync("eval", args);
             }
         }
 
@@ -239,23 +243,23 @@ namespace SteamAppNative
             }
         }
 
-        private void UnlinkBtn_Click(object sender, RoutedEventArgs e)
+        private async void UnlinkBtn_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new MessageDialog("Are you sure? This will incur trade holds for at least 7 days.");
             dialog.Title = "Unlink?";
             dialog.Commands.Add(new UICommand("Ok", new UICommandInvokedHandler(DoUnlink)));
             dialog.Commands.Add(new UICommand("Cancel")); // Take no action
-            dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
 
         private void DoUnlink(IUICommand cmd)
         {
-            account.DeactivateAuthenticator(response => {
+            account.DeactivateAuthenticator(async response => {
                 if (response)
                 {
                     account.FullyEnrolled = false;
                     Storage.PushStore(account);
-                    Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
                         SteamGuardButton_Click(null, null);
                     });
@@ -265,7 +269,7 @@ namespace SteamAppNative
                     var dialog = new MessageDialog("Failed to unlink authenticator");
                     dialog.Title = "Error";
                     dialog.Commands.Add(new UICommand("Ok"));
-                    dialog.ShowAsync();
+                    await dialog.ShowAsync();
                 }
             });
         }
