@@ -26,7 +26,7 @@
         <StackPanel x:Name="LoginGrid" Grid.Row="1" Margin="12,17,12,28">
             <!--UserName-->
             <TextBlock x:Name="UserNameLabel" Text="Steam username" Foreground="White" FontSize="20"/>
-            <TextBox  BorderBrush="LightGray" Name="UserName" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" />
+            <TextBox BorderBrush="LightGray" Name="UserName" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" />
 
             <!--Password-->
             <TextBlock x:Name="PasswordLabel"  Foreground="White" Text="Password" FontSize="20"/>
@@ -52,7 +52,7 @@
             <!--Login Button-->
             <Button Content="Sign In" Foreground="White" BorderBrush="LightGray" Name="LoginBtn" Click="LoginBtn_Click" />
             <TextBlock x:Name="ErrorLabel" Text="Invalid Credentials" Foreground="Red" Margin="0,-40,0,0" FontSize="20" HorizontalAlignment="Right" Visibility="Collapsed"/>
-            <ProgressBar x:Name="Progress" Height="40" VerticalAlignment="Stretch" IsIndeterminate="True" IsEnabled="False" Visibility="Collapsed"/>
+            <ProgressBar x:Name="Progress" Height="40" VerticalAlignment="Stretch" IsIndeterminate="True" Visibility="Collapsed"/>
 
         </StackPanel>
 

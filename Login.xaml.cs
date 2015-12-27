@@ -44,6 +44,11 @@ namespace SteamAppNative
             ResetView();
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            HardwareButtons.BackPressed -= BackPressed;
+        }
+
         private void BackPressed(object s, BackPressedEventArgs args)
         {
             if (LoginGrid.Visibility == Visibility.Collapsed)
@@ -65,7 +70,6 @@ namespace SteamAppNative
         {
             UserName.IsTabStop = PassWord.IsTabStop = false;
             ErrorLabel.Visibility = LoginBtn.Visibility = Visibility.Collapsed;
-            Progress.IsEnabled = true;
             Progress.Visibility = Visibility.Visible;
             UserName.IsTabStop = PassWord.IsTabStop = true;
 
@@ -107,20 +111,20 @@ namespace SteamAppNative
             } 
             else if (response == LoginResult.Need2FA)
             {
-                Progress.IsEnabled = true;
                 SteamGuardAccount account = Storage.SGAFromStore(UserName.Text);
                 if ((login.TwoFactorCode == null || login.TwoFactorCode.Length == 0) && account != null)
                 {
-                    LoginGrid.Visibility = Visibility.Visible;
+                    Progress.Visibility = LoginGrid.Visibility = Visibility.Visible;
+                    LoginBtn.Visibility = Visibility.Collapsed;
+
                     account.GenerateSteamGuardCode(async code =>
                     {
                         if (code == null || code.Length == 0)
                         {
                             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
-                                ErrorLabel.Text = "Need 2FA";
-                                TwoFactorCode.Text = "";
-                                TwoFactorGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                                login.TwoFactorCode = " ";
+                                ProcessLoginResponse(LoginResult.Need2FA);
                             });
                             return;
                         }
@@ -158,6 +162,7 @@ namespace SteamAppNative
             else if (response == LoginResult.LoginOkay)
             {
                 Storage.PushStore(login.Session);
+                LoginBtn.Visibility = Visibility.Collapsed;
                 Frame.Navigate(typeof(MainPage), login.Session);
             }
         }
