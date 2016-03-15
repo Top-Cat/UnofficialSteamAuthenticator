@@ -1,29 +1,18 @@
 ﻿using SteamAuth;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.Phone.UI.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
-using System.Threading.Tasks;
 
 namespace SteamAppNative
 {
@@ -37,6 +26,7 @@ namespace SteamAppNative
     public sealed partial class MainPage : Page
     {
         private SteamGuardAccount account;
+        private Storyboard storyboard;
         private string confUrl = "";
         private string confWebUrl = "";
         private string chatUrl = "https://steamcommunity.com/chat";
@@ -49,7 +39,7 @@ namespace SteamAppNative
 
         private void WebNotify(object sender, NotifyEventArgs e)
         {
-            Debug.WriteLine("notify" + e.Value);
+            //Debug.WriteLine("notify" + e.Value);
             HandleUri(new Uri(e.Value));
         }
 
@@ -95,7 +85,22 @@ namespace SteamAppNative
                     // Sets values like title=Confirmations or title=Chat
                     break;
                 case "lostauth":
-                    LogoutButton_Click(null, null);
+                    // This code had a massive tantrum when run outside the application's thread
+                    account.RefreshSession(async success =>
+                    {
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                        {
+                            if (success)
+                            {
+                                Storage.PushStore(account.Session);
+                                SteamGuardButton_Click(null, null);
+                            }
+                            else
+                            {
+                                LogoutButton_Click(null, null);
+                            }
+                        });
+                    });
                     break;
                 case "steamguard":
                     if (query["op"] != "conftag") break;
@@ -115,6 +120,7 @@ namespace SteamAppNative
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
+            if (storyboard != null) storyboard.Stop();
             if (SteamGuardGrid.Visibility != Visibility.Visible) return;
 
             TimeAligner.GetSteamTime(async time =>
@@ -123,7 +129,7 @@ namespace SteamAppNative
                 long timeRemaining = 31 - (time % 30);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    var storyboard = new Storyboard();
+                    storyboard = new Storyboard();
                     var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
                     Storyboard.SetTarget(animation, SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
@@ -160,6 +166,8 @@ namespace SteamAppNative
 
         private void ConfirmationsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (account == null || !account.FullyEnrolled) return;
+
             HideAll();
 
             ConfirmationWeb.Visibility = Visibility.Visible;
@@ -197,7 +205,7 @@ namespace SteamAppNative
         {
             confWebUrl = e.Uri.AbsoluteUri;
 
-            if (confWebUrl == confUrl)
+            if (e.IsSuccess && confWebUrl == confUrl)
             {
                 // Try to only inject this once
                 string[] args = { @"
@@ -276,7 +284,17 @@ namespace SteamAppNative
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            Storage.SDClearStore();
+            Storage.SDLogout();
+            Frame.Navigate(typeof(Login));
+        }
+
+        private void UsersButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Users));
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
             Frame.Navigate(typeof(Login));
         }
     }

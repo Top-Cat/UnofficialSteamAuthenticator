@@ -1,24 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using SteamAuth;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage;
 
 namespace SteamAppNative
 {
@@ -62,8 +50,9 @@ namespace SteamAppNative
         {
             HideAll();
             ErrorLabel.Visibility = Visibility.Collapsed;
-            LoginGrid.Visibility = Visibility.Visible;
+            LoginBtn.Visibility = LoginGrid.Visibility = Visibility.Visible;
             UserName.Text = PassWord.Password = "";
+            AppBar.Visibility = Storage.GetAccounts().Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -162,7 +151,6 @@ namespace SteamAppNative
             else if (response == LoginResult.LoginOkay)
             {
                 Storage.PushStore(login.Session);
-                LoginBtn.Visibility = Visibility.Collapsed;
                 Frame.Navigate(typeof(MainPage), login.Session);
             }
         }
@@ -170,7 +158,12 @@ namespace SteamAppNative
         // I'm going to hell
         private void HideAll()
         {
-            TwoFactorGrid.Visibility = EmailGrid.Visibility = Progress.Visibility = LoginGrid.Visibility = CaptchaGrid.Visibility = Visibility.Collapsed;
+            AppBar.Visibility = TwoFactorGrid.Visibility = EmailGrid.Visibility = Progress.Visibility = LoginGrid.Visibility = CaptchaGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void SwitchUser_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Users));
         }
     }
 }

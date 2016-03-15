@@ -57,4 +57,17 @@
         </StackPanel>
 
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="AppBar" Visibility="Collapsed">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    x:Name="SwitchUserButton"
+                    x:Uid="SwitchUserButton"
+                    Click="SwitchUser_Click"
+                    Icon="People"
+                    Label="Switch"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

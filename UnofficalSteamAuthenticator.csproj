@@ -17,6 +17,7 @@
     <ApplicationInsightsResourceId>/subscriptions/a7e47a8e-72e6-45d1-8ae2-b09e40cb1925/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/SteamAppNative</ApplicationInsightsResourceId>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -88,6 +89,9 @@
     <Compile Include="Authenticator.xaml.cs">
       <DependentUpon>Authenticator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Users.xaml.cs">
+      <DependentUpon>Users.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SteamAuth\Callbacks.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Login.xaml.cs">
@@ -131,6 +135,10 @@
     <Page Include="Authenticator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Users.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>

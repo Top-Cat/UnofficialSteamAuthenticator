@@ -41,23 +41,35 @@
         <CommandBar>
             <CommandBar.PrimaryCommands>
                 <AppBarButton
-                    x:Name="MessageButton"
-                    x:Uid="MessageButton"
-                    Click="MessageButton_Click"
-                    Icon="Message"
-                    Label="chat"/>
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton
                     x:Name="SteamGuardButton"
                     x:Uid="SteamGuardButton"
                     Click="SteamGuardButton_Click"
-                    Label="Steam Guard"/>
+                    Icon="Permissions"
+                    Label="Guard"/>
                 <AppBarButton
                     x:Name="ConfirmationsButton"
                     x:Uid="ConfirmationsButton"
                     Click="ConfirmationsButton_Click"
-                    Label="Confirmations"/>
+                    Label="Confirm"
+                    Icon="Shop" />
+                <AppBarButton
+                    x:Name="MessageButton"
+                    x:Uid="MessageButton"
+                    Click="MessageButton_Click"
+                    Icon="Message"
+                    Label="Chat"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    x:Name="UsersButton"
+                    x:Uid="UsersButton"
+                    Click="UsersButton_Click"
+                    Label="Switch Accounts"/>
+                <AppBarButton
+                    x:Name="AddButton"
+                    x:Uid="AddButton"
+                    Click="AddButton_Click"
+                    Label="Add Account"/>
                 <AppBarButton
                     x:Name="LogoutButton"
                     x:Uid="LogoutButton"
