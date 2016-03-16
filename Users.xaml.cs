@@ -3,6 +3,7 @@ using SteamAuth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -27,9 +28,12 @@ namespace SteamAppNative
         {
             HardwareButtons.BackPressed += BackPressed;
 
-            Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
             listElems.Clear();
             AccountList.Items.Clear();
+            steamGuardUpdate_Tick(null, null);
+
+            Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
+            if (accs.Count < 1) return;
 
             string ids = "";
             foreach (ulong steamid in accs.Keys)
@@ -42,12 +46,13 @@ namespace SteamAppNative
                 AccountList.Items.Add(usr);
             }
 
+            string access_token = accs.First().Value.OAuthToken;
             SteamWeb.Request(async response =>
             {
-                Response r = JsonConvert.DeserializeObject<Response>(response);
+                Players r = JsonConvert.DeserializeObject<Players>(response);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (Player p in r.players.players)
+                    foreach (Player p in r.players)
                     {
                         if (listElems.ContainsKey(p.steamID))
                         {
@@ -57,9 +62,7 @@ namespace SteamAppNative
                         }
                     }
                 });
-            }, "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + APIKEY + "&steamids=" + ids, "GET");
-
-            steamGuardUpdate_Tick(null, null);
+            }, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + access_token + "&steamids=" + ids, "GET");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -78,12 +81,6 @@ namespace SteamAppNative
             User usr = (User) e.ClickedItem;
             Storage.SetCurrentUser(usr.steamid);
             Frame.Navigate(typeof(MainPage));
-        }
-
-        private class Response
-        {
-            [JsonProperty("response")]
-            public Players players { get; set; }
         }
 
         private class Players
