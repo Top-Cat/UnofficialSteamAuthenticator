@@ -41,8 +41,11 @@ namespace SteamAppNative
         {
             if (LoginGrid.Visibility == Visibility.Collapsed)
             {
-                ResetView();
                 args.Handled = true;
+                ResetView();
+            } else if (Frame.CanGoBack) {
+                args.Handled = true;
+                Frame.GoBack();
             }
         }
 

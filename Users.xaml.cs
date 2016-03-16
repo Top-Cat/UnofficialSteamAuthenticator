@@ -16,7 +16,6 @@ namespace SteamAppNative
     public sealed partial class Users : Page
     {
         private Dictionary<ulong, User> listElems = new Dictionary<ulong, User>();
-        private const string APIKEY = "A5012BAD44942A50814740D121272150";
         private Storyboard storyboard;
 
         public Users()
@@ -72,8 +71,10 @@ namespace SteamAppNative
 
         private void BackPressed(object sender, BackPressedEventArgs args)
         {
-            args.Handled = true;
-            Frame.Navigate(typeof(MainPage));
+            if (Frame.CanGoBack) {
+                args.Handled = true;
+                Frame.GoBack();
+            }
         }
 
         private void AccountList_ItemClick(object sender, ItemClickEventArgs e)

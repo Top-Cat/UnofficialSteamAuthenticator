@@ -293,9 +293,9 @@ namespace SteamAppNative
             Frame.Navigate(typeof(Users));
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Login));
+            Frame.Navigate(typeof(About));
         }
     }
 }

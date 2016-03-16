@@ -66,15 +66,15 @@
                     Click="UsersButton_Click"
                     Label="Switch Accounts"/>
                 <AppBarButton
-                    x:Name="AddButton"
-                    x:Uid="AddButton"
-                    Click="AddButton_Click"
-                    Label="Add Account"/>
-                <AppBarButton
                     x:Name="LogoutButton"
                     x:Uid="LogoutButton"
                     Click="LogoutButton_Click"
                     Label="Logout"/>
+                <AppBarButton
+                    x:Name="AboutButton"
+                    x:Uid="AboutButton"
+                    Click="AboutButton_Click"
+                    Label="App Information"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
