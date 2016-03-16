@@ -151,7 +151,7 @@ namespace SteamAppNative
                 return;
             }
 
-            RevCode.Text = account.RevocationCode;
+            AccountText.Text = account.AccountName ?? "";
             SteamGuardGrid.Visibility = Visibility.Visible;
             steamGuardUpdate_Tick(null, null);
         }

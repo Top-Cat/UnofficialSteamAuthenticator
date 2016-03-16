@@ -16,7 +16,7 @@
             <TextBlock Text="Steam Guard" Foreground="White" FontSize="40" Margin="0,0,0,40" />
 
             <TextBlock x:Name="SteamGuardCode" Text="JTHVN" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontWeight="Bold" />
-            <TextBlock x:Name="RevCode" Text="R1234" Foreground="Red" FontSize="14" HorizontalAlignment="Center" />
+            <TextBlock x:Name="AccountText" Text="" Foreground="#FFBBBBBB" FontSize="14" HorizontalAlignment="Center" />
             <ProgressBar x:Name="SteamGuardTimer" Height="10" VerticalAlignment="Stretch" Margin="0,10,0,0" Value="50" Maximum="30"/>
 
             <Button Content="Unlink" Foreground="White" BorderBrush="LightGray" Name="UnlinknBtn" Click="UnlinkBtn_Click" HorizontalAlignment="Center" Margin="0,40,0,0" />
