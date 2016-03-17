@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
     public class MyModel
     {

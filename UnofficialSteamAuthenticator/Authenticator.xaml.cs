@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Navigation;
 using SteamAuth;
 using Windows.UI.Popups;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
     public sealed partial class Authenticator : Page
     {

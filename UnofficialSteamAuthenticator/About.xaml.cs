@@ -4,7 +4,7 @@ using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
 
     public sealed partial class About : Page

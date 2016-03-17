@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The WebView Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

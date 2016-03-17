@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
 
     public sealed partial class Users : Page

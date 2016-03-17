@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
+  <Identity Name="7454ThomasCheyney.SteamAuthenticator" Publisher="CN=3D63FC23-731A-432B-B419-D65629B6D2E9" Version="1.1.0.18" />
+  <mp:PhoneIdentity PhoneProductId="66245cdd-1f74-4872-a029-66c34bf1327a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Unofficial Steam Authenticator</DisplayName>
+    <PublisherDisplayName>Thomas Cheyney</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.1</OSMinVersion>
+    <OSMaxVersionTested>6.3.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SteamAppNative.App">
+      <m3:VisualElements DisplayName="Unofficial Steam Authenticator" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Provides two factor auth for steam login and trading." ForegroundText="light" BackgroundColor="transparent">
+        <m3:DefaultTile Square71x71Logo="Assets\Square71x71Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </m3:DefaultTile>
+        <m3:SplashScreen Image="Assets\SplashScreen.png" />
+      </m3:VisualElements>
+      <Extensions>
+        <Extension Category="windows.protocol">
+          <Protocol Name="steammobile">
+            <DisplayName>Steam Mobile Handler</DisplayName>
+          </Protocol>
+        </Extension>
+      </Extensions>
+      <ApplicationContentUriRules>
+        <Rule Match="https://steamcommunity.com" Type="include" />
+      </ApplicationContentUriRules>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClientServer" />
+  </Capabilities>
+</Package>

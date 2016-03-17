@@ -5,11 +5,11 @@ using System.Linq;
 using Windows.Storage;
 using System;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
-    class Storage
+    public class Storage
     {
-        internal static SteamGuardAccount SGAFromStore(string username)
+        public static SteamGuardAccount SGAFromStore(string username)
         {
             SteamGuardAccount response = null;
 
@@ -27,7 +27,7 @@ namespace SteamAppNative
             return response;
         }
 
-        internal static SteamGuardAccount SGAFromStore(ulong steamid)
+        public static SteamGuardAccount SGAFromStore(ulong steamid)
         {
             SteamGuardAccount response = null;
 
@@ -45,7 +45,7 @@ namespace SteamAppNative
             return response;
         }
 
-        internal static SteamGuardAccount SGAFromStore()
+        public static SteamGuardAccount SGAFromStore()
         {
             SteamGuardAccount response = null;
 
@@ -59,20 +59,20 @@ namespace SteamAppNative
             return response;
         }
 
-        internal static void PushStore(SteamGuardAccount account)
+        public static void PushStore(SteamGuardAccount account)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["steamGuard-" + account.Session.SteamID] = JsonConvert.SerializeObject(account);
             localSettings.Values["steamUser-" + account.AccountName] = account.Session.SteamID;
         }
 
-        internal static void SetCurrentUser(ulong steamid)
+        public static void SetCurrentUser(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["currentAccount"] = steamid;
         }
 
-        internal static SessionData SDFromStore()
+        public static SessionData SDFromStore()
         {
             Dictionary<ulong, SessionData> response = GetAccounts();
 
@@ -95,7 +95,7 @@ namespace SteamAppNative
             return null;
         }
 
-        internal static Dictionary<ulong, SessionData> GetAccounts()
+        public static Dictionary<ulong, SessionData> GetAccounts()
         {
             Dictionary<ulong, SessionData> response = new Dictionary<ulong, SessionData>();
 
@@ -115,7 +115,7 @@ namespace SteamAppNative
             return response;
         }
 
-        internal static void PushStore(SessionData session)
+        public static void PushStore(SessionData session)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             Dictionary<ulong, SessionData> accounts = GetAccounts();
@@ -126,7 +126,7 @@ namespace SteamAppNative
             SetCurrentUser(session.SteamID);
         }
 
-        internal static void SDLogout()
+        public static void SDLogout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 

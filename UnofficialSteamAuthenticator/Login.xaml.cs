@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 using SteamAuth;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace SteamAppNative
+namespace UnofficialSteamAuthenticator
 {
     public sealed partial class Login : Page
     {
