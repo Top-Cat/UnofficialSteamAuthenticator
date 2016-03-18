@@ -86,6 +86,12 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnofficialSteamAuthenticator\UnofficalSteamAuthenticator.csproj">
+      <Project>{6053f604-eed0-4329-8135-0dd9f3de41ed}</Project>
+      <Name>UnofficalSteamAuthenticator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

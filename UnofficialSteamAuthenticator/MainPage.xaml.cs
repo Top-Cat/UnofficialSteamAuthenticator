@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using Windows.Foundation;
 using Windows.Phone.UI.Input;
+using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,7 +40,6 @@ namespace UnofficialSteamAuthenticator
 
         private void WebNotify(object sender, NotifyEventArgs e)
         {
-            //Debug.WriteLine("notify" + e.Value);
             HandleUri(new Uri(e.Value));
         }
 
@@ -107,8 +107,16 @@ namespace UnofficialSteamAuthenticator
 
                     account.GenerateConfirmationQueryParams(async response =>
                     {
-                        string[] args = { "window.SGHandler.update('" + response + "', 'ok');" };
-                        await ConfirmationWeb.InvokeScriptAsync("eval", args);
+                        try
+                        {
+                            string[] args = { "window.SGHandler.update('" + response + "', 'ok');" };
+                            await ConfirmationWeb.InvokeScriptAsync("eval", args);
+                        }
+                        catch (Exception e) {
+                            // We're probably here because the webview was unloaded
+                            // Just reload the view
+                            ConfirmationsButton_Click(null, null);
+                        };
                     }, query["arg1"]);
 
                     break;
