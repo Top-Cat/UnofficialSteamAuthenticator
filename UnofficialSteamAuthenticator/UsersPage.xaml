@@ -17,11 +17,11 @@
                     <Border Margin="0,9.5,0,0" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                         <Image Width="79"
                                Height="79"
-                               Source="{Binding avatar}" />
+                               Source="{Binding Avatar}" />
                     </Border>
                     <StackPanel Grid.Column="1" Margin="14.5,0,0,0">
-                        <TextBlock Style="{ThemeResource ListViewItemTextBlockStyle}" Text="{Binding title}" />
-                        <TextBlock Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}" Text="{Binding content}" />
+                        <TextBlock Style="{ThemeResource ListViewItemTextBlockStyle}" Text="{Binding Title}" />
+                        <TextBlock Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}" Text="{Binding Content}" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
