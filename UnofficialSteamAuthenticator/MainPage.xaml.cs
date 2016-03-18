@@ -273,7 +273,7 @@ namespace UnofficialSteamAuthenticator
             await dialog.ShowAsync();
         }
 
-        private void DoUnlink(IUICommand cmd)
+        private void DoUnlink(IUICommand command)
         {
             _account.DeactivateAuthenticator(async response =>
             {
@@ -295,7 +295,16 @@ namespace UnofficialSteamAuthenticator
             });
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private async void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new MessageDialog("Are you sure? This will remove this account from the user list aswell.");
+            dialog.Title = "Logout?";
+            dialog.Commands.Add(new UICommand("Yes", DoLogout));
+            dialog.Commands.Add(new UICommand("No")); // Take no action
+            await dialog.ShowAsync();
+        }
+
+        private void DoLogout(IUICommand command)
         {
             Storage.Logout();
             Frame.Navigate(typeof(LoginPage));
