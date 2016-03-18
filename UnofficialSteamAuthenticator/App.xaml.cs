@@ -16,7 +16,7 @@ namespace UnofficialSteamAuthenticator
     /// </summary>
     public sealed partial class App
     {
-        private TransitionCollection _transitions;
+        private TransitionCollection transitions;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -93,10 +93,10 @@ namespace UnofficialSteamAuthenticator
                 // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
-                    _transitions = new TransitionCollection();
+                    transitions = new TransitionCollection();
                     foreach (var c in rootFrame.ContentTransitions)
                     {
-                        _transitions.Add(c);
+                        transitions.Add(c);
                     }
                 }
 
@@ -137,7 +137,7 @@ namespace UnofficialSteamAuthenticator
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = (Frame)sender;
-            rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
+            rootFrame.ContentTransitions = transitions ?? new TransitionCollection { new NavigationThemeTransition() };
             rootFrame.Navigated -= RootFrame_FirstNavigated;
         }
 

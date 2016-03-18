@@ -11,18 +11,18 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class LoginPage
     {
-        private UserLogin _userLogin;
-        private readonly Dictionary<LoginResult, string> _responses = new Dictionary<LoginResult, string>();
+        private UserLogin userLogin;
+        private readonly Dictionary<LoginResult, string> responses = new Dictionary<LoginResult, string>();
 
         public LoginPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            _responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
-            _responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
-            _responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
-            _responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
+            responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
+            responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
+            responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
+            responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -66,16 +66,16 @@ namespace UnofficialSteamAuthenticator
             Progress.Visibility = Visibility.Visible;
             UserName.IsTabStop = PasswordBox.IsTabStop = true;
 
-            if (_userLogin == null || _userLogin.Username != UserName.Text)
+            if (userLogin == null || userLogin.Username != UserName.Text)
             {
-                _userLogin = new UserLogin(UserName.Text, PasswordBox.Password);
+                userLogin = new UserLogin(UserName.Text, PasswordBox.Password);
             }
 
-            _userLogin.TwoFactorCode = TwoFactorCode.Text.ToUpper();
-            _userLogin.EmailCode = EmailCode.Text.ToUpper();
-            _userLogin.CaptchaText = CaptchaText.Text;
+            userLogin.TwoFactorCode = TwoFactorCode.Text.ToUpper();
+            userLogin.EmailCode = EmailCode.Text.ToUpper();
+            userLogin.CaptchaText = CaptchaText.Text;
 
-            _userLogin.DoLogin(async response =>
+            userLogin.DoLogin(async response =>
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
@@ -97,15 +97,15 @@ namespace UnofficialSteamAuthenticator
                 EmailCode.Text = string.Empty;
                 EmailGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
             }
-            else if (_responses.ContainsKey(response))
+            else if (responses.ContainsKey(response))
             {
-                ErrorLabel.Text = _responses[response];
+                ErrorLabel.Text = responses[response];
                 LoginGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
             }
             else if (response == LoginResult.Need2FA)
             {
                 SteamGuardAccount account = Storage.GetSteamGuardAccount(UserName.Text);
-                if (string.IsNullOrWhiteSpace(_userLogin.TwoFactorCode) && account != null)
+                if (string.IsNullOrWhiteSpace(userLogin.TwoFactorCode) && account != null)
                 {
                     Progress.Visibility = LoginGrid.Visibility = Visibility.Visible;
                     LoginBtn.Visibility = Visibility.Collapsed;
@@ -116,15 +116,15 @@ namespace UnofficialSteamAuthenticator
                         {
                             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
-                                _userLogin.TwoFactorCode = " ";
+                                userLogin.TwoFactorCode = " ";
                                 ProcessLoginResponse(LoginResult.Need2FA);
                             });
                             return;
                         }
 
-                        _userLogin.TwoFactorCode = code;
+                        userLogin.TwoFactorCode = code;
 
-                        _userLogin.DoLogin(async res =>
+                        userLogin.DoLogin(async res =>
                         {
                             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
@@ -146,7 +146,7 @@ namespace UnofficialSteamAuthenticator
                 CaptchaText.Text = string.Empty;
                 CaptchaGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
 
-                Uri myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + _userLogin.CaptchaGID, UriKind.Absolute);
+                Uri myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + userLogin.CaptchaGID, UriKind.Absolute);
                 BitmapImage bmi = new BitmapImage();
                 bmi.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 bmi.UriSource = myUri;
@@ -154,8 +154,8 @@ namespace UnofficialSteamAuthenticator
             }
             else if (response == LoginResult.LoginOkay)
             {
-                Storage.PushStore(_userLogin.Session);
-                Frame.Navigate(typeof(MainPage), _userLogin.Session);
+                Storage.PushStore(userLogin.Session);
+                Frame.Navigate(typeof(MainPage), userLogin.Session);
             }
         }
 

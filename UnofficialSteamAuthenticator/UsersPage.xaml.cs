@@ -14,8 +14,8 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class UsersPage
     {
-        private readonly Dictionary<ulong, User> _listElems = new Dictionary<ulong, User>();
-        private Storyboard _storyboard;
+        private readonly Dictionary<ulong, User> listElems = new Dictionary<ulong, User>();
+        private Storyboard storyboard;
 
         public UsersPage()
         {
@@ -26,7 +26,7 @@ namespace UnofficialSteamAuthenticator
         {
             HardwareButtons.BackPressed += BackPressed;
 
-            _listElems.Clear();
+            listElems.Clear();
             AccountList.Items.Clear();
 
             steamGuardUpdate_Tick(null, null);
@@ -44,7 +44,7 @@ namespace UnofficialSteamAuthenticator
 
                 //SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
                 User usr = new User(steamId, string.Empty, "Generating Code...", null);
-                _listElems.Add(steamId, usr);
+                listElems.Add(steamId, usr);
                 AccountList.Items.Add(usr);
             }
 
@@ -56,11 +56,11 @@ namespace UnofficialSteamAuthenticator
                 {
                     foreach (Player p in responseObj.PlayersList)
                     {
-                        if (_listElems.ContainsKey(p.SteamId))
+                        if (listElems.ContainsKey(p.SteamId))
                         {
-                            _listElems[p.SteamId].Avatar = new BitmapImage(new Uri(p.AvatarUri));
-                            _listElems[p.SteamId].Title = p.Username;
-                            _listElems[p.SteamId].OnPropertyChanged();
+                            listElems[p.SteamId].Avatar = new BitmapImage(new Uri(p.AvatarUri));
+                            listElems[p.SteamId].Title = p.Username;
+                            listElems[p.SteamId].OnPropertyChanged();
                         }
                     }
                 });
@@ -90,9 +90,9 @@ namespace UnofficialSteamAuthenticator
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
-            if (_storyboard != null)
+            if (storyboard != null)
             {
-                _storyboard.Stop();
+                storyboard.Stop();
             }
 
             TimeAligner.GetSteamTime(async time =>
@@ -101,17 +101,17 @@ namespace UnofficialSteamAuthenticator
                 long timeRemaining = 31 - (time % 30);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    _storyboard = new Storyboard();
+                    storyboard = new Storyboard();
                     var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
                     Storyboard.SetTarget(animation, SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
-                    _storyboard.Children.Add(animation);
-                    _storyboard.Completed += steamGuardUpdate_Tick;
-                    _storyboard.Begin();
+                    storyboard.Children.Add(animation);
+                    storyboard.Completed += steamGuardUpdate_Tick;
+                    storyboard.Begin();
 
-                    foreach (ulong steamid in _listElems.Keys)
+                    foreach (ulong steamid in listElems.Keys)
                     {
-                        _listElems[steamid].UpdateCode(time);
+                        listElems[steamid].UpdateCode(time);
                     }
                 });
             });

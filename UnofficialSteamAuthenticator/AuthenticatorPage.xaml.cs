@@ -10,7 +10,7 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class AuthenticatorPage
     {
-        private AuthenticatorLinker _linker;
+        private AuthenticatorLinker linker;
 
         public AuthenticatorPage()
         {
@@ -36,11 +36,11 @@ namespace UnofficialSteamAuthenticator
             BtnContinue.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Visible;
 
-            _linker = new AuthenticatorLinker(Storage.GetSessionData())
+            linker = new AuthenticatorLinker(Storage.GetSessionData())
             {
                 LinkedAccount = Storage.GetSteamGuardAccount()
             };
-            _linker.AddAuthenticator(LinkResponse);
+            linker.AddAuthenticator(LinkResponse);
         }
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
@@ -52,8 +52,8 @@ namespace UnofficialSteamAuthenticator
 
             if (PhoneNumGrid.Visibility == Visibility.Visible)
             {
-                _linker.PhoneNumber = FilterPhoneNumber(PhoneNum.Text);
-                _linker.AddAuthenticator(LinkResponse);
+                linker.PhoneNumber = FilterPhoneNumber(PhoneNum.Text);
+                linker.AddAuthenticator(LinkResponse);
             }
             else if (RevocationGrid.Visibility == Visibility.Visible)
             {
@@ -63,7 +63,7 @@ namespace UnofficialSteamAuthenticator
             }
             else if (SmsGrid.Visibility == Visibility.Visible)
             {
-                _linker.FinalizeAddAuthenticator(async response =>
+                linker.FinalizeAddAuthenticator(async response =>
                 {
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
@@ -97,7 +97,7 @@ namespace UnofficialSteamAuthenticator
             }
             else if (response == AuthenticatorLinker.FinalizeResult.Success)
             {
-                Storage.PushStore(_linker.LinkedAccount);
+                Storage.PushStore(linker.LinkedAccount);
                 Frame.Navigate(typeof(MainPage));
             }
         }
@@ -120,8 +120,8 @@ namespace UnofficialSteamAuthenticator
             else if (linkResponse == AuthenticatorLinker.LinkResult.MustRemovePhoneNumber)
             {
                 PhoneNum.Text = string.Empty;
-                _linker.PhoneNumber = string.Empty;
-                _linker.AddAuthenticator(LinkResponse);
+                linker.PhoneNumber = string.Empty;
+                linker.AddAuthenticator(LinkResponse);
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure || linkResponse == AuthenticatorLinker.LinkResult.AuthenticatorPresent)
             {
@@ -140,10 +140,10 @@ namespace UnofficialSteamAuthenticator
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.AwaitingFinalization)
             {
-                Storage.PushStore(_linker.LinkedAccount);
+                Storage.PushStore(linker.LinkedAccount);
 
                 RevocationGrid.Visibility = Visibility.Visible;
-                RevocationCode.Text = _linker.LinkedAccount.RevocationCode;
+                RevocationCode.Text = linker.LinkedAccount.RevocationCode;
             }
 
             BtnContinue.Visibility = Visibility.Visible;
