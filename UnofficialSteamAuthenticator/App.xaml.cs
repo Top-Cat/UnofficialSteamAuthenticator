@@ -14,7 +14,7 @@ namespace UnofficialSteamAuthenticator
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App
+    public sealed partial class App : Application
     {
         private TransitionCollection transitions;
 
