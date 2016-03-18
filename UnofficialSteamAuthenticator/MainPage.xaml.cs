@@ -6,31 +6,22 @@ using System.Linq;
 using System.Net;
 using Windows.Foundation;
 using Windows.Phone.UI.Input;
-using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 
 namespace UnofficialSteamAuthenticator
 {
-    public class MyModel
-    {
-        public string title { get; set; }
-        public string content { get; set; }
-        public BitmapImage image { get; set; }
-    }
-
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage
     {
         private SteamGuardAccount account;
         private Storyboard storyboard;
-        private string confUrl = "";
-        private string confWebUrl = "";
-        private string chatUrl = "https://steamcommunity.com/chat";
+        private string confUrl = string.Empty;
+        private string confWebUrl = string.Empty;
+        private const string ChatUrl = "https://steamcommunity.com/chat";
 
         public MainPage()
         {
@@ -40,31 +31,31 @@ namespace UnofficialSteamAuthenticator
 
         private void WebNotify(object sender, NotifyEventArgs e)
         {
-            HandleUri(new Uri(e.Value));
+            this.HandleUri(new Uri(e.Value));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ConfirmationWeb.ScriptNotify += WebNotify;
-            ConfirmationWeb.NavigationCompleted += InjectCode;
-            HardwareButtons.BackPressed += BackPressed;
+            this.ConfirmationWeb.ScriptNotify += this.WebNotify;
+            this.ConfirmationWeb.NavigationCompleted += this.InjectCode;
+            HardwareButtons.BackPressed += this.BackPressed;
 
-            this.account = Storage.SGAFromStore();
-            SteamGuardButton_Click(null, null);
+            this.account = Storage.GetSteamGuardAccount();
+            this.SteamGuardButton_Click(null, null);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ConfirmationWeb.ScriptNotify -= WebNotify;
-            ConfirmationWeb.NavigationCompleted -= InjectCode;
-            HardwareButtons.BackPressed -= BackPressed;
+            this.ConfirmationWeb.ScriptNotify -= this.WebNotify;
+            this.ConfirmationWeb.NavigationCompleted -= this.InjectCode;
+            HardwareButtons.BackPressed -= this.BackPressed;
         }
 
         private void BackPressed(object s, BackPressedEventArgs args)
         {
-            if (ConfirmationWeb.Visibility == Visibility.Visible && ConfirmationWeb.CanGoBack && confWebUrl != confUrl)
+            if (this.ConfirmationWeb.Visibility == Visibility.Visible && this.ConfirmationWeb.CanGoBack && this.confWebUrl != this.confUrl)
             {
-                ConfirmationWeb.GoBack();
+                this.ConfirmationWeb.GoBack();
                 args.Handled = true;
             }
         }
@@ -86,37 +77,41 @@ namespace UnofficialSteamAuthenticator
                     break;
                 case "lostauth":
                     // This code had a massive tantrum when run outside the application's thread
-                    account.RefreshSession(async success =>
+                    this.account.RefreshSession(async success =>
                     {
-                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                        await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                         {
                             if (success)
                             {
-                                Storage.PushStore(account.Session);
-                                SteamGuardButton_Click(null, null);
+                                Storage.PushStore(this.account.Session);
+                                this.SteamGuardButton_Click(null, null);
                             }
                             else
                             {
-                                LogoutButton_Click(null, null);
+                                this.LogoutButton_Click(null, null);
                             }
                         });
                     });
                     break;
                 case "steamguard":
-                    if (query["op"] != "conftag") break;
+                    if (query["op"] != "conftag")
+                    {
+                        break;
+                    }
 
-                    account.GenerateConfirmationQueryParams(async response =>
+                    this.account.GenerateConfirmationQueryParams(async response =>
                     {
                         try
                         {
                             string[] args = { "window.SGHandler.update('" + response + "', 'ok');" };
-                            await ConfirmationWeb.InvokeScriptAsync("eval", args);
+                            await this.ConfirmationWeb.InvokeScriptAsync("eval", args);
                         }
-                        catch (Exception e) {
+                        catch (Exception)
+                        {
                             // We're probably here because the webview was unloaded
                             // Just reload the view
-                            ConfirmationsButton_Click(null, null);
-                        };
+                            this.ConfirmationsButton_Click(null, null);
+                        }
                     }, query["arg1"]);
 
                     break;
@@ -128,66 +123,75 @@ namespace UnofficialSteamAuthenticator
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
-            if (storyboard != null) storyboard.Stop();
-            if (SteamGuardGrid.Visibility != Visibility.Visible) return;
+            if (this.storyboard != null)
+            {
+                this.storyboard.Stop();
+            }
+
+            if (this.SteamGuardGrid.Visibility != Visibility.Visible)
+            {
+                return;
+            }
 
             TimeAligner.GetSteamTime(async time =>
             {
-                ulong currentChunk = (ulong)time / 30L;
                 long timeRemaining = 31 - (time % 30);
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    storyboard = new Storyboard();
+                    this.storyboard = new Storyboard();
                     var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
-                    Storyboard.SetTarget(animation, SteamGuardTimer);
+                    Storyboard.SetTarget(animation, this.SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
-                    storyboard.Children.Add(animation);
-                    storyboard.Completed += steamGuardUpdate_Tick;
-                    storyboard.Begin();
+                    this.storyboard.Children.Add(animation);
+                    this.storyboard.Completed += this.steamGuardUpdate_Tick;
+                    this.storyboard.Begin();
 
-                    SteamGuardCode.Text = account.GenerateSteamGuardCodeForTime(time);
+                    this.SteamGuardCode.Text = this.account.GenerateSteamGuardCodeForTime(time);
                 });
             });
         }
 
         private void SteamGuardButton_Click(object sender, RoutedEventArgs e)
         {
-            HideAll();
-            if (account == null || !account.FullyEnrolled)
+            this.HideAll();
+            if (this.account == null || !this.account.FullyEnrolled)
             {
-                LinkGrid.Visibility = Visibility.Visible;
+                this.LinkGrid.Visibility = Visibility.Visible;
                 return;
             }
 
-            AccountText.Text = account.AccountName ?? "";
-            SteamGuardGrid.Visibility = Visibility.Visible;
-            steamGuardUpdate_Tick(null, null);
+            this.AccountText.Text = this.account.AccountName ?? string.Empty;
+            this.SteamGuardGrid.Visibility = Visibility.Visible;
+            this.steamGuardUpdate_Tick(null, null);
         }
 
         private void MessageButton_Click(object sender, RoutedEventArgs e)
         {
-            HideAll();
-            ChatWeb.Visibility = Visibility.Visible;
+            this.HideAll();
+            this.ChatWeb.Visibility = Visibility.Visible;
 
-            ChatWeb.NavigateWithHttpRequestMessage(GetMessageForUrl(chatUrl));
+            this.ChatWeb.NavigateWithHttpRequestMessage(this.GetMessageForUrl(ChatUrl));
         }
 
         private void ConfirmationsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (account == null || !account.FullyEnrolled) return;
-
-            HideAll();
-
-            ConfirmationWeb.Visibility = Visibility.Visible;
-
-            account.GenerateConfirmationURL(async response =>
+            if (this.account == null || !this.account.FullyEnrolled)
             {
-                confUrl = response;
-                HttpRequestMessage message = GetMessageForUrl(response);
-                
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                return;
+            }
+
+            this.HideAll();
+
+            this.ConfirmationWeb.Visibility = Visibility.Visible;
+
+            this.account.GenerateConfirmationURL(async response =>
+            {
+                this.confUrl = response;
+                HttpRequestMessage message = this.GetMessageForUrl(response);
+
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    ConfirmationWeb.NavigateWithHttpRequestMessage(message);
+                    this.ConfirmationWeb.NavigateWithHttpRequestMessage(message);
                 });
             });
         }
@@ -195,25 +199,25 @@ namespace UnofficialSteamAuthenticator
         private HttpRequestMessage GetMessageForUrl(string url)
         {
             CookieContainer cookies = new CookieContainer();
-            account.Session.AddCookies(cookies);
+            this.account.Session.AddCookies(cookies);
 
             Uri baseUri = new Uri(url);
             Windows.Web.Http.Filters.HttpBaseProtocolFilter filter = new Windows.Web.Http.Filters.HttpBaseProtocolFilter();
             foreach (Cookie c in cookies.GetCookies(SteamWeb.uri))
             {
-                Windows.Web.Http.HttpCookie cookie = new Windows.Web.Http.HttpCookie(c.Name, c.Domain, c.Path);
+                HttpCookie cookie = new HttpCookie(c.Name, c.Domain, c.Path);
                 cookie.Value = c.Value;
                 filter.CookieManager.SetCookie(cookie, false);
             }
 
-            return new HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, baseUri);
+            return new HttpRequestMessage(HttpMethod.Get, baseUri);
         }
 
         private async void InjectCode(object sender, WebViewNavigationCompletedEventArgs e)
         {
-            confWebUrl = e.Uri.AbsoluteUri;
+            this.confWebUrl = e.Uri.AbsoluteUri;
 
-            if (e.IsSuccess && confWebUrl == confUrl)
+            if (e.IsSuccess && this.confWebUrl == this.confUrl)
             {
                 // Try to only inject this once
                 string[] args = { @"
@@ -242,68 +246,84 @@ namespace UnofficialSteamAuthenticator
                         }
                     }"
                 };
-                await ConfirmationWeb.InvokeScriptAsync("eval", args);
+                await this.ConfirmationWeb.InvokeScriptAsync("eval", args);
             }
         }
 
         private void HideAll()
         {
-            SteamGuardGrid.Visibility = LinkGrid.Visibility = ConfirmationWeb.Visibility = ChatWeb.Visibility = Visibility.Collapsed;
+            this.SteamGuardGrid.Visibility = this.LinkGrid.Visibility = this.ConfirmationWeb.Visibility = this.ChatWeb.Visibility = Visibility.Collapsed;
         }
 
         private void LinkBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (account == null || !account.FullyEnrolled)
+            if (this.account == null || !this.account.FullyEnrolled)
             {
-                Frame.Navigate(typeof(Authenticator));
+                this.Frame.Navigate(typeof(AuthenticatorPage));
             }
         }
 
         private async void UnlinkBtn_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog("Are you sure? This will incur trade holds for at least 7 days.");
-            dialog.Title = "Unlink?";
-            dialog.Commands.Add(new UICommand("Ok", new UICommandInvokedHandler(DoUnlink)));
-            dialog.Commands.Add(new UICommand("Cancel")); // Take no action
+            var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Prompt_Message"))
+            {
+                Title = StringResourceLoader.GetString("Authenticator_Unlink_Prompt_Title")
+            };
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text"), this.DoUnlink));
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Cancel_Text"))); // Take no action
             await dialog.ShowAsync();
         }
 
-        private void DoUnlink(IUICommand cmd)
+        private void DoUnlink(IUICommand command)
         {
-            account.DeactivateAuthenticator(async response => {
+            this.account.DeactivateAuthenticator(async response =>
+            {
                 if (response)
                 {
-                    account.FullyEnrolled = false;
-                    Storage.PushStore(account);
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    this.account.FullyEnrolled = false;
+                    Storage.PushStore(this.account);
+                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
-                        SteamGuardButton_Click(null, null);
+                        this.SteamGuardButton_Click(null, null);
                     });
                 }
                 else
                 {
-                    var dialog = new MessageDialog("Failed to unlink authenticator");
-                    dialog.Title = "Error";
-                    dialog.Commands.Add(new UICommand("Ok"));
+                    var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                    {
+                        Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
+                    };
+                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                     await dialog.ShowAsync();
                 }
             });
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private async void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            Storage.SDLogout();
-            Frame.Navigate(typeof(Login));
+            var dialog = new MessageDialog(StringResourceLoader.GetString("User_Logout_Prompt_Message"))
+            {
+                Title = StringResourceLoader.GetString("User_Logout_Prompt_Title")
+            };
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Yes_Text"), this.DoLogout));
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_No_Text"))); // Take no action
+            await dialog.ShowAsync();
+        }
+
+        private void DoLogout(IUICommand command)
+        {
+            Storage.Logout();
+            this.Frame.Navigate(typeof(LoginPage));
         }
 
         private void UsersButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Users));
+            this.Frame.Navigate(typeof(UsersPage));
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(About));
+            this.Frame.Navigate(typeof(AboutPage));
         }
     }
 }

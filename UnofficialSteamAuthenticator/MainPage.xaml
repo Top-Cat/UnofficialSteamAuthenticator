@@ -1,38 +1,82 @@
-﻿<Page
-    x:Class="UnofficialSteamAuthenticator.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SteamAppNative"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+﻿<Page x:Class="UnofficialSteamAuthenticator.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="#1b2838">
-        <!--Steam Guard-->
-        <StackPanel x:Name="SteamGuardGrid" Grid.Row="0" Margin="12,17,12,28" Visibility="Collapsed">
-            <!--Title-->
-            <TextBlock Text="Steam Guard" Foreground="White" FontSize="40" Margin="0,0,0,40" />
 
-            <TextBlock x:Name="SteamGuardCode" Text="JTHVN" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontWeight="Bold" />
-            <TextBlock x:Name="AccountText" Text="" Foreground="#FFBBBBBB" FontSize="14" HorizontalAlignment="Center" />
-            <ProgressBar x:Name="SteamGuardTimer" Height="10" VerticalAlignment="Stretch" Margin="0,10,0,0" Value="50" Maximum="30"/>
+        <WebView x:Name="ConfirmationWeb"
+                 Height="Auto"
+                 Visibility="Collapsed" />
 
-            <Button Content="Unlink" Foreground="White" BorderBrush="LightGray" Name="UnlinknBtn" Click="UnlinkBtn_Click" HorizontalAlignment="Center" Margin="0,40,0,0" />
+        <WebView x:Name="ChatWeb"
+                 Height="Auto"
+                 Visibility="Collapsed" />
+        <!--  Steam Guard  -->
+        <StackPanel x:Name="SteamGuardGrid"
+                    Grid.Row="0"
+                    Margin="12,17,12,28"
+                    Visibility="Collapsed">
+            <!--  Title  -->
+            <TextBlock Margin="0,0,0,40"
+                       FontSize="40"
+                       Foreground="White"
+                       Text="Steam Guard" />
+
+            <TextBlock x:Name="SteamGuardCode"
+                       HorizontalAlignment="Center"
+                       FontSize="40"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Text="JTHVN" />
+            <TextBlock x:Name="AccountText"
+                       HorizontalAlignment="Center"
+                       FontSize="14"
+                       Foreground="#FFBBBBBB"
+                       Text="" />
+            <ProgressBar x:Name="SteamGuardTimer"
+                         Height="10"
+                         Margin="0,10,0,0"
+                         VerticalAlignment="Stretch"
+                         Maximum="30"
+                         Value="50" />
+
+            <Button x:Uid="BtnUnlink"
+                    Margin="0,40,0,0"
+                    HorizontalAlignment="Center"
+                    BorderBrush="LightGray"
+                    Click="UnlinkBtn_Click"
+                    Content="Unlink"
+                    Foreground="White" />
         </StackPanel>
 
-        <WebView x:Name="ConfirmationWeb" Height="Auto" Visibility="Collapsed" />
+        <!--  Not Authenticator  -->
+        <StackPanel x:Name="LinkGrid"
+                    Grid.Row="0"
+                    Margin="12,17,12,28">
+            <!--  Title  -->
+            <TextBlock x:Uid="TxtLinkAuthenticatorHeadline"
+                       Margin="0,0,0,40"
+                       FontSize="40"
+                       Foreground="White"
+                       Text="Link authenticator" />
+            <TextBlock x:Uid="TxtLinkAuthenticatorSummary"
+                       Margin="0,0,0,0"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="You need to set up this device as an authenticator before you can get steam guard codes or confirm trades."
+                       TextWrapping="Wrap" />
 
-        <WebView x:Name="ChatWeb" Height="Auto" Visibility="Collapsed" />
-
-        <!--Not Authenticator-->
-        <StackPanel x:Name="LinkGrid" Grid.Row="0" Margin="12,17,12,28">
-            <!--Title-->
-            <TextBlock Text="Link Authenticator" Foreground="White" FontSize="40" Margin="0,0,0,40" />
-            <TextBlock Text="You need to set up this device as an authenticator before you can get steam guard codes or confirm trades" Foreground="White" FontSize="20" Margin="0,0,0,0" TextWrapping="Wrap" />
-
-            <Button Content="Link" Foreground="White" BorderBrush="LightGray" Name="LoginBtn" Click="LinkBtn_Click" HorizontalAlignment="Center" Margin="0,40,0,0" />
+            <Button x:Uid="BtnLink"
+                    Margin="0,40,0,0"
+                    HorizontalAlignment="Center"
+                    BorderBrush="LightGray"
+                    Click="LinkBtn_Click"
+                    Content="Link"
+                    Foreground="White" />
         </StackPanel>
 
     </Grid>
@@ -40,41 +84,30 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton
-                    x:Name="SteamGuardButton"
-                    x:Uid="SteamGuardButton"
-                    Click="SteamGuardButton_Click"
-                    Icon="Permissions"
-                    Label="Guard"/>
-                <AppBarButton
-                    x:Name="ConfirmationsButton"
-                    x:Uid="ConfirmationsButton"
-                    Click="ConfirmationsButton_Click"
-                    Label="Confirm"
-                    Icon="Shop" />
-                <AppBarButton
-                    x:Name="MessageButton"
-                    x:Uid="MessageButton"
-                    Click="MessageButton_Click"
-                    Icon="Message"
-                    Label="Chat"/>
+                <AppBarButton x:Uid="SteamGuardButton"
+                              Click="SteamGuardButton_Click"
+                              Icon="Permissions"
+                              Label="Guard" />
+                <AppBarButton x:Uid="ConfirmationsButton"
+                              Click="ConfirmationsButton_Click"
+                              Icon="Shop"
+                              Label="Confirm" />
+                <AppBarButton x:Uid="MessageButton"
+                              Click="MessageButton_Click"
+                              Icon="Message"
+                              Label="Chat" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    x:Name="UsersButton"
-                    x:Uid="UsersButton"
-                    Click="UsersButton_Click"
-                    Label="Switch Accounts"/>
-                <AppBarButton
-                    x:Name="LogoutButton"
-                    x:Uid="LogoutButton"
-                    Click="LogoutButton_Click"
-                    Label="Logout"/>
-                <AppBarButton
-                    x:Name="AboutButton"
-                    x:Uid="AboutButton"
-                    Click="AboutButton_Click"
-                    Label="App Information"/>
+                <AppBarButton x:Uid="UsersButton"
+                              Click="UsersButton_Click"
+                              Label="Switch account" />
+                <AppBarButton x:Uid="LogoutButton"
+                              Click="LogoutButton_Click"
+                              Label="Logout" />
+                <AppBarSeparator />
+                <AppBarButton x:Uid="AboutButton"
+                              Click="AboutButton_Click"
+                              Label="About" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

@@ -7,8 +7,8 @@
     <ProjectGuid>{D5530279-5C83-4325-AAA8-97E065F5DA36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SteamAuthTest</RootNamespace>
-    <AssemblyName>SteamAuthTest</AssemblyName>
+    <RootNamespace>UnofficalSteamAuthenticator.Tests</RootNamespace>
+    <AssemblyName>UnofficalSteamAuthenticator.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>

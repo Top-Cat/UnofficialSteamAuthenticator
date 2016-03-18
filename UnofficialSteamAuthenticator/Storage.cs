@@ -3,38 +3,37 @@ using SteamAuth;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
-using System;
 
 namespace UnofficialSteamAuthenticator
 {
     public class Storage
     {
-        public static SteamGuardAccount SGAFromStore(string username)
+        public static SteamGuardAccount GetSteamGuardAccount(string username)
         {
             SteamGuardAccount response = null;
 
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("steamUser-" + username))
             {
-                response = SGAFromStore((ulong)localSettings.Values["steamUser-" + username]);
+                response = GetSteamGuardAccount((ulong)localSettings.Values["steamUser-" + username]);
             }
             else if (localSettings.Values.ContainsKey("steamUser-")) // Empty AccountName
             {
-                response = SGAFromStore((ulong)localSettings.Values["steamUser-"]);
+                response = GetSteamGuardAccount((ulong)localSettings.Values["steamUser-"]);
                 PushStore(response); // Push it back correctly
             }
 
             return response;
         }
 
-        public static SteamGuardAccount SGAFromStore(ulong steamid)
+        public static SteamGuardAccount GetSteamGuardAccount(ulong steamId)
         {
-            SteamGuardAccount response = null;
+            SteamGuardAccount response;
 
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-            if (localSettings.Values.ContainsKey("steamGuard-" + steamid))
+            if (localSettings.Values.ContainsKey("steamGuard-" + steamId))
             {
-                string data = (string)localSettings.Values["steamGuard-" + steamid];
+                string data = (string)localSettings.Values["steamGuard-" + steamId];
                 response = JsonConvert.DeserializeObject<SteamGuardAccount>(data);
             }
             else
@@ -45,14 +44,14 @@ namespace UnofficialSteamAuthenticator
             return response;
         }
 
-        public static SteamGuardAccount SGAFromStore()
+        public static SteamGuardAccount GetSteamGuardAccount()
         {
             SteamGuardAccount response = null;
 
-            SessionData session = SDFromStore();
+            SessionData session = GetSessionData();
             if (session != null)
             {
-                response = SGAFromStore(session.SteamID);
+                response = GetSteamGuardAccount(session.SteamID);
                 response.Session = session;
             }
 
@@ -72,7 +71,7 @@ namespace UnofficialSteamAuthenticator
             localSettings.Values["currentAccount"] = steamid;
         }
 
-        public static SessionData SDFromStore()
+        public static SessionData GetSessionData()
         {
             Dictionary<ulong, SessionData> response = GetAccounts();
 
@@ -103,13 +102,16 @@ namespace UnofficialSteamAuthenticator
             if (localSettings.Values.ContainsKey("sessionJson"))
             {
                 string data = (string)localSettings.Values["sessionJson"];
-                try {
+                try
+                {
                     response = JsonConvert.DeserializeObject<Dictionary<ulong, SessionData>>(data);
-                } catch {
+                }
+                catch
+                {
                     // Handle old single session data
                     SessionData session = JsonConvert.DeserializeObject<SessionData>(data);
                     response[session.SteamID] = session;
-                }        
+                }
             }
 
             return response;
@@ -126,11 +128,12 @@ namespace UnofficialSteamAuthenticator
             SetCurrentUser(session.SteamID);
         }
 
-        public static void SDLogout()
+        public static void Logout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-            if (localSettings.Values.ContainsKey("currentAccount")) {
+            if (localSettings.Values.ContainsKey("currentAccount"))
+            {
                 ulong currentAcc = (ulong)localSettings.Values["currentAccount"];
 
                 Dictionary<ulong, SessionData> accounts = GetAccounts();
