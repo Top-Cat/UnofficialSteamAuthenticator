@@ -23,7 +23,7 @@ namespace Tests
         {
             localSettings.Values["steamUser-"] = testSteamid;
             localSettings.Values["steamGuard-" + testSteamid] = "{\"shared_secret\":\"##TEST##\",\"account_name\":\"testUser\",\"Session\":{\"SteamID\":" + testSteamid + "}}";
-            SteamGuardAccount test = Storage.SGAFromStore("test");
+            SteamGuardAccount test = Storage.GetSteamGuardAccount("test");
 
             Assert.AreEqual("##TEST##", test.SharedSecret);
             Assert.AreEqual(localSettings.Values["steamUser-testUser"], testSteamid);
@@ -37,7 +37,7 @@ namespace Tests
             Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
             Assert.AreEqual(1, accs.Count);
 
-            SessionData acc = Storage.SDFromStore();
+            SessionData acc = Storage.GetSessionData();
             Assert.AreEqual(acc.SteamID, testSteamid);
         }
 
@@ -56,16 +56,16 @@ namespace Tests
             Assert.AreEqual(2, accs.Count);
 
             Storage.SetCurrentUser(testSteamid);
-            acc = Storage.SDFromStore();
+            acc = Storage.GetSessionData();
             Assert.AreEqual(acc.SteamID, testSteamid);
 
             Storage.SetCurrentUser(testSteamid + 1);
-            acc = Storage.SDFromStore();
+            acc = Storage.GetSessionData();
             Assert.AreEqual(acc.SteamID, testSteamid + 1);
 
             // Falls back to any value if unknown
             Storage.SetCurrentUser(testSteamid + 2);
-            acc = Storage.SDFromStore();
+            acc = Storage.GetSessionData();
             Assert.IsNotNull(acc);
         }
 
@@ -80,12 +80,12 @@ namespace Tests
             Assert.AreEqual(1, accs.Count);
 
             Storage.SetCurrentUser(testSteamid);
-            acc = Storage.SDFromStore();
+            acc = Storage.GetSessionData();
             Assert.AreEqual(acc.SteamID, testSteamid);
 
             // Falls back to any value if unknown
             Storage.SetCurrentUser(testSteamid + 1);
-            acc = Storage.SDFromStore();
+            acc = Storage.GetSessionData();
             Assert.AreEqual(acc.SteamID, testSteamid);
         }
 
@@ -102,12 +102,12 @@ namespace Tests
             localSettings.Values["sessionJson"] = "{\"" + testSteamid + "\":{\"SteamID\":" + testSteamid + "}}";
 
             // Should do nothing as the account is not the current account
-            Storage.SDLogout();
+            Storage.Logout();
             Assert.AreEqual(1, Storage.GetAccounts().Count);
 
             Storage.SetCurrentUser(testSteamid);
 
-            Storage.SDLogout();
+            Storage.Logout();
             Assert.AreEqual(0, Storage.GetAccounts().Count);
 
             Assert.IsNull(localSettings.Values["currentAccount"]);

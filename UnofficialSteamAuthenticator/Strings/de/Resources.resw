@@ -1,37 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -50,50 +31,50 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2.0</value>
+    <value>1.3</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Fehler</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>Konnte Authentifikator nicht trennen!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Abbrechen</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will incur trade holds for at least 7 days.</value>
+    <value>Bist Du sicher? Dies wird deine Handelsanfragen für 7 Tage blockieren.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>Trennen?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>Konten</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>Anmelden</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Anmelden</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>Authentifikator hinzufügen</value>
   </data>
   <data name="LblPhoneNumber.Text" xml:space="preserve">
-    <value>Enter your phone number in the following format: +{cC} phoneNumber.&amp;#13;&amp;#13;EG, +1 123-456-7890</value>
+    <value>Gebe deine Handynummer in folgendem Format ein: +{lC} Nummber.&amp;#13;&amp;#13;EG, +49 123-456-7890</value>
   </data>
   <data name="LblRevocationExp.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
+    <value>Der Authentifikator wurde noch nicht verknüpft.
 
-Before finalizing the authenticator, please write down your revocation code.</value>
+Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!</value>
   </data>
 </root>

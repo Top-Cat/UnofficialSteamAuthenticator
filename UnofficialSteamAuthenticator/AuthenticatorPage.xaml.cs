@@ -1,7 +1,6 @@
 ﻿using System;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using SteamAuth;
@@ -9,14 +8,14 @@ using Windows.UI.Popups;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class Authenticator : Page
+    public sealed partial class AuthenticatorPage
     {
-        private AuthenticatorLinker linker;
+        private AuthenticatorLinker _linker;
 
-        public Authenticator()
+        public AuthenticatorPage()
         {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -34,41 +33,41 @@ namespace UnofficialSteamAuthenticator
         {
             HardwareButtons.BackPressed += NavigateBack;
 
-            LoginBtn.Visibility = SMSGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
+            LoginBtn.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Visible;
 
-            this.linker = new AuthenticatorLinker(Storage.SDFromStore());
-            linker.LinkedAccount = Storage.SGAFromStore();
-            linker.AddAuthenticator(LinkResponse);
+            _linker = new AuthenticatorLinker(Storage.GetSessionData());
+            _linker.LinkedAccount = Storage.GetSteamGuardAccount();
+            _linker.AddAuthenticator(LinkResponse);
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            PhoneNum.IsTabStop = SMSCode.IsTabStop = false;
+            PhoneNum.IsTabStop = SmsCode.IsTabStop = false;
             ErrorLabel.Visibility = LoginBtn.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Visible;
-            PhoneNum.IsTabStop = SMSCode.IsTabStop = true;
+            PhoneNum.IsTabStop = SmsCode.IsTabStop = true;
 
             if (PhoneNumGrid.Visibility == Visibility.Visible)
             {
-                this.linker.PhoneNumber = FilterPhoneNumber(PhoneNum.Text);
-                linker.AddAuthenticator(LinkResponse);
+                _linker.PhoneNumber = FilterPhoneNumber(PhoneNum.Text);
+                _linker.AddAuthenticator(LinkResponse);
             }
             else if (RevocationGrid.Visibility == Visibility.Visible)
             {
-                SMSCode.Text = "";
+                SmsCode.Text = "";
                 Progress.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
-                LoginBtn.Visibility = SMSGrid.Visibility = Visibility.Visible;
+                LoginBtn.Visibility = SmsGrid.Visibility = Visibility.Visible;
             }
-            else if (SMSGrid.Visibility == Visibility.Visible)
+            else if (SmsGrid.Visibility == Visibility.Visible)
             {
-                linker.FinalizeAddAuthenticator(async response =>
+                _linker.FinalizeAddAuthenticator(async response =>
                 {
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
                         FinaliseResponse(response);
                     });
-                }, SMSCode.Text);
+                }, SmsCode.Text);
             }
             
         }
@@ -78,7 +77,7 @@ namespace UnofficialSteamAuthenticator
             if (response == AuthenticatorLinker.FinalizeResult.BadSMSCode)
             {
                 ErrorLabel.Text = "Bad Code";
-                SMSCode.Text = "";
+                SmsCode.Text = "";
                 Progress.Visibility = Visibility.Collapsed;
                 LoginBtn.Visibility = ErrorLabel.Visibility = Visibility.Visible;
             }
@@ -95,7 +94,7 @@ namespace UnofficialSteamAuthenticator
             }
             else if (response == AuthenticatorLinker.FinalizeResult.Success)
             {
-                Storage.PushStore(linker.LinkedAccount);
+                Storage.PushStore(_linker.LinkedAccount);
                 Frame.Navigate(typeof(MainPage));
             }
         }
@@ -103,7 +102,7 @@ namespace UnofficialSteamAuthenticator
         private async void LinkResponseReal(AuthenticatorLinker.LinkResult linkResponse)
         {
             bool firstRun = PhoneNumGrid.Visibility == Visibility.Collapsed;
-            Progress.Visibility = ErrorLabel.Visibility = SMSGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
+            Progress.Visibility = ErrorLabel.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
 
             if (linkResponse == AuthenticatorLinker.LinkResult.MustProvidePhoneNumber)
             {
@@ -118,8 +117,8 @@ namespace UnofficialSteamAuthenticator
             else if (linkResponse == AuthenticatorLinker.LinkResult.MustRemovePhoneNumber)
             {
                 PhoneNum.Text = "";
-                linker.PhoneNumber = "";
-                linker.AddAuthenticator(LinkResponse);
+                _linker.PhoneNumber = "";
+                _linker.AddAuthenticator(LinkResponse);
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure || linkResponse == AuthenticatorLinker.LinkResult.AuthenticatorPresent)
             {
@@ -136,10 +135,10 @@ namespace UnofficialSteamAuthenticator
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.AwaitingFinalization)
             {
-                Storage.PushStore(linker.LinkedAccount);
+                Storage.PushStore(_linker.LinkedAccount);
 
                 RevocationGrid.Visibility = Visibility.Visible;
-                RevocationCode.Text = linker.LinkedAccount.RevocationCode;
+                RevocationCode.Text = _linker.LinkedAccount.RevocationCode;
             }
 
             LoginBtn.Visibility = Visibility.Visible;

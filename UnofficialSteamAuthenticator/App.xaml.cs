@@ -14,9 +14,9 @@ namespace UnofficialSteamAuthenticator
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App
     {
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -25,21 +25,21 @@ namespace UnofficialSteamAuthenticator
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync();
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            if (args.Kind == Windows.ApplicationModel.Activation.ActivationKind.Protocol)
+            if (args.Kind == ActivationKind.Protocol)
             {
                 var protocolArgs = (ProtocolActivatedEventArgs)args;
 
-                Frame rootFrame = Window.Current.Content as Frame;
+                Frame rootFrame = (Frame)Window.Current.Content;
                 var page = rootFrame.Content;
                 if (page is MainPage)
                 {
-                    MainPage mainPage = (MainPage) page;
+                    MainPage mainPage = (MainPage)page;
                     mainPage.HandleUri(protocolArgs.Uri);
                 }
                 else
@@ -60,7 +60,7 @@ namespace UnofficialSteamAuthenticator
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -93,15 +93,15 @@ namespace UnofficialSteamAuthenticator
                 // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    _transitions = new TransitionCollection();
                     foreach (var c in rootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        _transitions.Add(c);
                     }
                 }
 
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                rootFrame.Navigated += RootFrame_FirstNavigated;
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
@@ -120,14 +120,14 @@ namespace UnofficialSteamAuthenticator
 
         private bool OpenApp(Frame rootFrame, object o = null)
         {
-            SessionData data = Storage.SDFromStore();
+            SessionData data = Storage.GetSessionData();
             if (data != null)
             {
                 return rootFrame.Navigate(typeof(MainPage), o);
             }
             else
             {
-                return rootFrame.Navigate(typeof(Login), o);
+                return rootFrame.Navigate(typeof(LoginPage), o);
             }
         }
 
@@ -136,9 +136,9 @@ namespace UnofficialSteamAuthenticator
         /// </summary>
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
-            var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            var rootFrame = (Frame)sender;
+            rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
+            rootFrame.Navigated -= RootFrame_FirstNavigated;
         }
 
         /// <summary>

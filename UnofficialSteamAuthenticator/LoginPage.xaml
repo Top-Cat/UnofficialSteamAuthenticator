@@ -1,0 +1,117 @@
+﻿<Page x:Class="UnofficialSteamAuthenticator.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot" Background="#1b2838">
+        <FlyoutBase.AttachedFlyout>
+            <Flyout>
+                <Grid Width="100" Height="100" />
+            </Flyout>
+        </FlyoutBase.AttachedFlyout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="12,17,12,28">
+            <!--  Title  -->
+            <TextBlock x:Uid="LoginHeadline"
+                       FontSize="40"
+                       Foreground="White"
+                       Text="Login" />
+        </StackPanel>
+        <StackPanel x:Name="LoginGrid"
+                    Grid.Row="1"
+                    Margin="12,17,12,28">
+            <!--  UserName  -->
+            <TextBlock x:Name="UserNameLabel"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Steam username" />
+            <TextBox Name="UserName"
+                     BorderBrush="LightGray"
+                     IsSpellCheckEnabled="False"
+                     IsTextPredictionEnabled="False" />
+
+            <!--  Password  -->
+            <TextBlock x:Name="PasswordLabel"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Password" />
+            <PasswordBox Name="PasswordBox" BorderBrush="LightGray" />
+        </StackPanel>
+        <StackPanel x:Name="TwoFactorGrid"
+                    Grid.Row="1"
+                    Margin="12,17,12,28"
+                    Visibility="Collapsed">
+            <!--  Two Factor  -->
+            <TextBlock x:Name="TwoFactorLabel"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Enter authenticator code" />
+            <TextBox Name="TwoFactorCode" BorderBrush="LightGray" />
+        </StackPanel>
+        <StackPanel x:Name="EmailGrid"
+                    Grid.Row="1"
+                    Margin="12,17,12,28"
+                    Visibility="Collapsed">
+            <!--  Two Factor [Email]  -->
+            <TextBlock x:Name="EmailCodeLabel"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Enter email code" />
+            <TextBox Name="EmailCode" BorderBrush="LightGray" />
+        </StackPanel>
+        <StackPanel x:Name="CaptchaGrid"
+                    Grid.Row="1"
+                    Margin="12,17,12,28"
+                    Visibility="Collapsed">
+            <!--  Captcha  -->
+            <TextBlock x:Name="CaptchaLabel"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Enter the characters" />
+            <Image x:Name="Captcha" Height="100" />
+            <TextBox Name="CaptchaText" BorderBrush="LightGray" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="12,17,12,28">
+            <!--  Login Button  -->
+            <Button x:Uid="LoginBtn"
+                    Name="LoginBtn"
+                    BorderBrush="LightGray"
+                    Click="LoginBtn_Click"
+                    Content="Sign In"
+                    Foreground="White" />
+            <TextBlock x:Name="ErrorLabel"
+                       Margin="0,-40,0,0"
+                       HorizontalAlignment="Right"
+                       FontSize="20"
+                       Foreground="Red"
+                       Text="Invalid Credentials"
+                       Visibility="Collapsed" />
+            <ProgressBar x:Name="Progress"
+                         Height="40"
+                         VerticalAlignment="Stretch"
+                         IsIndeterminate="True"
+                         Visibility="Collapsed" />
+
+        </StackPanel>
+
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="AppBar" Visibility="Collapsed">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="SwitchUserButton"
+                              x:Name="SwitchUserButton"
+                              Click="SwitchUser_Click"
+                              Icon="People"
+                              Label="Switch" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
