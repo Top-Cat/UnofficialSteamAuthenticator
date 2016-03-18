@@ -97,7 +97,6 @@ namespace UnofficialSteamAuthenticator
 
             TimeAligner.GetSteamTime(async time =>
             {
-                //ulong currentChunk = (ulong)time / 30L;
                 long timeRemaining = 31 - (time % 30);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
