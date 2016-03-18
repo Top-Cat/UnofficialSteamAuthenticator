@@ -28,7 +28,7 @@
                     Grid.Row="1"
                     Margin="12,17,12,28">
             <!--  UserName  -->
-            <TextBlock x:Name="UserNameLabel"
+            <TextBlock x:Uid="TxtUsername"
                        FontSize="20"
                        Foreground="White"
                        Text="Steam username" />
@@ -38,7 +38,7 @@
                      IsTextPredictionEnabled="False" />
 
             <!--  Password  -->
-            <TextBlock x:Name="PasswordLabel"
+            <TextBlock x:Uid="TxtPassword"
                        FontSize="20"
                        Foreground="White"
                        Text="Password" />
@@ -49,7 +49,7 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Two Factor  -->
-            <TextBlock x:Name="TwoFactorLabel"
+            <TextBlock x:Uid="TxtEnterTwoFactor"
                        FontSize="20"
                        Foreground="White"
                        Text="Enter authenticator code" />
@@ -60,7 +60,7 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Two Factor [Email]  -->
-            <TextBlock x:Name="EmailCodeLabel"
+            <TextBlock x:Uid="TxtEnterEmailCode"
                        FontSize="20"
                        Foreground="White"
                        Text="Enter email code" />
@@ -71,7 +71,7 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Captcha  -->
-            <TextBlock x:Name="CaptchaLabel"
+            <TextBlock x:Uid="TxtEnterTheCaptcha"
                        FontSize="20"
                        Foreground="White"
                        Text="Enter the characters" />

@@ -24,10 +24,10 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Phone number  -->
-            <TextBlock x:Uid="LblPhoneNumber"
+            <TextBlock x:Uid="TxtPhoneNumber"
                        FontSize="20"
                        Foreground="White"
-                       Text="Enter your phone number in the following format: +{cC} phoneNumber.  EG, +1 123-456-7890"
+                       Text="Enter your phone number in the following format: +{cC} phoneNumber. EG, +1 123-456-7890"
                        TextWrapping="Wrap" />
             <TextBox Name="PhoneNum" BorderBrush="LightGray" />
         </StackPanel>
@@ -36,11 +36,11 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Revocation Code  -->
-            <TextBlock x:Name="LblRevocationExp"
+            <TextBlock x:Uid="TxtRevocationExp"
                        Margin="0,0,0,20"
                        FontSize="20"
                        Foreground="White"
-                       Text="The Mobile Authenticator has not yet been linked.  Before finalizing the authenticator, please write down your revocation code!"
+                       Text="The Mobile Authenticator has not yet been linked. Before finalizing the authenticator, please write down your revocation code!"
                        TextWrapping="Wrap" />
             <TextBlock x:Name="RevocationCode"
                        HorizontalAlignment="Center"
@@ -54,7 +54,7 @@
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  SMS Code  -->
-            <TextBlock x:Name="SmsCodeLabel"
+            <TextBlock x:Uid="TxtSmsCode"
                        FontSize="20"
                        Foreground="White"
                        Text="Enter SMS Code"
@@ -70,19 +70,18 @@
                        Foreground="Red"
                        Text=""
                        Visibility="Collapsed" />
-            <Button Name="LoginBtn"
+            <Button x:Uid="BtnContinue"
+                    x:Name="BtnContinue"
                     HorizontalAlignment="Center"
                     BorderBrush="LightGray"
-                    Click="LoginBtn_Click"
+                    Click="BtnContinue_Click"
                     Content="Continue"
                     Foreground="White"
                     Visibility="Collapsed" />
-            <!--  Margin="0,-40,0,0"  -->
             <ProgressBar x:Name="Progress"
                          Height="40"
                          VerticalAlignment="Stretch"
                          IsIndeterminate="True" />
-
         </StackPanel>
 
     </Grid>

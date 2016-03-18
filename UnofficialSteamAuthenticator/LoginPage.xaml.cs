@@ -19,10 +19,10 @@ namespace UnofficialSteamAuthenticator
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            _responses.Add(LoginResult.GeneralFailure, "Unknown Error");
-            _responses.Add(LoginResult.BadRSA, "Unknown Error");
-            _responses.Add(LoginResult.BadCredentials, "Invalid Login");
-            _responses.Add(LoginResult.TooManyFailedLogins, "Too many failures");
+            _responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
+            _responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
+            _responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
+            _responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -93,7 +93,7 @@ namespace UnofficialSteamAuthenticator
 
             if (response == LoginResult.NeedEmail)
             {
-                ErrorLabel.Text = "Need 2FA";
+                ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
                 EmailCode.Text = string.Empty;
                 EmailGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
             }
@@ -135,14 +135,14 @@ namespace UnofficialSteamAuthenticator
                 }
                 else
                 {
-                    ErrorLabel.Text = "Need 2FA";
+                    ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
                     TwoFactorCode.Text = string.Empty;
                     TwoFactorGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
                 }
             }
             else if (response == LoginResult.NeedCaptcha)
             {
-                ErrorLabel.Text = "Are you human?";
+                ErrorLabel.Text = StringResourceLoader.GetString("AreYouHuman");
                 CaptchaText.Text = string.Empty;
                 CaptchaGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
 
@@ -159,7 +159,7 @@ namespace UnofficialSteamAuthenticator
             }
         }
 
-        // I'm going to hell
+        // I'm going to hell <- yeah, you are :D
         private void HideAll()
         {
             AppBar.Visibility = TwoFactorGrid.Visibility = EmailGrid.Visibility = Progress.Visibility = LoginGrid.Visibility = CaptchaGrid.Visibility = Visibility.Collapsed;

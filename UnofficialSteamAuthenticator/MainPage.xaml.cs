@@ -135,7 +135,7 @@ namespace UnofficialSteamAuthenticator
 
             TimeAligner.GetSteamTime(async time =>
             {
-                ulong currentChunk = (ulong)time / 30L;
+                //ulong currentChunk = (ulong)time / 30L;
                 long timeRemaining = 31 - (time % 30);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
@@ -266,10 +266,12 @@ namespace UnofficialSteamAuthenticator
 
         private async void UnlinkBtn_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog("Are you sure? This will incur trade holds for at least 7 days.");
-            dialog.Title = "Unlink?";
-            dialog.Commands.Add(new UICommand("Ok", DoUnlink));
-            dialog.Commands.Add(new UICommand("Cancel")); // Take no action
+            var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Prompt_Message"))
+            {
+                Title = StringResourceLoader.GetString("Authenticator_Unlink_Prompt_Title")
+            };
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text"), DoUnlink));
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Cancel_Text"))); // Take no action
             await dialog.ShowAsync();
         }
 
@@ -288,8 +290,11 @@ namespace UnofficialSteamAuthenticator
                 }
                 else
                 {
-                    var dialog = new MessageDialog("Failed to unlink authenticator") { Title = "Error" };
-                    dialog.Commands.Add(new UICommand("Ok"));
+                    var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                    {
+                        Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
+                    };
+                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                     await dialog.ShowAsync();
                 }
             });
@@ -297,10 +302,12 @@ namespace UnofficialSteamAuthenticator
 
         private async void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog("Are you sure? This will remove this account from the user list aswell.");
-            dialog.Title = "Logout?";
-            dialog.Commands.Add(new UICommand("Yes", DoLogout));
-            dialog.Commands.Add(new UICommand("No")); // Take no action
+            var dialog = new MessageDialog(StringResourceLoader.GetString("User_Logout_Prompt_Message"))
+            {
+                Title = StringResourceLoader.GetString("User_Logout_Prompt_Title")
+            };
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Yes_Text"), DoLogout));
+            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_No_Text"))); // Take no action
             await dialog.ShowAsync();
         }
 

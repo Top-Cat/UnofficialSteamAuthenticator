@@ -4,35 +4,35 @@ using Windows.Storage;
 using UnofficialSteamAuthenticator;
 using SteamAuth;
 
-namespace Tests
+namespace UnofficalSteamAuthenticator.Tests
 {
     [TestClass]
     public class StorageTest
     {
-        ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-        private ulong testSteamid = 7656119800000000L;
+        readonly ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        private readonly ulong testSteamid = 7656119800000000L;
 
         [TestInitialize]
         public void ClearLocalSettings()
         {
-            localSettings.Values.Clear();
+            _localSettings.Values.Clear();
         }
 
         [TestMethod]
         public void TestLegacyBug()
         {
-            localSettings.Values["steamUser-"] = testSteamid;
-            localSettings.Values["steamGuard-" + testSteamid] = "{\"shared_secret\":\"##TEST##\",\"account_name\":\"testUser\",\"Session\":{\"SteamID\":" + testSteamid + "}}";
+            _localSettings.Values["steamUser-"] = testSteamid;
+            _localSettings.Values["steamGuard-" + testSteamid] = "{\"shared_secret\":\"##TEST##\",\"account_name\":\"testUser\",\"Session\":{\"SteamID\":" + testSteamid + "}}";
             SteamGuardAccount test = Storage.GetSteamGuardAccount("test");
 
             Assert.AreEqual("##TEST##", test.SharedSecret);
-            Assert.AreEqual(localSettings.Values["steamUser-testUser"], testSteamid);
+            Assert.AreEqual(_localSettings.Values["steamUser-testUser"], testSteamid);
         }
 
         [TestMethod]
         public void TestOldAccounts()
         {
-            localSettings.Values["sessionJson"] = "{\"SteamID\":" + testSteamid + "}";
+            _localSettings.Values["sessionJson"] = "{\"SteamID\":" + testSteamid + "}";
 
             Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
             Assert.AreEqual(1, accs.Count);
@@ -46,7 +46,7 @@ namespace Tests
         {
             SessionData acc;
 
-            localSettings.Values["sessionJson"] = "{\"SteamID\":" + testSteamid + "}";
+            _localSettings.Values["sessionJson"] = "{\"SteamID\":" + testSteamid + "}";
             acc = new SessionData();
             acc.SteamID = testSteamid + 1;
 
@@ -74,7 +74,7 @@ namespace Tests
         {
             SessionData acc;
 
-            localSettings.Values["sessionJson"] = "{\"" + testSteamid + "\":{\"SteamID\":" + testSteamid + "}}";
+            _localSettings.Values["sessionJson"] = "{\"" + testSteamid + "\":{\"SteamID\":" + testSteamid + "}}";
 
             Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
             Assert.AreEqual(1, accs.Count);
@@ -93,13 +93,13 @@ namespace Tests
         public void TestSetUser()
         {
             Storage.SetCurrentUser(testSteamid);
-            Assert.AreEqual(localSettings.Values["currentAccount"], testSteamid);
+            Assert.AreEqual(_localSettings.Values["currentAccount"], testSteamid);
         }
 
         [TestMethod]
         public void TestLogout()
         {
-            localSettings.Values["sessionJson"] = "{\"" + testSteamid + "\":{\"SteamID\":" + testSteamid + "}}";
+            _localSettings.Values["sessionJson"] = "{\"" + testSteamid + "\":{\"SteamID\":" + testSteamid + "}}";
 
             // Should do nothing as the account is not the current account
             Storage.Logout();
@@ -110,7 +110,7 @@ namespace Tests
             Storage.Logout();
             Assert.AreEqual(0, Storage.GetAccounts().Count);
 
-            Assert.IsNull(localSettings.Values["currentAccount"]);
+            Assert.IsNull(_localSettings.Values["currentAccount"]);
         }
     }
 }

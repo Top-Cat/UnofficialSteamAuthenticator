@@ -69,12 +69,113 @@
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
     <value>Authentifikator hinzufügen</value>
   </data>
-  <data name="LblPhoneNumber.Text" xml:space="preserve">
-    <value>Gebe deine Handynummer in folgendem Format ein: +{lC} Nummber.&amp;#13;&amp;#13;EG, +49 123-456-7890</value>
+  <data name="TxtPhoneNumber.Text" xml:space="preserve">
+    <value>Gebe Deine Handynummer in folgendem Format ein: +{00} nummer. (Zum Beispiel: +49 123-456-7890).</value>
   </data>
-  <data name="LblRevocationExp.Text" xml:space="preserve">
+  <data name="TxtRevocationExp.Text" xml:space="preserve">
     <value>Der Authentifikator wurde noch nicht verknüpft.
 
-Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!</value>
+Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!
+
+ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!</value>
+  </data>
+  <data name="TxtUsername.Text" xml:space="preserve">
+    <value>Steam Benutzername</value>
+  </data>
+  <data name="TxtPassword.Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="User_Logout_Prompt_Message" xml:space="preserve">
+    <value>Bist Du sicher? Dies wird das Konto auch aus der Benutzerliste entfernen.</value>
+  </data>
+  <data name="User_Logout_Prompt_Title" xml:space="preserve">
+    <value>Abmelden?</value>
+  </data>
+  <data name="UiCommand_Yes_Text" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="UiCommand_No_Text" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="TxtEnterEmailCode.Text" xml:space="preserve">
+    <value>E-Mail-Code eingeben</value>
+  </data>
+  <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
+    <value>Bitte gib die Bestätigung ein</value>
+  </data>
+  <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
+    <value>Bitte gib den Authentifizierungs-Code ein</value>
+  </data>
+  <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
+    <value>Allgemeiner Fehler</value>
+  </data>
+  <data name="LoginResult_BadRSA_Text" xml:space="preserve">
+    <value>Allgemeiner Fehler</value>
+  </data>
+  <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
+    <value>Ungültige Daten</value>
+  </data>
+  <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
+    <value>Zu viele Fehlversuche</value>
+  </data>
+  <data name="Need2Fa" xml:space="preserve">
+    <value>Benötige 2FA</value>
+  </data>
+  <data name="AreYouHuman" xml:space="preserve">
+    <value>Bist Du ein Mensch?</value>
+  </data>
+  <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
+    <value>Authentifikator verknüpfen</value>
+  </data>
+  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
+    <value>Du musst dieses Gerät als Authentifikator verknüpfen, bevor Du Steam Guard-Codes erhalten oder Handelsbestätigungen durchführen kannst.</value>
+  </data>
+  <data name="BtnLink.Content" xml:space="preserve">
+    <value>Verknüpfen</value>
+  </data>
+  <data name="SteamGuardButton.Label" xml:space="preserve">
+    <value>Guard</value>
+  </data>
+  <data name="ConfirmationsButton.Label" xml:space="preserve">
+    <value>Handelsanfragen</value>
+  </data>
+  <data name="MessageButton.Label" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="UsersButton.Label" xml:space="preserve">
+    <value>Konto wechseln</value>
+  </data>
+  <data name="LogoutButton.Label" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="AboutButton.Label" xml:space="preserve">
+    <value>Über</value>
+  </data>
+  <data name="BtnUnlink.Content" xml:space="preserve">
+    <value>Trennen</value>
+  </data>
+  <data name="BtnContinue.Content" xml:space="preserve">
+    <value>Fortfahren</value>
+  </data>
+  <data name="TxtSmsCode.Text" xml:space="preserve">
+    <value>SMS-Code eingeben</value>
+  </data>
+  <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
+    <value>Unbekannter Fehler beim Hinzufügen des Authentifikators.</value>
+  </data>
+  <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
+    <value>Es ist bereits ein Authentifikator mit diesem Konto verknüpft. Entferne den bestehenden Authentifikator und versuche es erneut.</value>
+  </data>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Telefonnummer eingeben</value>
+  </data>
+  <data name="BadCode" xml:space="preserve">
+    <value>Ungültiger Code</value>
   </data>
 </root>

@@ -44,7 +44,7 @@
                          Maximum="30"
                          Value="50" />
 
-            <Button Name="UnlinknBtn"
+            <Button x:Uid="BtnUnlink"
                     Margin="0,40,0,0"
                     HorizontalAlignment="Center"
                     BorderBrush="LightGray"
@@ -58,17 +58,19 @@
                     Grid.Row="0"
                     Margin="12,17,12,28">
             <!--  Title  -->
-            <TextBlock Margin="0,0,0,40"
+            <TextBlock x:Uid="TxtLinkAuthenticatorHeadline"
+                       Margin="0,0,0,40"
                        FontSize="40"
                        Foreground="White"
-                       Text="Link Authenticator" />
-            <TextBlock Margin="0,0,0,0"
+                       Text="Link authenticator" />
+            <TextBlock x:Uid="TxtLinkAuthenticatorSummary"
+                       Margin="0,0,0,0"
                        FontSize="20"
                        Foreground="White"
-                       Text="You need to set up this device as an authenticator before you can get steam guard codes or confirm trades"
+                       Text="You need to set up this device as an authenticator before you can get steam guard codes or confirm trades."
                        TextWrapping="Wrap" />
 
-            <Button Name="LoginBtn"
+            <Button x:Uid="BtnLink"
                     Margin="0,40,0,0"
                     HorizontalAlignment="Center"
                     BorderBrush="LightGray"
@@ -83,34 +85,29 @@
         <CommandBar>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Uid="SteamGuardButton"
-                              x:Name="SteamGuardButton"
                               Click="SteamGuardButton_Click"
                               Icon="Permissions"
                               Label="Guard" />
                 <AppBarButton x:Uid="ConfirmationsButton"
-                              x:Name="ConfirmationsButton"
                               Click="ConfirmationsButton_Click"
                               Icon="Shop"
                               Label="Confirm" />
                 <AppBarButton x:Uid="MessageButton"
-                              x:Name="MessageButton"
                               Click="MessageButton_Click"
                               Icon="Message"
                               Label="Chat" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Uid="UsersButton"
-                              x:Name="UsersButton"
                               Click="UsersButton_Click"
-                              Label="Switch Accounts" />
+                              Label="Switch account" />
                 <AppBarButton x:Uid="LogoutButton"
-                              x:Name="LogoutButton"
                               Click="LogoutButton_Click"
                               Label="Logout" />
+                <AppBarSeparator />
                 <AppBarButton x:Uid="AboutButton"
-                              x:Name="AboutButton"
                               Click="AboutButton_Click"
-                              Label="App Information" />
+                              Label="About" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

@@ -33,18 +33,20 @@ namespace UnofficialSteamAuthenticator
         {
             HardwareButtons.BackPressed += NavigateBack;
 
-            LoginBtn.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
+            BtnContinue.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Visible;
 
-            _linker = new AuthenticatorLinker(Storage.GetSessionData());
-            _linker.LinkedAccount = Storage.GetSteamGuardAccount();
+            _linker = new AuthenticatorLinker(Storage.GetSessionData())
+            {
+                LinkedAccount = Storage.GetSteamGuardAccount()
+            };
             _linker.AddAuthenticator(LinkResponse);
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        private void BtnContinue_Click(object sender, RoutedEventArgs e)
         {
             PhoneNum.IsTabStop = SmsCode.IsTabStop = false;
-            ErrorLabel.Visibility = LoginBtn.Visibility = Visibility.Collapsed;
+            ErrorLabel.Visibility = BtnContinue.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Visible;
             PhoneNum.IsTabStop = SmsCode.IsTabStop = true;
 
@@ -55,9 +57,9 @@ namespace UnofficialSteamAuthenticator
             }
             else if (RevocationGrid.Visibility == Visibility.Visible)
             {
-                SmsCode.Text = "";
+                SmsCode.Text = string.Empty;
                 Progress.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
-                LoginBtn.Visibility = SmsGrid.Visibility = Visibility.Visible;
+                BtnContinue.Visibility = SmsGrid.Visibility = Visibility.Visible;
             }
             else if (SmsGrid.Visibility == Visibility.Visible)
             {
@@ -69,25 +71,26 @@ namespace UnofficialSteamAuthenticator
                     });
                 }, SmsCode.Text);
             }
-            
         }
 
         private async void FinaliseResponse(AuthenticatorLinker.FinalizeResult response)
         {
             if (response == AuthenticatorLinker.FinalizeResult.BadSMSCode)
             {
-                ErrorLabel.Text = "Bad Code";
-                SmsCode.Text = "";
+                ErrorLabel.Text = StringResourceLoader.GetString("BadCode");
+                SmsCode.Text = string.Empty;
                 Progress.Visibility = Visibility.Collapsed;
-                LoginBtn.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                BtnContinue.Visibility = ErrorLabel.Visibility = Visibility.Visible;
             }
             else if (response == AuthenticatorLinker.FinalizeResult.UnableToGenerateCorrectCodes || response == AuthenticatorLinker.FinalizeResult.GeneralFailure)
             {
                 // Go back to main app screen on unknown failure
 
-                var dialog = new MessageDialog("Unknown error linking authenticator");
-                dialog.Title = "Error";
-                dialog.Commands.Add(new UICommand("Ok"));
+                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message"))
+                {
+                    Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
+                };
+                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                 await dialog.ShowAsync();
 
                 Frame.Navigate(typeof(MainPage));
@@ -106,29 +109,31 @@ namespace UnofficialSteamAuthenticator
 
             if (linkResponse == AuthenticatorLinker.LinkResult.MustProvidePhoneNumber)
             {
-                ErrorLabel.Text = "Enter Phone Number";
+                ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
                 if (!firstRun)
                 {
                     ErrorLabel.Visibility = Visibility.Visible;
                 }
-                PhoneNum.Text = "";
+                PhoneNum.Text = string.Empty;
                 PhoneNumGrid.Visibility = Visibility.Visible;
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.MustRemovePhoneNumber)
             {
-                PhoneNum.Text = "";
-                _linker.PhoneNumber = "";
+                PhoneNum.Text = string.Empty;
+                _linker.PhoneNumber = string.Empty;
                 _linker.AddAuthenticator(LinkResponse);
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure || linkResponse == AuthenticatorLinker.LinkResult.AuthenticatorPresent)
             {
                 // Possibly because of rate limiting etc, force user to start process again manually
 
-                var dialog = new MessageDialog(linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure ?
-                    "Unknown error linking authenticator" :
-                    "You already have another device set up as an authenticator. Remove it from your account and try again.");
-                dialog.Title = "Error";
-                dialog.Commands.Add(new UICommand("Ok"));
+                var dialog = new MessageDialog(linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure
+                    ? StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message")
+                    : StringResourceLoader.GetString("Authenticator_Link_AlreadyLinked_Message"))
+                {
+                    Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
+                };
+                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                 await dialog.ShowAsync();
 
                 Frame.Navigate(typeof(MainPage));
@@ -141,7 +146,7 @@ namespace UnofficialSteamAuthenticator
                 RevocationCode.Text = _linker.LinkedAccount.RevocationCode;
             }
 
-            LoginBtn.Visibility = Visibility.Visible;
+            BtnContinue.Visibility = Visibility.Visible;
         }
 
         private async void LinkResponse(AuthenticatorLinker.LinkResult linkResponse)
@@ -154,7 +159,7 @@ namespace UnofficialSteamAuthenticator
 
         public string FilterPhoneNumber(string phoneNumber)
         {
-            return phoneNumber.Replace("-", "").Replace("(", "").Replace(")", "");
+            return phoneNumber.Replace("-", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty);
         }
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StringResourceLoader.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Players.cs" />

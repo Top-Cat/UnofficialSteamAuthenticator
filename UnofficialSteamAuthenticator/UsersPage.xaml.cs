@@ -42,7 +42,7 @@ namespace UnofficialSteamAuthenticator
             {
                 ids += steamId + ",";
 
-                SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
+                //SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
                 User usr = new User(steamId, string.Empty, "Generating Code...", null);
                 _listElems.Add(steamId, usr);
                 AccountList.Items.Add(usr);
@@ -97,7 +97,7 @@ namespace UnofficialSteamAuthenticator
 
             TimeAligner.GetSteamTime(async time =>
             {
-                ulong currentChunk = (ulong)time / 30L;
+                //ulong currentChunk = (ulong)time / 30L;
                 long timeRemaining = 31 - (time % 30);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
