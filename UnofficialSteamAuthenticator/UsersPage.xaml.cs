@@ -83,7 +83,7 @@ namespace UnofficialSteamAuthenticator
 
         private void AccountList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var user = (User)e.ClickedItem;
+            var user = (User) e.ClickedItem;
             Storage.SetCurrentUser(user.SteamId);
             this.Frame.Navigate(typeof(MainPage));
         }

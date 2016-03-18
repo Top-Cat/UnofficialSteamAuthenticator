@@ -15,11 +15,11 @@ namespace UnofficialSteamAuthenticator
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("steamUser-" + username))
             {
-                response = GetSteamGuardAccount((ulong)localSettings.Values["steamUser-" + username]);
+                response = GetSteamGuardAccount((ulong) localSettings.Values["steamUser-" + username]);
             }
             else if (localSettings.Values.ContainsKey("steamUser-")) // Empty AccountName
             {
-                response = GetSteamGuardAccount((ulong)localSettings.Values["steamUser-"]);
+                response = GetSteamGuardAccount((ulong) localSettings.Values["steamUser-"]);
                 PushStore(response); // Push it back correctly
             }
 
@@ -33,7 +33,7 @@ namespace UnofficialSteamAuthenticator
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("steamGuard-" + steamId))
             {
-                string data = (string)localSettings.Values["steamGuard-" + steamId];
+                string data = (string) localSettings.Values["steamGuard-" + steamId];
                 response = JsonConvert.DeserializeObject<SteamGuardAccount>(data);
             }
             else
@@ -80,7 +80,7 @@ namespace UnofficialSteamAuthenticator
             {
                 // Try and find current account in accounts list
                 // Fall back to first account in list
-                ulong currentAcc = (ulong)localSettings.Values["currentAccount"];
+                ulong currentAcc = (ulong) localSettings.Values["currentAccount"];
                 if (response.ContainsKey(currentAcc))
                 {
                     return response[currentAcc];
@@ -101,7 +101,7 @@ namespace UnofficialSteamAuthenticator
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("sessionJson"))
             {
-                string data = (string)localSettings.Values["sessionJson"];
+                string data = (string) localSettings.Values["sessionJson"];
                 try
                 {
                     response = JsonConvert.DeserializeObject<Dictionary<ulong, SessionData>>(data);
@@ -134,7 +134,7 @@ namespace UnofficialSteamAuthenticator
 
             if (localSettings.Values.ContainsKey("currentAccount"))
             {
-                ulong currentAcc = (ulong)localSettings.Values["currentAccount"];
+                ulong currentAcc = (ulong) localSettings.Values["currentAccount"];
 
                 Dictionary<ulong, SessionData> accounts = GetAccounts();
                 accounts.Remove(currentAcc);

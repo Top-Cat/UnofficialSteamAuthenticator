@@ -33,13 +33,13 @@ namespace UnofficialSteamAuthenticator
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                var protocolArgs = (ProtocolActivatedEventArgs)args;
+                var protocolArgs = (ProtocolActivatedEventArgs) args;
 
-                Frame rootFrame = (Frame)Window.Current.Content;
+                Frame rootFrame = (Frame) Window.Current.Content;
                 var page = rootFrame.Content;
                 if (page is MainPage)
                 {
-                    MainPage mainPage = (MainPage)page;
+                    MainPage mainPage = (MainPage) page;
                     mainPage.HandleUri(protocolArgs.Uri);
                 }
                 else
@@ -136,7 +136,7 @@ namespace UnofficialSteamAuthenticator
         /// </summary>
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
-            var rootFrame = (Frame)sender;
+            var rootFrame = (Frame) sender;
             rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
