@@ -16,158 +16,158 @@ namespace UnofficialSteamAuthenticator
 
         public LoginPage()
         {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Required;
+            this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
-            responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
-            responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
-            responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
+            this.responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
+            this.responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
+            this.responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
+            this.responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed += BackPressed;
-            ResetView();
+            HardwareButtons.BackPressed += this.BackPressed;
+            this.ResetView();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed -= BackPressed;
+            HardwareButtons.BackPressed -= this.BackPressed;
         }
 
         private void BackPressed(object s, BackPressedEventArgs args)
         {
-            if (LoginGrid.Visibility == Visibility.Collapsed)
+            if (this.LoginGrid.Visibility == Visibility.Collapsed)
             {
                 args.Handled = true;
-                ResetView();
+                this.ResetView();
             }
-            else if (Frame.CanGoBack)
+            else if (this.Frame.CanGoBack)
             {
                 args.Handled = true;
-                Frame.GoBack();
+                this.Frame.GoBack();
             }
         }
 
         private void ResetView()
         {
-            HideAll();
-            ErrorLabel.Visibility = Visibility.Collapsed;
-            LoginBtn.Visibility = LoginGrid.Visibility = Visibility.Visible;
-            UserName.Text = PasswordBox.Password = string.Empty;
-            AppBar.Visibility = Storage.GetAccounts().Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            this.HideAll();
+            this.ErrorLabel.Visibility = Visibility.Collapsed;
+            this.LoginBtn.Visibility = this.LoginGrid.Visibility = Visibility.Visible;
+            this.UserName.Text = this.PasswordBox.Password = string.Empty;
+            this.AppBar.Visibility = Storage.GetAccounts().Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            UserName.IsTabStop = PasswordBox.IsTabStop = false;
-            ErrorLabel.Visibility = LoginBtn.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Visible;
-            UserName.IsTabStop = PasswordBox.IsTabStop = true;
+            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = false;
+            this.ErrorLabel.Visibility = this.LoginBtn.Visibility = Visibility.Collapsed;
+            this.Progress.Visibility = Visibility.Visible;
+            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = true;
 
-            if (userLogin == null || userLogin.Username != UserName.Text)
+            if (this.userLogin == null || this.userLogin.Username != this.UserName.Text)
             {
-                userLogin = new UserLogin(UserName.Text, PasswordBox.Password);
+                this.userLogin = new UserLogin(this.UserName.Text, this.PasswordBox.Password);
             }
 
-            userLogin.TwoFactorCode = TwoFactorCode.Text.ToUpper();
-            userLogin.EmailCode = EmailCode.Text.ToUpper();
-            userLogin.CaptchaText = CaptchaText.Text;
+            this.userLogin.TwoFactorCode = this.TwoFactorCode.Text.ToUpper();
+            this.userLogin.EmailCode = this.EmailCode.Text.ToUpper();
+            this.userLogin.CaptchaText = this.CaptchaText.Text;
 
-            userLogin.DoLogin(async response =>
+            this.userLogin.DoLogin(async response =>
             {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    ProcessLoginResponse(response);
+                    this.ProcessLoginResponse(response);
                 });
             });
         }
 
         private void ProcessLoginResponse(LoginResult response)
         {
-            CaptchaText.Text = string.Empty;
-            HideAll();
-            Progress.IsEnabled = false;
-            LoginBtn.Visibility = Visibility.Visible;
+            this.CaptchaText.Text = string.Empty;
+            this.HideAll();
+            this.Progress.IsEnabled = false;
+            this.LoginBtn.Visibility = Visibility.Visible;
 
             if (response == LoginResult.NeedEmail)
             {
-                ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
-                EmailCode.Text = string.Empty;
-                EmailGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                this.ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
+                this.EmailCode.Text = string.Empty;
+                this.EmailGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
             }
-            else if (responses.ContainsKey(response))
+            else if (this.responses.ContainsKey(response))
             {
-                ErrorLabel.Text = responses[response];
-                LoginGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                this.ErrorLabel.Text = this.responses[response];
+                this.LoginGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
             }
             else if (response == LoginResult.Need2FA)
             {
-                SteamGuardAccount account = Storage.GetSteamGuardAccount(UserName.Text);
-                if (string.IsNullOrWhiteSpace(userLogin.TwoFactorCode) && account != null)
+                SteamGuardAccount account = Storage.GetSteamGuardAccount(this.UserName.Text);
+                if (string.IsNullOrWhiteSpace(this.userLogin.TwoFactorCode) && account != null)
                 {
-                    Progress.Visibility = LoginGrid.Visibility = Visibility.Visible;
-                    LoginBtn.Visibility = Visibility.Collapsed;
+                    this.Progress.Visibility = this.LoginGrid.Visibility = Visibility.Visible;
+                    this.LoginBtn.Visibility = Visibility.Collapsed;
 
                     account.GenerateSteamGuardCode(async code =>
                     {
                         if (string.IsNullOrWhiteSpace(code))
                         {
-                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
-                                userLogin.TwoFactorCode = " ";
-                                ProcessLoginResponse(LoginResult.Need2FA);
+                                this.userLogin.TwoFactorCode = " ";
+                                this.ProcessLoginResponse(LoginResult.Need2FA);
                             });
                             return;
                         }
 
-                        userLogin.TwoFactorCode = code;
+                        this.userLogin.TwoFactorCode = code;
 
-                        userLogin.DoLogin(async res =>
+                        this.userLogin.DoLogin(async res =>
                         {
-                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
-                                ProcessLoginResponse(res);
+                                this.ProcessLoginResponse(res);
                             });
                         });
                     });
                 }
                 else
                 {
-                    ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
-                    TwoFactorCode.Text = string.Empty;
-                    TwoFactorGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                    this.ErrorLabel.Text = StringResourceLoader.GetString("Need2Fa");
+                    this.TwoFactorCode.Text = string.Empty;
+                    this.TwoFactorGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
                 }
             }
             else if (response == LoginResult.NeedCaptcha)
             {
-                ErrorLabel.Text = StringResourceLoader.GetString("AreYouHuman");
-                CaptchaText.Text = string.Empty;
-                CaptchaGrid.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                this.ErrorLabel.Text = StringResourceLoader.GetString("AreYouHuman");
+                this.CaptchaText.Text = string.Empty;
+                this.CaptchaGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
 
-                Uri myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + userLogin.CaptchaGID, UriKind.Absolute);
+                Uri myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + this.userLogin.CaptchaGID, UriKind.Absolute);
                 BitmapImage bmi = new BitmapImage();
                 bmi.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 bmi.UriSource = myUri;
-                Captcha.Source = bmi;
+                this.Captcha.Source = bmi;
             }
             else if (response == LoginResult.LoginOkay)
             {
-                Storage.PushStore(userLogin.Session);
-                Frame.Navigate(typeof(MainPage), userLogin.Session);
+                Storage.PushStore(this.userLogin.Session);
+                this.Frame.Navigate(typeof(MainPage), this.userLogin.Session);
             }
         }
 
         // I'm going to hell <- yeah, you are :D
         private void HideAll()
         {
-            AppBar.Visibility = TwoFactorGrid.Visibility = EmailGrid.Visibility = Progress.Visibility = LoginGrid.Visibility = CaptchaGrid.Visibility = Visibility.Collapsed;
+            this.AppBar.Visibility = this.TwoFactorGrid.Visibility = this.EmailGrid.Visibility = this.Progress.Visibility = this.LoginGrid.Visibility = this.CaptchaGrid.Visibility = Visibility.Collapsed;
         }
 
         private void SwitchUser_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(UsersPage));
+            this.Frame.Navigate(typeof(UsersPage));
         }
     }
 }

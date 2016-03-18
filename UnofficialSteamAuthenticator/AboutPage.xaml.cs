@@ -9,8 +9,8 @@ namespace UnofficialSteamAuthenticator
     {
         public AboutPage()
         {
-            InitializeComponent();
-            SourceRow.PointerPressed += SourceRow_PointerPressed;
+            this.InitializeComponent();
+            this.SourceRow.PointerPressed += this.SourceRow_PointerPressed;
         }
 
         private async void SourceRow_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -21,20 +21,20 @@ namespace UnofficialSteamAuthenticator
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed += BackPressed;
+            HardwareButtons.BackPressed += this.BackPressed;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed -= BackPressed;
+            HardwareButtons.BackPressed -= this.BackPressed;
         }
 
         private void BackPressed(object sender, BackPressedEventArgs args)
         {
-            if (Frame.CanGoBack)
+            if (this.Frame.CanGoBack)
             {
                 args.Handled = true;
-                Frame.GoBack();
+                this.Frame.GoBack();
             }
         }
     }

@@ -14,62 +14,62 @@ namespace UnofficialSteamAuthenticator
 
         public AuthenticatorPage()
         {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Required;
+            this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed -= NavigateBack;
+            HardwareButtons.BackPressed -= this.NavigateBack;
         }
 
         private void NavigateBack(object s, BackPressedEventArgs args)
         {
             args.Handled = true;
-            Frame.Navigate(typeof(MainPage));
+            this.Frame.Navigate(typeof(MainPage));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed += NavigateBack;
+            HardwareButtons.BackPressed += this.NavigateBack;
 
-            BtnContinue.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = ErrorLabel.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Visible;
+            this.BtnContinue.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Collapsed;
+            this.Progress.Visibility = Visibility.Visible;
 
-            linker = new AuthenticatorLinker(Storage.GetSessionData())
+            this.linker = new AuthenticatorLinker(Storage.GetSessionData())
             {
                 LinkedAccount = Storage.GetSteamGuardAccount()
             };
-            linker.AddAuthenticator(LinkResponse);
+            this.linker.AddAuthenticator(this.LinkResponse);
         }
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
         {
-            PhoneNum.IsTabStop = SmsCode.IsTabStop = false;
-            ErrorLabel.Visibility = BtnContinue.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Visible;
-            PhoneNum.IsTabStop = SmsCode.IsTabStop = true;
+            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = false;
+            this.ErrorLabel.Visibility = this.BtnContinue.Visibility = Visibility.Collapsed;
+            this.Progress.Visibility = Visibility.Visible;
+            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = true;
 
-            if (PhoneNumGrid.Visibility == Visibility.Visible)
+            if (this.PhoneNumGrid.Visibility == Visibility.Visible)
             {
-                linker.PhoneNumber = FilterPhoneNumber(PhoneNum.Text);
-                linker.AddAuthenticator(LinkResponse);
+                this.linker.PhoneNumber = this.FilterPhoneNumber(this.PhoneNum.Text);
+                this.linker.AddAuthenticator(this.LinkResponse);
             }
-            else if (RevocationGrid.Visibility == Visibility.Visible)
+            else if (this.RevocationGrid.Visibility == Visibility.Visible)
             {
-                SmsCode.Text = string.Empty;
-                Progress.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
-                BtnContinue.Visibility = SmsGrid.Visibility = Visibility.Visible;
+                this.SmsCode.Text = string.Empty;
+                this.Progress.Visibility = this.RevocationGrid.Visibility = Visibility.Collapsed;
+                this.BtnContinue.Visibility = this.SmsGrid.Visibility = Visibility.Visible;
             }
-            else if (SmsGrid.Visibility == Visibility.Visible)
+            else if (this.SmsGrid.Visibility == Visibility.Visible)
             {
-                linker.FinalizeAddAuthenticator(async response =>
+                this.linker.FinalizeAddAuthenticator(async response =>
                 {
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
-                        FinaliseResponse(response);
+                        this.FinaliseResponse(response);
                     });
-                }, SmsCode.Text);
+                }, this.SmsCode.Text);
             }
         }
 
@@ -77,10 +77,10 @@ namespace UnofficialSteamAuthenticator
         {
             if (response == AuthenticatorLinker.FinalizeResult.BadSMSCode)
             {
-                ErrorLabel.Text = StringResourceLoader.GetString("BadCode");
-                SmsCode.Text = string.Empty;
-                Progress.Visibility = Visibility.Collapsed;
-                BtnContinue.Visibility = ErrorLabel.Visibility = Visibility.Visible;
+                this.ErrorLabel.Text = StringResourceLoader.GetString("BadCode");
+                this.SmsCode.Text = string.Empty;
+                this.Progress.Visibility = Visibility.Collapsed;
+                this.BtnContinue.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
             }
             else if (response == AuthenticatorLinker.FinalizeResult.UnableToGenerateCorrectCodes || response == AuthenticatorLinker.FinalizeResult.GeneralFailure)
             {
@@ -93,35 +93,35 @@ namespace UnofficialSteamAuthenticator
                 dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                 await dialog.ShowAsync();
 
-                Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(MainPage));
             }
             else if (response == AuthenticatorLinker.FinalizeResult.Success)
             {
-                Storage.PushStore(linker.LinkedAccount);
-                Frame.Navigate(typeof(MainPage));
+                Storage.PushStore(this.linker.LinkedAccount);
+                this.Frame.Navigate(typeof(MainPage));
             }
         }
 
         private async void LinkResponseReal(AuthenticatorLinker.LinkResult linkResponse)
         {
-            bool firstRun = PhoneNumGrid.Visibility == Visibility.Collapsed;
-            Progress.Visibility = ErrorLabel.Visibility = SmsGrid.Visibility = PhoneNumGrid.Visibility = RevocationGrid.Visibility = Visibility.Collapsed;
+            bool firstRun = this.PhoneNumGrid.Visibility == Visibility.Collapsed;
+            this.Progress.Visibility = this.ErrorLabel.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = Visibility.Collapsed;
 
             if (linkResponse == AuthenticatorLinker.LinkResult.MustProvidePhoneNumber)
             {
-                ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
+                this.ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
                 if (!firstRun)
                 {
-                    ErrorLabel.Visibility = Visibility.Visible;
+                    this.ErrorLabel.Visibility = Visibility.Visible;
                 }
-                PhoneNum.Text = string.Empty;
-                PhoneNumGrid.Visibility = Visibility.Visible;
+                this.PhoneNum.Text = string.Empty;
+                this.PhoneNumGrid.Visibility = Visibility.Visible;
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.MustRemovePhoneNumber)
             {
-                PhoneNum.Text = string.Empty;
-                linker.PhoneNumber = string.Empty;
-                linker.AddAuthenticator(LinkResponse);
+                this.PhoneNum.Text = string.Empty;
+                this.linker.PhoneNumber = string.Empty;
+                this.linker.AddAuthenticator(this.LinkResponse);
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure || linkResponse == AuthenticatorLinker.LinkResult.AuthenticatorPresent)
             {
@@ -136,24 +136,24 @@ namespace UnofficialSteamAuthenticator
                 dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
                 await dialog.ShowAsync();
 
-                Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(MainPage));
             }
             else if (linkResponse == AuthenticatorLinker.LinkResult.AwaitingFinalization)
             {
-                Storage.PushStore(linker.LinkedAccount);
+                Storage.PushStore(this.linker.LinkedAccount);
 
-                RevocationGrid.Visibility = Visibility.Visible;
-                RevocationCode.Text = linker.LinkedAccount.RevocationCode;
+                this.RevocationGrid.Visibility = Visibility.Visible;
+                this.RevocationCode.Text = this.linker.LinkedAccount.RevocationCode;
             }
 
-            BtnContinue.Visibility = Visibility.Visible;
+            this.BtnContinue.Visibility = Visibility.Visible;
         }
 
         private async void LinkResponse(AuthenticatorLinker.LinkResult linkResponse)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                LinkResponseReal(linkResponse);
+                this.LinkResponseReal(linkResponse);
             });
         }
 

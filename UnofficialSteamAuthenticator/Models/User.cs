@@ -16,18 +16,18 @@ namespace UnofficialSteamAuthenticator.Models
 
         public User(ulong steamId, string title, string content, BitmapImage avatar)
         {
-            SteamId = steamId;
-            steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
+            this.SteamId = steamId;
+            this.steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
 
-            Title = title;
-            Content = content;
-            Avatar = avatar;
+            this.Title = title;
+            this.Content = content;
+            this.Avatar = avatar;
         }
 
         internal void UpdateCode(long time)
         {
-            Content = steamGuardAccount.FullyEnrolled ? steamGuardAccount.GenerateSteamGuardCodeForTime(time) : "2FA not setup";
-            OnPropertyChanged();
+            this.Content = this.steamGuardAccount.FullyEnrolled ? this.steamGuardAccount.GenerateSteamGuardCodeForTime(time) : "2FA not setup";
+            this.OnPropertyChanged();
         }
     }
 }
