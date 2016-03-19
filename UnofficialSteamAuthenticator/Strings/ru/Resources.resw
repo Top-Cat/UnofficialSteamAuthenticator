@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
+    <value>Не удалось отвязать аутентификатор!</value>
+  </data>
+  <data name="UiCommand_Ok_Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="UiCommand_Cancel_Text" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
+    <value>Вы уверены? Это повлечёт задержку обмена как минимум на 7 дней.</value>
+  </data>
+  <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
+    <value>Отвязать?</value>
+  </data>
+  <data name="AccountsHeadline.Text" xml:space="preserve">
+    <value>Аккаунты</value>
+  </data>
+  <data name="LoginHeadline.Text" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="LoginBtn.Content" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="TxtAddAuthenticator.Text" xml:space="preserve">
+    <value>Добавить аутентификатор</value>
+  </data>
+  <data name="TxtPhoneNumber.Text" xml:space="preserve">
+    <value>Введите номер телефона в указаном формате: +{код} номерТелефона (напр. +1 123-456-7890).</value>
+  </data>
+  <data name="TxtRevocationExp.Text" xml:space="preserve">
+    <value>Мобильный аутентификатор еще не был привязан.
+ 
+Прежде, чем завершить настройку аутентификатора, пожалуйста запишите код восстановления.
+ 
+ВНИМАНИЕ: ЭТО ПОСЛЕДНЯЯ ВОЗМОЖНОСТЬ ЗАПИСАТЬ ДАННЫЙ КОД!</value>
+  </data>
+  <data name="TxtUsername.Text" xml:space="preserve">
+    <value>Имя аккаунта Steam</value>
+  </data>
+  <data name="TxtPassword.Text" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="User_Logout_Prompt_Message" xml:space="preserve">
+    <value>Вы уверены? Это действие также уберет аккаунт из списка пользователей.</value>
+  </data>
+  <data name="User_Logout_Prompt_Title" xml:space="preserve">
+    <value>Выйти?</value>
+  </data>
+  <data name="UiCommand_Yes_Text" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="UiCommand_No_Text" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="TxtEnterEmailCode.Text" xml:space="preserve">
+    <value>Введите Email-код</value>
+  </data>
+  <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
+    <value>Введите символы</value>
+  </data>
+  <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
+    <value>Введите код подтверждения</value>
+  </data>
+  <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
+    <value>Неизвестная ошибка</value>
+  </data>
+  <data name="LoginResult_BadRSA_Text" xml:space="preserve">
+    <value>Неизвестная ошибка</value>
+  </data>
+  <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
+    <value>Ошибка входа</value>
+  </data>
+  <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
+    <value>Слишком много ошибок</value>
+  </data>
+  <data name="Need2Fa" xml:space="preserve">
+    <value>Требуется 2FA</value>
+  </data>
+  <data name="AreYouHuman" xml:space="preserve">
+    <value>Вы человек?</value>
+  </data>
+  <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
+    <value>Привязать аутентификатор</value>
+  </data>
+  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
+    <value>Необходимо настроить это устройство как аутентификатор прежде, чем вы сможете получать коды Steam Guard или подтверждать сделки.</value>
+  </data>
+  <data name="BtnLink.Content" xml:space="preserve">
+    <value>Привязать</value>
+  </data>
+  <data name="SteamGuardButton.Label" xml:space="preserve">
+    <value>Steam Guard</value>
+  </data>
+  <data name="ConfirmationsButton.Label" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="MessageButton.Label" xml:space="preserve">
+    <value>Чат</value>
+  </data>
+  <data name="UsersButton.Label" xml:space="preserve">
+    <value>Сменить аккаунт</value>
+  </data>
+  <data name="LogoutButton.Label" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="AboutButton.Label" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="BtnUnlink.Content" xml:space="preserve">
+    <value>Открепить</value>
+  </data>
+  <data name="BtnContinue.Content" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="TxtSmsCode.Text" xml:space="preserve">
+    <value>Введите SMS-код</value>
+  </data>
+  <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
+    <value>Неизвестная ошибка привязки аутентификатора.</value>
+  </data>
+  <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
+    <value>Другое устройство уже настроено как аутентификатор. Удалите его из своего аккаунта и попробуйте снова.</value>
+  </data>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Введите номер телефона</value>
+  </data>
+  <data name="BadCode" xml:space="preserve">
+    <value>Неверный код</value>
+  </data>
+</root>
