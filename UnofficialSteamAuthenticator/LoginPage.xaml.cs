@@ -61,12 +61,12 @@ namespace UnofficialSteamAuthenticator
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = false;
+            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = this.CaptchaText.IsTabStop = this.EmailCode.IsTabStop = false;
             this.ErrorLabel.Visibility = this.LoginBtn.Visibility = Visibility.Collapsed;
             this.Progress.Visibility = Visibility.Visible;
-            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = true;
+            this.UserName.IsTabStop = this.PasswordBox.IsTabStop = this.CaptchaText.IsTabStop = this.EmailCode.IsTabStop = true;
 
-            if (this.userLogin == null || this.userLogin.Username != this.UserName.Text)
+            if (this.LoginGrid.Visibility == Visibility.Visible)
             {
                 this.userLogin = new UserLogin(this.UserName.Text, this.PasswordBox.Password);
             }
@@ -116,7 +116,7 @@ namespace UnofficialSteamAuthenticator
                         {
                             await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
-                                this.userLogin.TwoFactorCode = " ";
+                                this.userLogin.TwoFactorCode = "-";
                                 this.ProcessLoginResponse(LoginResult.Need2FA);
                             });
                             return;
