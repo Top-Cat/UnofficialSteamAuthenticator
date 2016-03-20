@@ -21,7 +21,7 @@ namespace UnofficialSteamAuthenticator.Models
             // skip notifying in constructor
             this.title = title;
             this.content = content;
-            this.AccountName = this.steamGuardAccount.AccountName;
+            this.AccountName = this.steamGuardAccount.AccountName ?? this.steamGuardAccount.Session.Username;
             this.Avatar = new Avatar(steamId);
         }
 

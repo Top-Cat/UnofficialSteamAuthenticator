@@ -152,10 +152,7 @@ namespace UnofficialSteamAuthenticator
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
-            if (this.storyboard != null)
-            {
-                this.storyboard.Stop();
-            }
+            this.storyboard?.Stop();
 
             if (this.SteamGuardGrid.Visibility != Visibility.Visible)
             {
@@ -192,7 +189,7 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            this.AccountText.Text = (this.account.DisplayName ?? string.Empty) + " (" + (this.account.AccountName ?? string.Empty) + ")";
+            this.AccountText.Text = (this.account.DisplayName ?? string.Empty) + " (" + (this.account.AccountName ??  this.account.Session.Username ?? string.Empty) + ")";
             this.SteamGuardGrid.Visibility = Visibility.Visible;
             this.steamGuardUpdate_Tick(null, null);
         }
