@@ -148,10 +148,10 @@
     <value>Добавить аутентификатор</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Введите номер телефона в указаном формате: +{код} номерТелефона (напр. +1 123-456-7890).</value>
+    <value>Введите номер телефона в указаном формате: +{кодСтраны} номерТелефона (напр. +1 123-456-7890).</value>
   </data>
   <data name="TxtRevocationExp.Text" xml:space="preserve">
-    <value>Мобильный аутентификатор еще не был привязан.
+    <value>Мобильный аутентификатор еще не привязан.
  
 Прежде, чем завершить настройку аутентификатора, пожалуйста запишите код восстановления.
  
@@ -176,7 +176,7 @@
     <value>Нет</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Введите Email-код</value>
+    <value>Введите код, присланный на почту</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
     <value>Введите символы</value>
@@ -194,10 +194,10 @@
     <value>Ошибка входа</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Слишком много ошибок</value>
+    <value>Слишком много неудачных попыток входа</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Требуется 2FA</value>
+    <value>Требуется двухфакторная аутентификация</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
     <value>Вы человек?</value>
@@ -215,7 +215,7 @@
     <value>Steam Guard</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Принять</value>
+    <value>Подтвердить</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
     <value>Чат</value>
@@ -242,7 +242,7 @@
     <value>Ошибка</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Неизвестная ошибка привязки аутентификатора.</value>
+    <value>Неизвестная ошибка при привязке аутентификатора.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
     <value>Ошибка</value>
