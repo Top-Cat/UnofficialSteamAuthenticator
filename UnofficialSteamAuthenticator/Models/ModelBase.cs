@@ -11,9 +11,9 @@ namespace UnofficialSteamAuthenticator.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        public virtual void OnPropertyChanged()
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion INotifyPropertyChanged

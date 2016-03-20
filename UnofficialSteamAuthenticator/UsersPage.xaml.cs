@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json;
-using SteamAuth;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Phone.UI.Input;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
+using SteamAuth;
 using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator
@@ -43,7 +44,7 @@ namespace UnofficialSteamAuthenticator
                 ids += steamId + ",";
 
                 //SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
-                User usr = new User(steamId, string.Empty, "Generating Code...", null);
+                var usr = new User(steamId, string.Empty, "Generating Code...", null);
                 this.listElems.Add(steamId, usr);
                 this.AccountList.Items.Add(usr);
             }
@@ -52,15 +53,14 @@ namespace UnofficialSteamAuthenticator
             SteamWeb.Request(async responseString =>
             {
                 var responseObj = JsonConvert.DeserializeObject<Players>(responseString);
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     foreach (Player p in responseObj.PlayersList)
                     {
                         if (this.listElems.ContainsKey(p.SteamId))
                         {
-                            this.listElems[p.SteamId].Avatar = new BitmapImage(new Uri(p.AvatarUri));
+                            this.listElems[p.SteamId].Avatar.SetUri(new Uri(p.AvatarUri));
                             this.listElems[p.SteamId].Title = p.Username;
-                            this.listElems[p.SteamId].OnPropertyChanged();
                         }
                     }
                 });
@@ -97,11 +97,14 @@ namespace UnofficialSteamAuthenticator
 
             TimeAligner.GetSteamTime(async time =>
             {
-                long timeRemaining = 31 - (time % 30);
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                long timeRemaining = 31 - time % 30;
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.storyboard = new Storyboard();
-                    var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
+                    var animation = new DoubleAnimation
+                    {
+                        Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true
+                    };
                     Storyboard.SetTarget(animation, this.SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
                     this.storyboard.Children.Add(animation);
@@ -116,7 +119,7 @@ namespace UnofficialSteamAuthenticator
             });
         }
 
-        private void NewUser_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void NewUser_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
         }
