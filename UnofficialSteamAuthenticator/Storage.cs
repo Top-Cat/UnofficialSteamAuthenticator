@@ -45,6 +45,11 @@ namespace UnofficialSteamAuthenticator
             if (accs.ContainsKey(steamId))
             {
                 response.Session = accs[steamId];
+
+                if (response.AccountName != null && response.Session.Username != response.AccountName)
+                {
+                    response.Session.Username = response.AccountName;
+                }
             }
 
             return response;
