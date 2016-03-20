@@ -90,10 +90,7 @@ namespace UnofficialSteamAuthenticator
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
-            if (this.storyboard != null)
-            {
-                this.storyboard.Stop();
-            }
+            this.storyboard?.Stop();
 
             TimeAligner.GetSteamTime(async time =>
             {

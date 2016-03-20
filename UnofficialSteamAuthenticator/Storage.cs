@@ -41,6 +41,12 @@ namespace UnofficialSteamAuthenticator
                 response = new SteamGuardAccount();
             }
 
+            Dictionary<ulong, SessionData> accs = Storage.GetAccounts();
+            if (accs.ContainsKey(steamId))
+            {
+                response.Session = accs[steamId];
+            }
+
             return response;
         }
 

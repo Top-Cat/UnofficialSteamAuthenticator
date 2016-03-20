@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using SteamAuth;
+using Newtonsoft.Json;
+using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator
 {
@@ -43,6 +45,28 @@ namespace UnofficialSteamAuthenticator
             HardwareButtons.BackPressed += this.BackPressed;
 
             this.account = Storage.GetSteamGuardAccount();
+
+            if ((DateTime.UtcNow - this.account.DisplayCache).Days > 1)
+            {
+                SteamWeb.Request(async responseString =>
+                {
+                    var responseObj = JsonConvert.DeserializeObject<Players>(responseString);
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        foreach (Player p in responseObj.PlayersList)
+                        {
+                            if (p.SteamId == this.account.Session.SteamID)
+                            {
+                                this.account.DisplayName = p.Username;
+                                Storage.PushStore(this.account);
+
+                                this.SteamGuardButton_Click(null, null);
+                            }
+                        }
+                    });
+                }, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET");
+            }
+
             this.SteamGuardButton_Click(null, null);
         }
 
@@ -168,7 +192,7 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            this.AccountText.Text = this.account.AccountName ?? string.Empty;
+            this.AccountText.Text = (this.account.DisplayName ?? string.Empty) + " (" + (this.account.AccountName ?? string.Empty) + ")";
             this.SteamGuardGrid.Visibility = Visibility.Visible;
             this.steamGuardUpdate_Tick(null, null);
         }

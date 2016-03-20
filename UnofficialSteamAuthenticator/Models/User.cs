@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Media.Imaging;
+﻿using System;
+using Windows.UI.Xaml.Media.Imaging;
 using SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Models
@@ -20,6 +21,7 @@ namespace UnofficialSteamAuthenticator.Models
             // skip notifying in constructor
             this.title = title;
             this.content = content;
+            this.AccountName = this.steamGuardAccount.AccountName;
             this.Avatar = new Avatar(steamId);
         }
 
@@ -31,6 +33,10 @@ namespace UnofficialSteamAuthenticator.Models
             set
             {
                 this.title = value;
+
+                this.steamGuardAccount.DisplayName = value;
+                Storage.PushStore(this.steamGuardAccount);
+
                 this.OnPropertyChanged();
             }
         }
@@ -46,6 +52,7 @@ namespace UnofficialSteamAuthenticator.Models
         }
 
         public Avatar Avatar { get; }
+        public string AccountName { get; }
 
         internal void UpdateCode(long time)
         {

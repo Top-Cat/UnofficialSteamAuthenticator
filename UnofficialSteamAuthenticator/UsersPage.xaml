@@ -22,6 +22,7 @@
                     <StackPanel Grid.Column="1" Margin="14.5,0,0,0">
                         <TextBlock Style="{ThemeResource ListViewItemTextBlockStyle}" Text="{Binding Title}" />
                         <TextBlock Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}" Text="{Binding Content}" />
+                        <TextBlock Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}" Text="{Binding AccountName}" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
