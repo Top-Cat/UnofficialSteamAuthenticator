@@ -25,3 +25,13 @@ If you can't login you need to visit [help.steampowered.com](//help.steampowered
 I maintain this in my free time. If you have a problem / would like a feature added [open an issue here](//github.com/Top-Cat/UnofficialSteamAuthenticator/issues) or make the changes yourself and [submit a pull request](//github.com/Top-Cat/UnofficialSteamAuthenticator/pulls).
 
 If you're just happy this exists you can donate me a drink at: [paypal.me/iamtopcat](//paypal.me/iamtopcat)
+
+# Translations
+
+Community translations provided by:
+
+- German - http://steamcommunity.com/id/setoy
+- Spanish - https://steamcommunity.com/id/3xlneet
+- Russian - http://steamcommunity.com/id/Jericho_One
+
+If you are *fluent* in a language that isn't listed and would like to help please [send me a message](//steamcommunity.com/id/top-cat) <3~
