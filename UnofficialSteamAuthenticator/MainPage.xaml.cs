@@ -249,7 +249,7 @@ namespace UnofficialSteamAuthenticator
                                 window.SGHandler.Status = b;
                             }
                         };
-                        runLocalUrlO = runLocalUrl;
+                        runLocalUrlO = typeof(runLocalUrl) !== 'undefined' ? runLocalUrl : function() {};
                         runLocalUrl = function(url) {
                             window.SGHandler.update(0, 'busy');
                             runLocalUrlO(url);
