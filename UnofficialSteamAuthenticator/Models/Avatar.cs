@@ -4,18 +4,17 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
-using UnofficialSteamAuthenticator.Models;
 
-namespace UnofficialSteamAuthenticator
+namespace UnofficialSteamAuthenticator.Models
 {
     internal class Avatar : ModelBase
     {
-        private readonly string FileName;
-        private StorageFolder Folder;
+        private readonly string fileName;
+        private StorageFolder folder;
 
         public Avatar(ulong steamid)
         {
-            this.FileName = steamid + ".jpg";
+            this.fileName = steamid + ".jpg";
             this.Img = new BitmapImage();
 
             this.Init();
@@ -27,7 +26,7 @@ namespace UnofficialSteamAuthenticator
         {
             try
             {
-                StorageFile file = await this.Folder.GetFileAsync(this.FileName);
+                StorageFile file = await this.folder.GetFileAsync(this.fileName);
 
                 if ((DateTime.Now - file.DateCreated).Days > 1)
                 {
@@ -46,11 +45,11 @@ namespace UnofficialSteamAuthenticator
         {
             // Create virtual store and file stream. Check for duplicate files
             StorageFolder folder = ApplicationData.Current.LocalFolder;
-            this.Folder = await folder.CreateFolderAsync("avatarCache", CreationCollisionOption.OpenIfExists);
+            this.folder = await folder.CreateFolderAsync("avatarCache", CreationCollisionOption.OpenIfExists);
 
             try
             {
-                StorageFile file = await this.Folder.GetFileAsync(this.FileName);
+                StorageFile file = await this.folder.GetFileAsync(this.fileName);
 
                 IRandomAccessStream stream = await file.OpenReadAsync();
                 this.Img.SetSource(stream);
@@ -64,7 +63,7 @@ namespace UnofficialSteamAuthenticator
         private async void Store(Uri uri)
         {
             // Download avatar into the cache
-            StorageFile file = await this.Folder.CreateFileAsync(this.FileName, CreationCollisionOption.OpenIfExists);
+            StorageFile file = await this.folder.CreateFileAsync(this.fileName, CreationCollisionOption.OpenIfExists);
 
             var downloader = new BackgroundDownloader();
             DownloadOperation dl = downloader.CreateDownload(uri, file);
