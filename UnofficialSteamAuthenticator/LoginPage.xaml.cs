@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.Phone.UI.Input;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
-
-using SteamAuth;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
+using SteamAuth;
 
 namespace UnofficialSteamAuthenticator
 {
     public sealed partial class LoginPage
     {
-        private UserLogin userLogin;
         private readonly Dictionary<LoginResult, string> responses = new Dictionary<LoginResult, string>();
+        private UserLogin userLogin;
 
         public LoginPage()
         {
@@ -77,7 +77,7 @@ namespace UnofficialSteamAuthenticator
 
             this.userLogin.DoLogin(async response =>
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.ProcessLoginResponse(response);
                 });
@@ -114,7 +114,7 @@ namespace UnofficialSteamAuthenticator
                     {
                         if (string.IsNullOrWhiteSpace(code))
                         {
-                            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 this.userLogin.TwoFactorCode = " ";
                                 this.ProcessLoginResponse(LoginResult.Need2FA);
@@ -126,7 +126,7 @@ namespace UnofficialSteamAuthenticator
 
                         this.userLogin.DoLogin(async res =>
                         {
-                            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 this.ProcessLoginResponse(res);
                             });
@@ -146,8 +146,8 @@ namespace UnofficialSteamAuthenticator
                 this.CaptchaText.Text = string.Empty;
                 this.CaptchaGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
 
-                Uri myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + this.userLogin.CaptchaGID, UriKind.Absolute);
-                BitmapImage bmi = new BitmapImage();
+                var myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + this.userLogin.CaptchaGID, UriKind.Absolute);
+                var bmi = new BitmapImage();
                 bmi.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 bmi.UriSource = myUri;
                 this.Captcha.Source = bmi;

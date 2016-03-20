@@ -1,10 +1,10 @@
 ﻿using System;
 using Windows.Phone.UI.Input;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-
 using SteamAuth;
-using Windows.UI.Popups;
 
 namespace UnofficialSteamAuthenticator
 {
@@ -65,7 +65,7 @@ namespace UnofficialSteamAuthenticator
             {
                 this.linker.FinalizeAddAuthenticator(async response =>
                 {
-                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         this.FinaliseResponse(response);
                     });
@@ -151,7 +151,7 @@ namespace UnofficialSteamAuthenticator
 
         private async void LinkResponse(AuthenticatorLinker.LinkResult linkResponse)
         {
-            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 this.LinkResponseReal(linkResponse);
             });

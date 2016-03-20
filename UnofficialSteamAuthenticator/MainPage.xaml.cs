@@ -1,27 +1,29 @@
-﻿using SteamAuth;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using Windows.Foundation;
 using Windows.Phone.UI.Input;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
+using SteamAuth;
 
 namespace UnofficialSteamAuthenticator
 {
     public sealed partial class MainPage
     {
+        private const string ChatUrl = "https://steamcommunity.com/chat";
         private SteamGuardAccount account;
-        private Storyboard storyboard;
         private string confUrl = string.Empty;
         private string confWebUrl = string.Empty;
-        private const string ChatUrl = "https://steamcommunity.com/chat";
+        private Storyboard storyboard;
 
         public MainPage()
         {
@@ -62,10 +64,10 @@ namespace UnofficialSteamAuthenticator
 
         internal void HandleUri(Uri uri)
         {
-            Dictionary<string, string> query = new Dictionary<string, string>();
+            var query = new Dictionary<string, string>();
             if (uri.Query.Length > 0)
             {
-                WwwFormUrlDecoder decoder = new WwwFormUrlDecoder(uri.Query);
+                var decoder = new WwwFormUrlDecoder(uri.Query);
                 query = decoder.ToDictionary(x => x.Name, x => x.Value);
             }
 
@@ -79,7 +81,7 @@ namespace UnofficialSteamAuthenticator
                     // This code had a massive tantrum when run outside the application's thread
                     this.account.RefreshSession(async success =>
                     {
-                        await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                        await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             if (success)
                             {
@@ -103,7 +105,10 @@ namespace UnofficialSteamAuthenticator
                     {
                         try
                         {
-                            string[] args = { "window.SGHandler.update('" + response + "', 'ok');" };
+                            string[] args =
+                            {
+                                "window.SGHandler.update('" + response + "', 'ok');"
+                            };
                             await this.ConfirmationWeb.InvokeScriptAsync("eval", args);
                         }
                         catch (Exception)
@@ -135,11 +140,14 @@ namespace UnofficialSteamAuthenticator
 
             TimeAligner.GetSteamTime(async time =>
             {
-                long timeRemaining = 31 - (time % 30);
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                long timeRemaining = 31 - time % 30;
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.storyboard = new Storyboard();
-                    var animation = new DoubleAnimation { Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true };
+                    var animation = new DoubleAnimation
+                    {
+                        Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true
+                    };
                     Storyboard.SetTarget(animation, this.SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
                     this.storyboard.Children.Add(animation);
@@ -189,7 +197,7 @@ namespace UnofficialSteamAuthenticator
                 this.confUrl = response;
                 HttpRequestMessage message = this.GetMessageForUrl(response);
 
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.ConfirmationWeb.NavigateWithHttpRequestMessage(message);
                 });
@@ -198,14 +206,14 @@ namespace UnofficialSteamAuthenticator
 
         private HttpRequestMessage GetMessageForUrl(string url)
         {
-            CookieContainer cookies = new CookieContainer();
+            var cookies = new CookieContainer();
             this.account.Session.AddCookies(cookies);
 
-            Uri baseUri = new Uri(url);
-            Windows.Web.Http.Filters.HttpBaseProtocolFilter filter = new Windows.Web.Http.Filters.HttpBaseProtocolFilter();
+            var baseUri = new Uri(url);
+            var filter = new HttpBaseProtocolFilter();
             foreach (Cookie c in cookies.GetCookies(SteamWeb.uri))
             {
-                HttpCookie cookie = new HttpCookie(c.Name, c.Domain, c.Path);
+                var cookie = new HttpCookie(c.Name, c.Domain, c.Path);
                 cookie.Value = c.Value;
                 filter.CookieManager.SetCookie(cookie, false);
             }
@@ -220,7 +228,9 @@ namespace UnofficialSteamAuthenticator
             if (e.IsSuccess && this.confWebUrl == this.confUrl)
             {
                 // Try to only inject this once
-                string[] args = { @"
+                string[] args =
+                {
+                    @"
                     if (!window.SGHandler) {
                         window.SGHandler = {
                             Value: 0,
@@ -282,7 +292,7 @@ namespace UnofficialSteamAuthenticator
                 {
                     this.account.FullyEnrolled = false;
                     Storage.PushStore(this.account);
-                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         this.SteamGuardButton_Click(null, null);
                     });

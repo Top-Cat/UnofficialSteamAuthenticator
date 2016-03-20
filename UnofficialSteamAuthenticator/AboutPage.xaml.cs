@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.Phone.UI.Input;
 using Windows.System;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace UnofficialSteamAuthenticator
@@ -13,9 +14,9 @@ namespace UnofficialSteamAuthenticator
             this.SourceRow.PointerPressed += this.SourceRow_PointerPressed;
         }
 
-        private async void SourceRow_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private async void SourceRow_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            Uri github = new Uri("http://github.com/Top-Cat/UnofficialSteamAuthenticator");
+            var github = new Uri("http://github.com/Top-Cat/UnofficialSteamAuthenticator");
             await Launcher.LaunchUriAsync(github);
         }
 
