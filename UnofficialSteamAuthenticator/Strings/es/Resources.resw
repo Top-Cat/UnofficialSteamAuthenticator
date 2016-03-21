@@ -150,13 +150,6 @@
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
     <value>Introduce tu número de teléfono en este formato : +{cC} Número-de-teléfono {e.g +34 123-456-789}.</value>
   </data>
-  <data name="TxtRevocationExp.Text" xml:space="preserve">
-    <value>El Autenticador Móvil aún no ha sido vinculado.
- 
-Antes de acabar el autenticador, escribe el código de revocación.
- 
-ALERTA : ESTA ES LA ÚNICA Y ÚLTIMA VEZ QUE VERÁS ESTE CÓDIGO</value>
-  </data>
   <data name="TxtUsername.Text" xml:space="preserve">
     <value>Nombre de usuario de Steam</value>
   </data>
@@ -255,5 +248,16 @@ ALERTA : ESTA ES LA ÚNICA Y ÚLTIMA VEZ QUE VERÁS ESTE CÓDIGO</value>
   </data>
   <data name="BadCode" xml:space="preserve">
     <value>Código malo</value>
+  </data>
+  <data name="TxtRevocationExp1.Text" xml:space="preserve">
+    <value>El Autenticador Móvil aún no ha sido vinculado.
+ 
+Antes de acabar el autenticador, escribe el código de revocación.</value>
+  </data>
+  <data name="TxtRevocationExp2.Text" xml:space="preserve">
+    <value>ALERTA : ESTA ES LA ÚNICA Y ÚLTIMA VEZ QUE VERÁS ESTE CÓDIGO</value>
+  </data>
+  <data name="MainPage_AccountText_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
 </root>

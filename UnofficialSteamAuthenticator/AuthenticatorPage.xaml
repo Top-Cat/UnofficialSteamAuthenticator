@@ -12,13 +12,18 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="12,17,12,28">
+
+        <!--  First page  -->
+        <StackPanel Grid.Row="0"
+                    Margin="12,17,12,28"
+                    Visibility="Visible">
             <!--  Title  -->
             <TextBlock x:Uid="TxtAddAuthenticator"
                        FontSize="40"
                        Foreground="White"
                        Text="Add Authenticator" />
         </StackPanel>
+
         <StackPanel x:Name="PhoneNumGrid"
                     Grid.Row="1"
                     Margin="12,17,12,28"
@@ -31,24 +36,58 @@
                        TextWrapping="Wrap" />
             <TextBox Name="PhoneNum" BorderBrush="LightGray" />
         </StackPanel>
+
         <StackPanel x:Name="RevocationGrid"
                     Grid.Row="1"
                     Margin="12,17,12,28"
                     Visibility="Collapsed">
             <!--  Revocation Code  -->
-            <TextBlock x:Uid="TxtRevocationExp"
+            <TextBlock x:Uid="TxtRevocationExp1"
                        Margin="0,0,0,20"
                        FontSize="20"
                        Foreground="White"
-                       Text="The Mobile Authenticator has not yet been linked. Before finalizing the authenticator, please write down your revocation code!"
-                       TextWrapping="Wrap" />
-            <TextBlock x:Name="RevocationCode"
-                       HorizontalAlignment="Center"
-                       FontSize="40"
-                       FontWeight="Bold"
-                       Foreground="Red"
-                       Text="R71386" />
+                       TextWrapping="Wrap">
+                The Mobile Authenticator has not yet been linked.
+                <LineBreak />
+                <LineBreak />
+                Before finalizing the authenticator, please write down your revocation code.
+            </TextBlock>
+
+            <Border Height="100" Background="#542424">
+                <StackPanel Height="52"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Image Source="/Assets/revocation-exclamation.png" />
+                    <Border Margin="28,0,28,0"
+                            Background="#2A2A2A"
+                            BorderBrush="White"
+                            BorderThickness="3">
+                        <TextBlock x:Name="RevocationCode"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Padding="30,16,30,16"
+                                   Text="R01234" />
+                    </Border>
+                    <Image Source="/Assets/revocation-pencil.png" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock x:Uid="TxtRevocationExp2"
+                       Margin="0,20,0,0"
+                       FontSize="20"
+                       Foreground="White"
+                       TextWrapping="Wrap">
+                WARNING: THIS IS THE LAST TIME YOU WILL EVER SEE THIS CODE!
+                <LineBreak />
+                <LineBreak />
+                Do not share it with anyone.
+            </TextBlock>
         </StackPanel>
+
         <StackPanel x:Name="SmsGrid"
                     Grid.Row="1"
                     Margin="12,17,12,28"
@@ -61,6 +100,7 @@
                        TextWrapping="Wrap" />
             <TextBox Name="SmsCode" BorderBrush="LightGray" />
         </StackPanel>
+
         <StackPanel Grid.Row="2" Margin="12,17,12,28">
             <!--  Login Button  -->
             <TextBlock x:Name="ErrorLabel"

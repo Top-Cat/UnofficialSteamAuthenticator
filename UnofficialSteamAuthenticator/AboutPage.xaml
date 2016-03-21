@@ -14,12 +14,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="12,17,12,12">
-            <TextBlock FontSize="40"
+            <TextBlock x:Uid="About_Headline"
+                       FontSize="40"
                        Foreground="White"
                        Text="App Information" />
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="20,27,20,20">
-            <TextBlock FontSize="28"
+            <TextBlock x:Uid="About_AppVersion"
+                       FontSize="28"
                        Foreground="White"
                        Text="Version" />
             <TextBlock Margin="10,0,0,0"
@@ -28,7 +30,8 @@
                        Text="v1.2.0" />
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="20,27,20,20">
-            <TextBlock FontSize="28"
+            <TextBlock x:Uid="About_AppCreator"
+                       FontSize="28"
                        Foreground="White"
                        Text="Creator" />
             <TextBlock Margin="10,0,0,0"
@@ -39,7 +42,8 @@
         <StackPanel x:Name="SourceRow"
                     Grid.Row="3"
                     Margin="20,27,20,20">
-            <TextBlock FontSize="28"
+            <TextBlock x:Uid="About_AppSource"
+                       FontSize="28"
                        Foreground="White"
                        Text="Source" />
             <TextBlock Margin="10,0,0,0"
