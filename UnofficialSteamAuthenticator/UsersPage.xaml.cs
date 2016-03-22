@@ -43,28 +43,35 @@ namespace UnofficialSteamAuthenticator
             {
                 ids += steamId + ",";
 
-                //SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
-                var usr = new User(steamId, string.Empty, StringResourceLoader.GetString("GeneratingCode_Ellipsis"), null);
+                var usr = new User(steamId, StringResourceLoader.GetString("GeneratingCode_Ellipsis"));
                 this.listElems.Add(steamId, usr);
                 this.AccountList.Items.Add(usr);
             }
 
             string accessToken = accs.First().Value.OAuthToken;
-            SteamWeb.Request(async responseString =>
+            SteamWeb.Request(this.SummariesCallback, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET");
+        }
+
+        private async void SummariesCallback(string responseString)
+        {
+            var responseObj = JsonConvert.DeserializeObject<Players>(responseString ?? string.Empty);
+
+            if (responseObj?.PlayersList == null)
             {
-                var responseObj = JsonConvert.DeserializeObject<Players>(responseString);
-                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                return;
+            }
+
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                foreach (Player p in responseObj.PlayersList)
                 {
-                    foreach (Player p in responseObj.PlayersList)
+                    if (this.listElems.ContainsKey(p.SteamId))
                     {
-                        if (this.listElems.ContainsKey(p.SteamId))
-                        {
-                            this.listElems[p.SteamId].Avatar.SetUri(new Uri(p.AvatarUri));
-                            this.listElems[p.SteamId].Title = p.Username;
-                        }
+                        this.listElems[p.SteamId].Avatar.SetUri(new Uri(p.AvatarUri));
+                        this.listElems[p.SteamId].Title = p.Username;
                     }
-                });
-            }, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET");
+                }
+            });
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -100,7 +107,10 @@ namespace UnofficialSteamAuthenticator
                     this.storyboard = new Storyboard();
                     var animation = new DoubleAnimation
                     {
-                        Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true
+                        Duration = TimeSpan.FromSeconds(timeRemaining),
+                        From = timeRemaining,
+                        To = 0,
+                        EnableDependentAnimation = true
                     };
                     Storyboard.SetTarget(animation, this.SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");

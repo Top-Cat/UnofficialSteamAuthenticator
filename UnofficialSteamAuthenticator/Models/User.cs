@@ -13,13 +13,13 @@ namespace UnofficialSteamAuthenticator.Models
         private string content;
         private string title;
 
-        public User(ulong steamId, string title, string content, BitmapImage avatar)
+        public User(ulong steamId, string content)
         {
             this.SteamId = steamId;
             this.steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
 
             // skip notifying in constructor
-            this.title = title;
+            this.title = this.steamGuardAccount.DisplayName;
             this.content = content;
             this.AccountName = this.steamGuardAccount.AccountName ?? this.steamGuardAccount.Session.Username;
             this.Avatar = new Avatar(steamId);

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Windows.Networking.BackgroundTransfer;
+using System.Net.Http;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
@@ -44,9 +44,13 @@ namespace UnofficialSteamAuthenticator.Models
         private async void Init()
         {
             // Create virtual store and file stream. Check for duplicate files
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            this.folder = await folder.CreateFolderAsync("avatarCache", CreationCollisionOption.OpenIfExists);
+            this.folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("avatarCache", CreationCollisionOption.OpenIfExists);
 
+            this.Get();
+        }
+
+        private async void Get()
+        {
             try
             {
                 StorageFile file = await this.folder.GetFileAsync(this.fileName);
@@ -63,15 +67,20 @@ namespace UnofficialSteamAuthenticator.Models
         private async void Store(Uri uri)
         {
             // Download avatar into the cache
-            StorageFile file = await this.folder.CreateFileAsync(this.fileName, CreationCollisionOption.OpenIfExists);
+            try
+            {
+                var httpClient = new HttpClient();
+                byte[] data = await httpClient.GetByteArrayAsync(uri);
 
-            var downloader = new BackgroundDownloader();
-            DownloadOperation dl = downloader.CreateDownload(uri, file);
+                StorageFile file = await this.folder.CreateFileAsync(this.fileName, CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteBytesAsync(file, data);
 
-            DownloadOperation res = await dl.StartAsync();
-
-            IRandomAccessStream stream = await file.OpenReadAsync();
-            this.Img.SetSource(stream);
+                this.Get();
+            }
+            catch (HttpRequestException)
+            {
+                // No network, don't retry
+            }
         }
     }
 }

@@ -42,38 +42,55 @@ namespace UnofficialSteamAuthenticator
         {
             this.ConfirmationWeb.ScriptNotify += this.WebNotify;
             this.ConfirmationWeb.NavigationCompleted += this.InjectCode;
+            this.ConfirmationWeb.NavigationFailed += this.NavFailed;
+            this.ChatWeb.NavigationFailed += this.NavFailed;
             HardwareButtons.BackPressed += this.BackPressed;
 
             this.account = Storage.GetSteamGuardAccount();
 
             if ((DateTime.UtcNow - this.account.DisplayCache).Days > 1)
             {
-                SteamWeb.Request(async responseString =>
-                {
-                    var responseObj = JsonConvert.DeserializeObject<Players>(responseString);
-                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        foreach (Player p in responseObj.PlayersList)
-                        {
-                            if (p.SteamId == this.account.Session.SteamID)
-                            {
-                                this.account.DisplayName = p.Username;
-                                Storage.PushStore(this.account);
-
-                                this.SteamGuardButton_Click(null, null);
-                            }
-                        }
-                    });
-                }, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET");
+                SteamWeb.Request(this.SummariesCallback, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET");
             }
 
             this.SteamGuardButton_Click(null, null);
+        }
+
+        private void NavFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            this.SteamGuardButton_Click(null, null);
+        }
+
+        private async void SummariesCallback(string responseString)
+        {
+            var responseObj = JsonConvert.DeserializeObject<Players>(responseString ?? string.Empty);
+
+            if (responseObj?.PlayersList == null)
+            {
+                return;
+            }
+
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                foreach (Player p in responseObj.PlayersList)
+                {
+                    if (p.SteamId == this.account.Session.SteamID)
+                    {
+                        this.account.DisplayName = p.Username;
+                        Storage.PushStore(this.account);
+
+                        this.SteamGuardButton_Click(null, null);
+                    }
+                }
+            });
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.ConfirmationWeb.ScriptNotify -= this.WebNotify;
             this.ConfirmationWeb.NavigationCompleted -= this.InjectCode;
+            this.ConfirmationWeb.NavigationFailed += this.NavFailed;
+            this.ChatWeb.NavigationFailed += this.NavFailed;
             HardwareButtons.BackPressed -= this.BackPressed;
         }
 
@@ -192,8 +209,12 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            this.AccountText.Text = string.Format(StringResourceLoader.GetString("MainPage_AccountText_Format"), (this.account.DisplayName ?? string.Empty), 
-                                                                                                                 (this.account.AccountName ?? this.account.Session.Username ?? string.Empty));
+            this.AccountText.Text = string.Format(
+                StringResourceLoader.GetString("MainPage_AccountText_Format"),
+                (this.account.DisplayName ?? string.Empty),
+                (this.account.AccountName ?? this.account.Session.Username ?? string.Empty)
+            );
+
             this.SteamGuardGrid.Visibility = Visibility.Visible;
             this.steamGuardUpdate_Tick(null, null);
         }
