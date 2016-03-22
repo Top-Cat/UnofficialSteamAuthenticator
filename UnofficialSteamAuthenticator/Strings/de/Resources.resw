@@ -52,7 +52,7 @@
     <value>Abbrechen</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Bist Du sicher? Dies wird deine Handelsanfragen für 7 Tage blockieren.</value>
+    <value>Bist Du sicher? Dies wird Deine Handelsanfragen für 7 Tage blockieren.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
     <value>Trennen?</value>
@@ -70,14 +70,7 @@
     <value>Authentifikator hinzufügen</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Gebe Deine Handynummer in folgendem Format ein: +{00} nummer. (Zum Beispiel: +49 123-456-7890).</value>
-  </data>
-  <data name="TxtRevocationExp.Text" xml:space="preserve">
-    <value>Der Authentifikator wurde noch nicht verknüpft.
-
-Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!
-
-ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!</value>
+    <value>Gebe Deine Handynummer in folgendem Format ein: +{00} Nummer. (Zum Beispiel: +49 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
     <value>Steam Benutzername</value>
@@ -177,5 +170,39 @@ ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!</valu
   </data>
   <data name="BadCode" xml:space="preserve">
     <value>Ungültiger Code</value>
+  </data>
+  <data name="TxtRevocationExp1.Text" xml:space="preserve">
+    <value>Der Authentifikator wurde noch nicht verknüpft.
+
+Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!</value>
+  </data>
+  <data name="TxtRevocationExp2.Text" xml:space="preserve">
+    <value>ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!
+
+Teile diesen Code mit niemandem.</value>
+  </data>
+  <data name="GeneratingCode_Ellipsis" xml:space="preserve">
+    <value>Generiere Code...</value>
+  </data>
+  <data name="MainPage_AccountText_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="About_Headline.Text" xml:space="preserve">
+    <value>App-Informationen</value>
+  </data>
+  <data name="About_AppVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="About_AppCreator.Text" xml:space="preserve">
+    <value>Entwickler</value>
+  </data>
+  <data name="About_AppSource.Text" xml:space="preserve">
+    <value>Quellcode</value>
+  </data>
+  <data name="NewUserButton.Label" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="SwitchUserButton.Label" xml:space="preserve">
+    <value>Wechseln</value>
   </data>
 </root>

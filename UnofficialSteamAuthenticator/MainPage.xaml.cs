@@ -167,7 +167,10 @@ namespace UnofficialSteamAuthenticator
                     this.storyboard = new Storyboard();
                     var animation = new DoubleAnimation
                     {
-                        Duration = TimeSpan.FromSeconds(timeRemaining), From = timeRemaining, To = 0, EnableDependentAnimation = true
+                        Duration = TimeSpan.FromSeconds(timeRemaining),
+                        From = timeRemaining,
+                        To = 0,
+                        EnableDependentAnimation = true
                     };
                     Storyboard.SetTarget(animation, this.SteamGuardTimer);
                     Storyboard.SetTargetProperty(animation, "Value");
@@ -189,7 +192,8 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            this.AccountText.Text = (this.account.DisplayName ?? string.Empty) + " (" + (this.account.AccountName ??  this.account.Session.Username ?? string.Empty) + ")";
+            this.AccountText.Text = string.Format(StringResourceLoader.GetString("MainPage_AccountText_Format"), (this.account.DisplayName ?? string.Empty), 
+                                                                                                                 (this.account.AccountName ?? this.account.Session.Username ?? string.Empty));
             this.SteamGuardGrid.Visibility = Visibility.Visible;
             this.steamGuardUpdate_Tick(null, null);
         }

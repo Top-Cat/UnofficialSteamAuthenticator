@@ -91,13 +91,6 @@
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
     <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
   </data>
-  <data name="TxtRevocationExp.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
-
-Before finalizing the authenticator, please write down your revocation code.
-
-WARNING: THIS IS THE LAST TIME YOU WILL EVER SEE THIS CODE!</value>
-  </data>
   <data name="TxtUsername.Text" xml:space="preserve">
     <value>Steam username</value>
   </data>
@@ -196,5 +189,39 @@ WARNING: THIS IS THE LAST TIME YOU WILL EVER SEE THIS CODE!</value>
   </data>
   <data name="BadCode" xml:space="preserve">
     <value>Bad Code</value>
+  </data>
+  <data name="TxtRevocationExp1.Text" xml:space="preserve">
+    <value>The Mobile Authenticator has not yet been linked.
+
+Before finalizing the authenticator, please write down your revocation code.</value>
+  </data>
+  <data name="TxtRevocationExp2.Text" xml:space="preserve">
+    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
+
+Do not share it with anyone.</value>
+  </data>
+  <data name="GeneratingCode_Ellipsis" xml:space="preserve">
+    <value>Generating code...</value>
+  </data>
+  <data name="MainPage_AccountText_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="About_Headline.Text" xml:space="preserve">
+    <value>App Information</value>
+  </data>
+  <data name="About_AppVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="About_AppCreator.Text" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="About_AppSource.Text" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="NewUserButton.Label" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SwitchUserButton.Label" xml:space="preserve">
+    <value>Switch</value>
   </data>
 </root>

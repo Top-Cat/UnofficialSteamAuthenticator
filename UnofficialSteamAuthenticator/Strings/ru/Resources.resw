@@ -148,14 +148,7 @@
     <value>Добавить аутентификатор</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Введите номер телефона в указаном формате: +{кодСтраны} номерТелефона (напр. +1 123-456-7890).</value>
-  </data>
-  <data name="TxtRevocationExp.Text" xml:space="preserve">
-    <value>Мобильный аутентификатор еще не привязан.
- 
-Прежде, чем завершить настройку аутентификатора, пожалуйста запишите код восстановления.
- 
-ВНИМАНИЕ: ЭТО ПОСЛЕДНЯЯ ВОЗМОЖНОСТЬ ЗАПИСАТЬ ДАННЫЙ КОД!</value>
+    <value>Введите номер телефона в указаном формате: +{кодСтраны} номерТелефона (напр. +7 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
     <value>Имя аккаунта Steam</value>
@@ -255,5 +248,16 @@
   </data>
   <data name="BadCode" xml:space="preserve">
     <value>Неверный код</value>
+  </data>
+  <data name="TxtRevocationExp1.Text" xml:space="preserve">
+    <value>Мобильный аутентификатор еще не привязан.
+ 
+Прежде, чем завершить настройку аутентификатора, пожалуйста запишите код восстановления.</value>
+  </data>
+  <data name="TxtRevocationExp2.Text" xml:space="preserve">
+    <value>ВНИМАНИЕ: ЭТО ПОСЛЕДНЯЯ ВОЗМОЖНОСТЬ ЗАПИСАТЬ ДАННЫЙ КОД!</value>
+  </data>
+  <data name="MainPage_AccountText_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
 </root>

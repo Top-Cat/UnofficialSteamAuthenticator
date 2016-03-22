@@ -30,8 +30,8 @@ If you're just happy this exists you can donate me a drink at: [paypal.me/iamtop
 
 Community translations provided by:
 
-- German - http://steamcommunity.com/id/setoy
+- German - https://steamcommunity.com/id/setoy
 - Spanish - https://steamcommunity.com/id/3xlneet
-- Russian - http://steamcommunity.com/id/Jericho_One
+- Russian - https://steamcommunity.com/id/Jericho_One
 
 If you are *fluent* in a language that isn't listed and would like to help please [send me a message](//steamcommunity.com/id/top-cat) <3~

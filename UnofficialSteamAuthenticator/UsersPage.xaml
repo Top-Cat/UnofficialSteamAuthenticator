@@ -55,10 +55,9 @@
         <CommandBar>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Uid="NewUserButton"
-                              x:Name="NewUserButton"
                               Click="NewUser_Click"
                               Icon="Add"
-                              Label="New" />
+                              Label="Add" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

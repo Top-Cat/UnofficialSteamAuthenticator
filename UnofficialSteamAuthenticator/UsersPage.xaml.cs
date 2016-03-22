@@ -44,7 +44,7 @@ namespace UnofficialSteamAuthenticator
                 ids += steamId + ",";
 
                 //SteamGuardAccount steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
-                var usr = new User(steamId, string.Empty, "Generating Code...", null);
+                var usr = new User(steamId, string.Empty, StringResourceLoader.GetString("GeneratingCode_Ellipsis"), null);
                 this.listElems.Add(steamId, usr);
                 this.AccountList.Items.Add(usr);
             }
