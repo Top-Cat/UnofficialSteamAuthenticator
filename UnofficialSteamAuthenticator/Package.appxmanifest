@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="66245cdd-1f74-4872-a029-66c34bf1327a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Unofficial Steam Authenticator</DisplayName>
-    <PublisherDisplayName>Top_Cat</PublisherDisplayName>
+    <PublisherDisplayName>Thomas Cheyney</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
