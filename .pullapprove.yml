@@ -1,0 +1,9 @@
+approve_by_comment: true
+approve_regex: '^(Approved|:shipit:)'
+reject_regex: ^Rejected
+reset_on_push: true
+reviewers:
+  members:
+  - Top-Cat
+  name: default
+  required: 1
