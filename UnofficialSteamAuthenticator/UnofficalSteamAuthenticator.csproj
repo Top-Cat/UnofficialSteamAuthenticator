@@ -135,6 +135,7 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\Wide310x150Logo.scale-240.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <PRIResource Include="Strings\pl\Resources.resw" />
     <PRIResource Include="Strings\ru\Resources.resw" />
     <PRIResource Include="Strings\es\Resources.resw" />
     <PRIResource Include="Strings\de\Resources.resw" />

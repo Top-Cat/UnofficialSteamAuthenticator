@@ -224,4 +224,7 @@ Do not share it with anyone.</value>
   <data name="SwitchUserButton.Label" xml:space="preserve">
     <value>Switch</value>
   </data>
+  <data name="App_Description" xml:space="preserve">
+    <value>Mobile authenticator for logging in and trading on steam</value>
+  </data>
 </root>
