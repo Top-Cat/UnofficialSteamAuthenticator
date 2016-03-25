@@ -21,6 +21,8 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class MainPage
     {
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
+
         private const string ChatUrl = "https://steamcommunity.com/chat";
         private SteamGuardAccount account;
         private string confUrl = string.Empty;
@@ -50,7 +52,7 @@ namespace UnofficialSteamAuthenticator
 
             if ((DateTime.UtcNow - this.account.DisplayCache).Days > 1)
             {
-                SteamWeb.Request(this.SummariesCallback, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET");
+                this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET", this.SummariesCallback);
             }
 
             this.SteamGuardButton_Click(null, null);
@@ -120,7 +122,7 @@ namespace UnofficialSteamAuthenticator
                     break;
                 case "lostauth":
                     // This code had a massive tantrum when run outside the application's thread
-                    this.account.RefreshSession(async success =>
+                    this.account.RefreshSession(this.web, async success =>
                     {
                         await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
@@ -142,7 +144,7 @@ namespace UnofficialSteamAuthenticator
                         break;
                     }
 
-                    this.account.GenerateConfirmationQueryParams(async response =>
+                    this.account.GenerateConfirmationQueryParams(this.web, query["arg1"], async response =>
                     {
                         try
                         {
@@ -158,7 +160,7 @@ namespace UnofficialSteamAuthenticator
                             // Just reload the view
                             this.ConfirmationsButton_Click(null, null);
                         }
-                    }, query["arg1"]);
+                    });
 
                     break;
                 default:
@@ -176,9 +178,9 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            TimeAligner.GetSteamTime(async time =>
+            TimeAligner.GetSteamTime(this.web, async time =>
             {
-                long timeRemaining = 31 - time % 30;
+                var timeRemaining = (byte) (31 - time % 30);
                 await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.storyboard = new Storyboard();
@@ -238,7 +240,7 @@ namespace UnofficialSteamAuthenticator
 
             this.ConfirmationWeb.Visibility = Visibility.Visible;
 
-            this.account.GenerateConfirmationURL(async response =>
+            this.account.GenerateConfirmationURL(this.web, async response =>
             {
                 this.confUrl = response;
                 HttpRequestMessage message = this.GetMessageForUrl(response);
@@ -257,10 +259,10 @@ namespace UnofficialSteamAuthenticator
 
             var baseUri = new Uri(url);
             var filter = new HttpBaseProtocolFilter();
+
             foreach (Cookie c in cookies.GetCookies(SteamWeb.uri))
             {
-                var cookie = new HttpCookie(c.Name, c.Domain, c.Path);
-                cookie.Value = c.Value;
+                var cookie = new HttpCookie(c.Name, c.Domain, c.Path) { Value = c.Value };
                 filter.CookieManager.SetCookie(cookie, false);
             }
 
@@ -332,7 +334,7 @@ namespace UnofficialSteamAuthenticator
 
         private void DoUnlink(IUICommand command)
         {
-            this.account.DeactivateAuthenticator(async response =>
+            this.account.DeactivateAuthenticator(this.web, async response =>
             {
                 if (response)
                 {

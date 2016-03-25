@@ -73,6 +73,9 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mock\Mock.cs" />
+    <Compile Include="Mock\SteamWebMock.cs" />
+    <Compile Include="SteamAuth\TimeAlignerTest.cs" />
     <Compile Include="StorageTest.cs" />
   </ItemGroup>
   <ItemGroup>

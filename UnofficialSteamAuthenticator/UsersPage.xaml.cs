@@ -15,6 +15,8 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class UsersPage
     {
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
+
         private readonly Dictionary<ulong, User> listElems = new Dictionary<ulong, User>();
         private Storyboard storyboard;
 
@@ -49,7 +51,7 @@ namespace UnofficialSteamAuthenticator
             }
 
             string accessToken = accs.First().Value.OAuthToken;
-            SteamWeb.Request(this.SummariesCallback, APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET");
+            this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET", this.SummariesCallback);
         }
 
         private async void SummariesCallback(string responseString)
@@ -99,9 +101,9 @@ namespace UnofficialSteamAuthenticator
         {
             this.storyboard?.Stop();
 
-            TimeAligner.GetSteamTime(async time =>
+            TimeAligner.GetSteamTime(this.web, async time =>
             {
-                long timeRemaining = 31 - time % 30;
+                var timeRemaining = (byte) (31 - time % 30);
                 await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     this.storyboard = new Storyboard();
