@@ -196,33 +196,33 @@
 Antes de acabar el autenticador, escribe el código de revocación.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
+    <value>Necesitarás este código para recuperar tu cuenta de Steam si pierdes tu dispositivo móvil. No podrás volverlo a ver después de este paso así que, por favor, anótalo.
 
-Do not share it with anyone.</value>
+No lo compartas con nadie</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>Generando código...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>Información App</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versión</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>Creador</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Código</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Añadir</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>Cambiar</value>
   </data>
   <data name="App_Description" xml:space="preserve">
     <value>Autenticador móvil para iniciar sesión i intercambiar en Steam</value>
