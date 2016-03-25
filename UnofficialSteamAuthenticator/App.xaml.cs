@@ -20,6 +20,7 @@ namespace UnofficialSteamAuthenticator
     public sealed partial class App : Application
     {
         private TransitionCollection transitions;
+        public SteamWeb SteamWeb = new SteamWeb();
 
         /// <summary>
         ///     Initializes the singleton application object.  This is the first line of authored code

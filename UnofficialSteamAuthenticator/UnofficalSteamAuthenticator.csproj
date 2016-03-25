@@ -93,6 +93,7 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Avatar.cs" />
+    <Compile Include="SteamAuth\IWebRequest.cs" />
     <Compile Include="StringResourceLoader.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Player.cs" />
@@ -135,6 +136,7 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\Wide310x150Logo.scale-240.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <PRIResource Include="Strings\pl\Resources.resw" />
     <PRIResource Include="Strings\ru\Resources.resw" />
     <PRIResource Include="Strings\es\Resources.resw" />
     <PRIResource Include="Strings\de\Resources.resw" />

@@ -11,6 +11,7 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class LoginPage
     {
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private readonly Dictionary<LoginResult, string> responses = new Dictionary<LoginResult, string>();
         private UserLogin userLogin;
 
@@ -75,7 +76,7 @@ namespace UnofficialSteamAuthenticator
             this.userLogin.EmailCode = this.EmailCode.Text.ToUpper();
             this.userLogin.CaptchaText = this.CaptchaText.Text;
 
-            this.userLogin.DoLogin(async response =>
+            this.userLogin.DoLogin(this.web, async response =>
             {
                 await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -110,7 +111,7 @@ namespace UnofficialSteamAuthenticator
                     this.Progress.Visibility = this.LoginGrid.Visibility = Visibility.Visible;
                     this.LoginBtn.Visibility = Visibility.Collapsed;
 
-                    account.GenerateSteamGuardCode(async code =>
+                    account.GenerateSteamGuardCode(this.web, async code =>
                     {
                         if (string.IsNullOrWhiteSpace(code))
                         {
@@ -124,7 +125,7 @@ namespace UnofficialSteamAuthenticator
 
                         this.userLogin.TwoFactorCode = code;
 
-                        this.userLogin.DoLogin(async res =>
+                        this.userLogin.DoLogin(this.web, async res =>
                         {
                             await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
