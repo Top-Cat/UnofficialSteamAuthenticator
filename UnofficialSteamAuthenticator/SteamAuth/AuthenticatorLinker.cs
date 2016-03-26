@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using UnofficialSteamAuthenticator.Models;
-using Windows.Security.Cryptography;
-using Windows.Storage.Streams;
 using UnofficialSteamAuthenticator.Models.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.SteamAuth
@@ -43,7 +41,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
         public AuthenticatorLinker(SessionData session)
         {
             this._session = session;
-            this.DeviceID = GenerateDeviceID();
+            this.DeviceID = Util.GenerateDeviceID();
 
             this._cookies = new CookieContainer();
             session.AddCookies(_cookies);
@@ -293,31 +291,6 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             UnableToGenerateCorrectCodes,
             Success,
             GeneralFailure
-        }
-
-        public static string GenerateDeviceID()
-        {
-            IBuffer random = CryptographicBuffer.GenerateRandom(32);
-            string random32 = CryptographicBuffer.EncodeToHexString(random).Replace("-", "").Substring(0, 32).ToLower();
-
-            return "android:" + SplitOnRatios(random32, new[] { 8, 4, 4, 4, 12 }, "-");
-        }
-
-        private static string SplitOnRatios(string str, int[] ratios, string intermediate)
-        {
-            string result = "";
-
-            int pos = 0;
-            for (int index = 0; index < ratios.Length; index++)
-            {
-                result += str.Substring(pos, ratios[index]);
-                pos = ratios[index];
-
-                if (index < ratios.Length - 1)
-                    result += intermediate;
-            }
-
-            return result;
         }
     }
 }
