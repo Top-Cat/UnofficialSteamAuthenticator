@@ -93,9 +93,18 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Avatar.cs" />
-    <Compile Include="Models\TimeQueryResponse.cs" />
+    <Compile Include="Models\SteamAuth\FinalizeAuthenticatorResponse.cs" />
+    <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />
+    <Compile Include="Models\SteamAuth\OAuth.cs" />
+    <Compile Include="Models\SteamAuth\LoginResponse.cs" />
+    <Compile Include="Models\SteamAuth\RSAResponse.cs" />
+    <Compile Include="Models\SteamAuth\RefreshSessionDataResponse.cs" />
+    <Compile Include="Models\SteamAuth\HasPhoneResponse.cs" />
+    <Compile Include="Models\SteamAuth\SuccessResponse.cs" />
+    <Compile Include="Models\SteamAuth\TimeQueryResponse.cs" />
     <Compile Include="Models\WebResponse.cs" />
     <Compile Include="SteamAuth\IWebRequest.cs" />
+    <Compile Include="SteamAuth\WGTokenInvalidException.cs" />
     <Compile Include="StringResourceLoader.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Player.cs" />
