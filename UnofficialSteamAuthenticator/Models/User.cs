@@ -1,6 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml.Media.Imaging;
-using SteamAuth;
+﻿using SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Models
 {

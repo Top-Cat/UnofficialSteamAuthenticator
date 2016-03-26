@@ -19,8 +19,8 @@ namespace UnofficialSteamAuthenticator
     /// </summary>
     public sealed partial class App : Application
     {
-        private TransitionCollection transitions;
         public SteamWeb SteamWeb = new SteamWeb();
+        private TransitionCollection transitions;
 
         /// <summary>
         ///     Initializes the singleton application object.  This is the first line of authored code
@@ -40,7 +40,7 @@ namespace UnofficialSteamAuthenticator
                 var protocolArgs = (ProtocolActivatedEventArgs) args;
 
                 var rootFrame = (Frame) Window.Current.Content;
-                var page = rootFrame.Content;
+                object page = rootFrame.Content;
                 if (page is MainPage)
                 {
                     var mainPage = (MainPage) page;
