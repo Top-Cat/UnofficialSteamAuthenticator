@@ -51,7 +51,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             Callback hasCookies = res =>
             {
                 postData.Add("username", this.Username);
-                web.MobileLoginRequest(rsaRawResponse =>
+                web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, rsaRawResponse =>
                 {
                     if (rsaRawResponse == null || rsaRawResponse.Contains("<BODY>\nAn error occurred while processing your request."))
                     {
@@ -96,7 +96,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                     postData.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
                     postData.Add("donotcache", Util.GetSystemUnixTime().ToString());
 
-                    web.MobileLoginRequest(rawLoginResponse =>
+                    web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, rawLoginResponse =>
                     {
                         LoginResponse loginResponse = null;
 
@@ -175,8 +175,8 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                             callback(LoginResult.LoginOkay);
                             return;
                         }
-                    }, APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies);
-                }, APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies);
+                    });
+                });
             };
 
             if (cookies.Count == 0)
@@ -190,7 +190,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                 WebHeaderCollection headers = new WebHeaderCollection();
                 headers["X-Requested-With"] = "com.valvesoftware.android.steam.community";
 
-                web.MobileLoginRequest(hasCookies, url, "GET", null, cookies, headers);
+                web.MobileLoginRequest(url, "GET", null, cookies, headers, hasCookies);
             } else
             {
                 hasCookies("");

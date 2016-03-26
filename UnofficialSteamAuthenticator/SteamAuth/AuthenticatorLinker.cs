@@ -47,7 +47,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             session.AddCookies(_cookies);
         }
 
-        public void AddAuthenticator(SteamWeb web, LinkCallback callback)
+        public void AddAuthenticator(IWebRequest web, LinkCallback callback)
         {
             _hasPhoneAttached(web, hasPhone =>
             {
@@ -76,7 +76,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                     postData["device_identifier"] = this.DeviceID;
                     postData["sms_phone_id"] = "1";
 
-                    web.MobileLoginRequest(response =>
+                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData, response =>
                     {
                         if (response == null)
                         {
@@ -104,11 +104,13 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                         }
 
                         this.LinkedAccount = addAuthenticatorResponse.Response;
+                        // Force not enrolled at this stage
+                        LinkedAccount.FullyEnrolled = false;
                         LinkedAccount.Session = this._session;
                         LinkedAccount.DeviceID = this.DeviceID;
 
                         callback(LinkResult.AwaitingFinalization);
-                    }, APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData);
+                    });
                 };
 
                 if (!hasPhone)
@@ -121,7 +123,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             });
         }
 
-        public void FinalizeAddAuthenticator(SteamWeb web, FinalizeCallback callback, string smsCode)
+        public void FinalizeAddAuthenticator(SteamWeb web, string smsCode, FinalizeCallback callback)
         {
             var postData = new Dictionary<string, string>();
             postData["steamid"] = _session.SteamID.ToString();
@@ -190,7 +192,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                 TimeAligner.GetSteamTime(web, steamTime => {
                     postData["authenticator_time"] = steamTime.ToString();
 
-                    web.MobileLoginRequest(reqCallback, APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", postData);
+                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", postData, reqCallback);
                 });
             };
 
@@ -236,7 +238,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             });
         }
 
-        private void _addPhoneNumber(SteamWeb web, BCallback callback)
+        private void _addPhoneNumber(IWebRequest web, BCallback callback)
         {
             var postData = new Dictionary<string, string>();
             postData["op"] = "add_phone_number";
@@ -256,7 +258,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             });
         }
 
-        private void _hasPhoneAttached(SteamWeb web, BCallback callback)
+        private void _hasPhoneAttached(IWebRequest web, BCallback callback)
         {
             var postData = new Dictionary<string, string>();
             postData["op"] = "has_phone";

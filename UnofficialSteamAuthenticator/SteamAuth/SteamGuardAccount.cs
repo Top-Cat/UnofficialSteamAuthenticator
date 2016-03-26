@@ -80,12 +80,12 @@ namespace UnofficialSteamAuthenticator.SteamAuth
 
             try
             {
-                web.MobileLoginRequest(res =>
+                web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, res =>
                 {
                     var removeResponse = JsonConvert.DeserializeObject<WebResponse<SuccessResponse>>(res);
 
                     callback(!(removeResponse == null || removeResponse.Response == null || !removeResponse.Response.Success));
-                }, APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData);
+                });
             }
             catch (Exception)
             {

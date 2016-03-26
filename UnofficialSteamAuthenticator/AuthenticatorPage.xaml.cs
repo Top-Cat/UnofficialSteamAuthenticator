@@ -10,6 +10,7 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class AuthenticatorPage
     {
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private AuthenticatorLinker linker;
 
         public AuthenticatorPage()
@@ -40,7 +41,7 @@ namespace UnofficialSteamAuthenticator
             {
                 LinkedAccount = Storage.GetSteamGuardAccount()
             };
-            this.linker.AddAuthenticator(((App) Application.Current).SteamWeb, this.LinkResponse);
+            this.linker.AddAuthenticator(web, this.LinkResponse);
         }
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
@@ -53,7 +54,7 @@ namespace UnofficialSteamAuthenticator
             if (this.PhoneNumGrid.Visibility == Visibility.Visible)
             {
                 this.linker.PhoneNumber = this.FilterPhoneNumber(this.PhoneNum.Text);
-                this.linker.AddAuthenticator(((App) Application.Current).SteamWeb, this.LinkResponse);
+                this.linker.AddAuthenticator(web, this.LinkResponse);
             }
             else if (this.RevocationGrid.Visibility == Visibility.Visible)
             {
@@ -63,42 +64,43 @@ namespace UnofficialSteamAuthenticator
             }
             else if (this.SmsGrid.Visibility == Visibility.Visible)
             {
-                this.linker.FinalizeAddAuthenticator(((App) Application.Current).SteamWeb, async response =>
+                this.linker.FinalizeAddAuthenticator(this.web, this.SmsCode.Text, async response =>
                 {
                     await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         this.FinaliseResponse(response);
                     });
-                }, this.SmsCode.Text);
+                });
             }
         }
 
         private async void FinaliseResponse(AuthenticatorLinker.FinalizeResult response)
         {
-            if (response == AuthenticatorLinker.FinalizeResult.BadSMSCode)
+            switch (response)
             {
-                this.ErrorLabel.Text = StringResourceLoader.GetString("BadCode");
-                this.SmsCode.Text = string.Empty;
-                this.Progress.Visibility = Visibility.Collapsed;
-                this.BtnContinue.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
-            }
-            else if (response == AuthenticatorLinker.FinalizeResult.UnableToGenerateCorrectCodes || response == AuthenticatorLinker.FinalizeResult.GeneralFailure)
-            {
-                // Go back to main app screen on unknown failure
+                case AuthenticatorLinker.FinalizeResult.BadSMSCode:
+                    this.ErrorLabel.Text = StringResourceLoader.GetString("BadCode");
+                    this.SmsCode.Text = string.Empty;
+                    this.Progress.Visibility = Visibility.Collapsed;
+                    this.BtnContinue.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
+                    break;
+                case AuthenticatorLinker.FinalizeResult.UnableToGenerateCorrectCodes:
+                case AuthenticatorLinker.FinalizeResult.GeneralFailure:
+                    // Go back to main app screen on unknown failure
 
-                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message"))
-                {
-                    Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
-                };
-                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
-                await dialog.ShowAsync();
+                    var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message"))
+                    {
+                        Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
+                    };
+                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
+                    await dialog.ShowAsync();
 
-                this.Frame.Navigate(typeof(MainPage));
-            }
-            else if (response == AuthenticatorLinker.FinalizeResult.Success)
-            {
-                Storage.PushStore(this.linker.LinkedAccount);
-                this.Frame.Navigate(typeof(MainPage));
+                    this.Frame.Navigate(typeof(MainPage));
+                    break;
+                case AuthenticatorLinker.FinalizeResult.Success:
+                    Storage.PushStore(this.linker.LinkedAccount);
+                    this.Frame.Navigate(typeof(MainPage));
+                    break;
             }
         }
 
@@ -107,43 +109,41 @@ namespace UnofficialSteamAuthenticator
             bool firstRun = this.PhoneNumGrid.Visibility == Visibility.Collapsed;
             this.Progress.Visibility = this.ErrorLabel.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = Visibility.Collapsed;
 
-            if (linkResponse == AuthenticatorLinker.LinkResult.MustProvidePhoneNumber)
+            switch (linkResponse)
             {
-                this.ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
-                if (!firstRun)
-                {
-                    this.ErrorLabel.Visibility = Visibility.Visible;
-                }
-                this.PhoneNum.Text = string.Empty;
-                this.PhoneNumGrid.Visibility = Visibility.Visible;
-            }
-            else if (linkResponse == AuthenticatorLinker.LinkResult.MustRemovePhoneNumber)
-            {
-                this.PhoneNum.Text = string.Empty;
-                this.linker.PhoneNumber = string.Empty;
-                this.linker.AddAuthenticator(((App) Application.Current).SteamWeb, this.LinkResponse);
-            }
-            else if (linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure || linkResponse == AuthenticatorLinker.LinkResult.AuthenticatorPresent)
-            {
-                // Possibly because of rate limiting etc, force user to start process again manually
+                case AuthenticatorLinker.LinkResult.MustProvidePhoneNumber:
+                    this.ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
+                    if (!firstRun)
+                    {
+                        this.ErrorLabel.Visibility = Visibility.Visible;
+                    }
+                    this.PhoneNum.Text = string.Empty;
+                    this.PhoneNumGrid.Visibility = Visibility.Visible;
+                    break;
+                case AuthenticatorLinker.LinkResult.MustRemovePhoneNumber:
+                    this.PhoneNum.Text = string.Empty;
+                    this.linker.PhoneNumber = string.Empty;
+                    this.linker.AddAuthenticator(web, this.LinkResponse);
+                    break;
+                case AuthenticatorLinker.LinkResult.GeneralFailure:
+                case AuthenticatorLinker.LinkResult.AuthenticatorPresent:
+                    // Possibly because of rate limiting etc, force user to start process again manually
 
-                var dialog = new MessageDialog(linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure
-                    ? StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message")
-                    : StringResourceLoader.GetString("Authenticator_Link_AlreadyLinked_Message"))
-                {
-                    Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
-                };
-                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
-                await dialog.ShowAsync();
+                    var dialog = new MessageDialog(linkResponse == AuthenticatorLinker.LinkResult.GeneralFailure ? StringResourceLoader.GetString("Authenticator_Link_UnknownError_Message") : StringResourceLoader.GetString("Authenticator_Link_AlreadyLinked_Message"))
+                    {
+                        Title = StringResourceLoader.GetString("Authenticator_Link_UnknownError_Title")
+                    };
+                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
+                    await dialog.ShowAsync();
 
-                this.Frame.Navigate(typeof(MainPage));
-            }
-            else if (linkResponse == AuthenticatorLinker.LinkResult.AwaitingFinalization)
-            {
-                Storage.PushStore(this.linker.LinkedAccount);
+                    this.Frame.Navigate(typeof(MainPage));
+                    break;
+                case AuthenticatorLinker.LinkResult.AwaitingFinalization:
+                    Storage.PushStore(this.linker.LinkedAccount);
 
-                this.RevocationGrid.Visibility = Visibility.Visible;
-                this.RevocationCode.Text = this.linker.LinkedAccount.RevocationCode;
+                    this.RevocationGrid.Visibility = Visibility.Visible;
+                    this.RevocationCode.Text = this.linker.LinkedAccount.RevocationCode;
+                    break;
             }
 
             this.BtnContinue.Visibility = Visibility.Visible;

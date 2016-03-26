@@ -19,9 +19,24 @@ namespace UnofficialSteamAuthenticator.SteamAuth
         /// <param name="data">Name-data pairs</param>
         /// <param name="cookies">current cookie container</param>
         /// <returns>response body</returns>
-        public void MobileLoginRequest(Callback callback, string url, string method, Dictionary<string, string> data = null, CookieContainer cookies = null, WebHeaderCollection headers = null)
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, Callback callback)
         {
             Request(url, method, data, cookies, headers, APIEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", callback);
+        }
+
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, Callback callback)
+        {
+            MobileLoginRequest(url, method, data, cookies, null, callback);
+        }
+
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, Callback callback)
+        {
+            MobileLoginRequest(url, method, data, null, callback);
+        }
+
+        public void MobileLoginRequest(string url, string method, Callback callback)
+        {
+            MobileLoginRequest(url, method, null, callback);
         }
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, string referer, Callback callback)
