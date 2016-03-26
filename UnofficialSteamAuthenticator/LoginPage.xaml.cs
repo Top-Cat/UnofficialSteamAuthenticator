@@ -11,8 +11,8 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class LoginPage
     {
-        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private readonly Dictionary<LoginResult, string> responses = new Dictionary<LoginResult, string>();
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private UserLogin userLogin;
 
         public LoginPage()

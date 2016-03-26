@@ -13,17 +13,16 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
-using SteamAuth;
 using Newtonsoft.Json;
+using SteamAuth;
 using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator
 {
     public sealed partial class MainPage
     {
-        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
-
         private const string ChatUrl = "https://steamcommunity.com/chat";
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private SteamGuardAccount account;
         private string confUrl = string.Empty;
         private string confWebUrl = string.Empty;
@@ -213,8 +212,8 @@ namespace UnofficialSteamAuthenticator
 
             this.AccountText.Text = string.Format(
                 StringResourceLoader.GetString("MainPage_AccountText_Format"),
-                (this.account.DisplayName ?? string.Empty),
-                (this.account.AccountName ?? this.account.Session.Username ?? string.Empty)
+                this.account.DisplayName ?? string.Empty,
+                this.account.AccountName ?? this.account.Session.Username ?? string.Empty
             );
 
             this.SteamGuardGrid.Visibility = Visibility.Visible;
@@ -262,7 +261,10 @@ namespace UnofficialSteamAuthenticator
 
             foreach (Cookie c in cookies.GetCookies(SteamWeb.uri))
             {
-                var cookie = new HttpCookie(c.Name, c.Domain, c.Path) { Value = c.Value };
+                var cookie = new HttpCookie(c.Name, c.Domain, c.Path)
+                {
+                    Value = c.Value
+                };
                 filter.CookieManager.SetCookie(cookie, false);
             }
 

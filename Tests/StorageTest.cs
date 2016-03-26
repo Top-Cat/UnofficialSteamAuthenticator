@@ -1,15 +1,15 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.Storage;
-using UnofficialSteamAuthenticator;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using SteamAuth;
+using UnofficialSteamAuthenticator;
 
 namespace UnofficalSteamAuthenticator.Tests
 {
     [TestClass]
     public class StorageTest
     {
-        readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+        private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
         private readonly ulong testSteamid = 7656119800000000L;
 
         [TestInitialize]

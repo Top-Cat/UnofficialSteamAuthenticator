@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnofficalSteamAuthenticator.Tests.Mock
 {
     public class Mock
     {
         public delegate void MethodName([CallerMemberName] string method = "");
+
         public delegate T MethodName<out T>([CallerMemberName] string method = "");
 
         private readonly Dictionary<string, List<List<object>>> calls = new Dictionary<string, List<List<object>>>();
@@ -57,7 +56,7 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
         private static bool CheckResponse(IReadOnlyList<object> args, IEnumerable<object> key)
         {
             var i = 0;
-            return key.All(param => (++i >= args.Count || param.Equals(args[i - 1])));
+            return key.All(param => ++i >= args.Count || param.Equals(args[i - 1]));
         }
     }
 }

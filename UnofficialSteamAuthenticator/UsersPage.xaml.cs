@@ -15,9 +15,8 @@ namespace UnofficialSteamAuthenticator
 {
     public sealed partial class UsersPage
     {
-        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
-
         private readonly Dictionary<ulong, User> listElems = new Dictionary<ulong, User>();
+        private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private Storyboard storyboard;
 
         public UsersPage()
