@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
 {
     [TestClass]
-    internal class UtilTest
+    public class UtilTest
     {
         [TestMethod]
         public void TestTime()

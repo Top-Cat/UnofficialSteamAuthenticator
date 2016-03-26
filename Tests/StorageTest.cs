@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Windows.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 using UnofficialSteamAuthenticator;
 
 namespace UnofficalSteamAuthenticator.Tests

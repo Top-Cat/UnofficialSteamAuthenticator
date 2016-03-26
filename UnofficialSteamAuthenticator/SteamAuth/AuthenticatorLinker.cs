@@ -1,15 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using UnofficialSteamAuthenticator.Models;
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
+using UnofficialSteamAuthenticator.Models.SteamAuth;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
 
     /// <summary>
@@ -88,7 +86,7 @@ namespace SteamAuth
                             return;
                         }
 
-                        var addAuthenticatorResponse = JsonConvert.DeserializeObject<AddAuthenticatorResponse>(response);
+                        var addAuthenticatorResponse = JsonConvert.DeserializeObject<WebResponse<SteamGuardAccount>>(response);
                         if (addAuthenticatorResponse == null || addAuthenticatorResponse.Response == null)
                         {
                             callback(LinkResult.GeneralFailure);
@@ -149,7 +147,7 @@ namespace SteamAuth
                     return;
                 }
 
-                var finalizeResponse = JsonConvert.DeserializeObject<FinalizeAuthenticatorResponse>(response);
+                var finalizeResponse = JsonConvert.DeserializeObject<WebResponse<FinalizeAuthenticatorResponse>>(response);
 
                 if (finalizeResponse == null || finalizeResponse.Response == null)
                 {
@@ -235,7 +233,7 @@ namespace SteamAuth
                     return;
                 }
 
-                var addPhoneNumberResponse = JsonConvert.DeserializeObject<AddPhoneResponse>(response);
+                var addPhoneNumberResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
                 callback(addPhoneNumberResponse.Success);
             });
         }
@@ -255,7 +253,7 @@ namespace SteamAuth
                     return;
                 }
 
-                var addPhoneNumberResponse = JsonConvert.DeserializeObject<AddPhoneResponse>(response);
+                var addPhoneNumberResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
                 callback(addPhoneNumberResponse.Success);
             });
         }
@@ -295,45 +293,6 @@ namespace SteamAuth
             UnableToGenerateCorrectCodes,
             Success,
             GeneralFailure
-        }
-
-        private class AddAuthenticatorResponse
-        {
-            [JsonProperty("response")]
-            public SteamGuardAccount Response { get; set; }
-        }
-
-        private class FinalizeAuthenticatorResponse
-        {
-            [JsonProperty("response")]
-            public FinalizeAuthenticatorInternalResponse Response { get; set; }
-
-            internal class FinalizeAuthenticatorInternalResponse
-            {
-                [JsonProperty("status")]
-                public int Status { get; set; }
-
-                [JsonProperty("server_time")]
-                public long ServerTime { get; set; }
-
-                [JsonProperty("want_more")]
-                public bool WantMore { get; set; }
-
-                [JsonProperty("success")]
-                public bool Success { get; set; }
-            }
-        }
-
-        private class HasPhoneResponse
-        {
-            [JsonProperty("has_phone")]
-            public bool HasPhone { get; set; }
-        }
-
-        private class AddPhoneResponse
-        {
-            [JsonProperty("success")]
-            public bool Success { get; set; }
         }
 
         public static string GenerateDeviceID()

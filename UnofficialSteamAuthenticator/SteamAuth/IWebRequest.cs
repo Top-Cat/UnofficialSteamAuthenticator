@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
     public interface IWebRequest
     {

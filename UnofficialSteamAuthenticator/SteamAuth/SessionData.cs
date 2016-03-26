@@ -1,25 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Net;
-using Windows.Storage;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
     public class SessionData
     {
         public string SessionID { get; set; }
-
         public string Username { get; set; }
-
         public string SteamLogin { get; set; }
-
         public string SteamLoginSecure { get; set; }
-
         public string WebCookie { get; set; }
-
         public string OAuthToken { get; set; }
-
         public ulong SteamID { get; set; }
 
         public void AddCookies(CookieContainer cookies)

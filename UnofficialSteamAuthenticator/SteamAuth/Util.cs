@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Net;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
     public class Util
     {

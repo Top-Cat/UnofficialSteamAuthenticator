@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text;
-using System.Threading;
-using Windows.Web.Http;
-using Windows.Web.Http.Headers;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
 
     public class SteamWeb : IWebRequest

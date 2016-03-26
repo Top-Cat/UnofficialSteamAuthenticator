@@ -1,18 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.RegularExpressions;
+using UnofficialSteamAuthenticator.Models;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
-using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.Web.Http;
+using UnofficialSteamAuthenticator.Models.SteamAuth;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
 
     public class SteamGuardAccount
@@ -83,7 +82,7 @@ namespace SteamAuth
             {
                 web.MobileLoginRequest(res =>
                 {
-                    var removeResponse = JsonConvert.DeserializeObject<RemoveAuthenticatorResponse>(res);
+                    var removeResponse = JsonConvert.DeserializeObject<WebResponse<SuccessResponse>>(res);
 
                     callback(!(removeResponse == null || removeResponse.Response == null || !removeResponse.Response.Success));
                 }, APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData);
@@ -233,7 +232,7 @@ namespace SteamAuth
 
                 try
                 {
-                    var refreshResponse = JsonConvert.DeserializeObject<RefreshSessionDataResponse>(response);
+                    var refreshResponse = JsonConvert.DeserializeObject<WebResponse<RefreshSessionDataResponse>>(response);
                     if (refreshResponse == null || refreshResponse.Response == null || String.IsNullOrEmpty(refreshResponse.Response.Token))
                     {
                         callback(false);
@@ -276,7 +275,7 @@ namespace SteamAuth
                         return;
                     }
 
-                    SendConfirmationResponse confResponse = JsonConvert.DeserializeObject<SendConfirmationResponse>(response);
+                    SuccessResponse confResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
                     callback(confResponse.Success);
                 });
             });
@@ -356,12 +355,12 @@ namespace SteamAuth
                 }
 
                 Regex tradeOfferIDRegex = new Regex("<div class=\"tradeoffer\" id=\"tradeofferid_(\\d+)\" >");
-                if (!tradeOfferIDRegex.IsMatch(confDetails.HTML))
+                if (!tradeOfferIDRegex.IsMatch(confDetails.Html))
                 {
                     callback(-1);
                     return;
                 }
-                callback(long.Parse(tradeOfferIDRegex.Match(confDetails.HTML).Groups[1].Value));
+                callback(long.Parse(tradeOfferIDRegex.Match(confDetails.Html).Groups[1].Value));
             });
         }
 
@@ -389,52 +388,6 @@ namespace SteamAuth
                     });
                 });
             });
-        }
-
-        //TODO: Determine how to detect an invalid session.
-        public class WGTokenInvalidException : Exception
-        {
-        }
-
-        private class RefreshSessionDataResponse
-        {
-            [JsonProperty("response")]
-            public RefreshSessionDataInternalResponse Response { get; set; }
-            internal class RefreshSessionDataInternalResponse
-            {
-                [JsonProperty("token")]
-                public string Token { get; set; }
-
-                [JsonProperty("token_secure")]
-                public string TokenSecure { get; set; }
-            }
-        }
-
-        private class RemoveAuthenticatorResponse
-        {
-            [JsonProperty("response")]
-            public RemoveAuthenticatorInternalResponse Response { get; set; }
-
-            internal class RemoveAuthenticatorInternalResponse
-            {
-                [JsonProperty("success")]
-                public bool Success { get; set; }
-            }
-        }
-
-        private class SendConfirmationResponse
-        {
-            [JsonProperty("success")]
-            public bool Success { get; set; }
-        }
-
-        private class ConfirmationDetailsResponse
-        {
-            [JsonProperty("success")]
-            public bool Success { get; set; }
-
-            [JsonProperty("html")]
-            public string HTML { get; set; }
         }
     }
 }

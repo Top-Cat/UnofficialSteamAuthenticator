@@ -1,11 +1,4 @@
-﻿using SteamAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SteamAuth
+﻿namespace UnofficialSteamAuthenticator.SteamAuth
 {
     public delegate void FinalizeCallback(AuthenticatorLinker.FinalizeResult result);
     public delegate void LinkCallback(AuthenticatorLinker.LinkResult response);

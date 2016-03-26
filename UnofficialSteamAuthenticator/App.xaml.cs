@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 
 // The WebView Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 

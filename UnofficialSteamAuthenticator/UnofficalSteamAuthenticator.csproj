@@ -93,6 +93,8 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Avatar.cs" />
+    <Compile Include="Models\TimeQueryResponse.cs" />
+    <Compile Include="Models\WebResponse.cs" />
     <Compile Include="SteamAuth\IWebRequest.cs" />
     <Compile Include="StringResourceLoader.cs" />
     <Compile Include="Models\ModelBase.cs" />
@@ -221,7 +223,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <None Include="SteamAuth\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

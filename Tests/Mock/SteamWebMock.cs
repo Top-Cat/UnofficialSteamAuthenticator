@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.Mock
 {

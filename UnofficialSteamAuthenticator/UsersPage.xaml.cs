@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator

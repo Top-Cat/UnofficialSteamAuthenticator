@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SteamAuth
+﻿namespace UnofficialSteamAuthenticator.SteamAuth
 {
     public class Confirmation
     {
@@ -16,7 +10,7 @@ namespace SteamAuth
         {
             get
             {
-                if (String.IsNullOrEmpty(Description)) return ConfirmationType.Unknown;
+                if (string.IsNullOrEmpty(Description)) return ConfirmationType.Unknown;
                 if (Description.StartsWith("Confirm ")) return ConfirmationType.GenericConfirmation;
                 if (Description.StartsWith("Trade with ")) return ConfirmationType.Trade;
                 if (Description.StartsWith("Sell -")) return ConfirmationType.MarketSellTransaction;
