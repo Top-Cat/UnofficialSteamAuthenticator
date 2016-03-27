@@ -5,14 +5,11 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Net;
 using System.Text;
-using Windows.Security.Cryptography;
-using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
+using UnofficialSteamAuthenticator.Models.SteamAuth;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
 
     /// <summary>
@@ -54,7 +51,7 @@ namespace SteamAuth
             Callback hasCookies = res =>
             {
                 postData.Add("username", this.Username);
-                web.MobileLoginRequest(rsaRawResponse =>
+                web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, rsaRawResponse =>
                 {
                     if (rsaRawResponse == null || rsaRawResponse.Contains("<BODY>\nAn error occurred while processing your request."))
                     {
@@ -99,7 +96,7 @@ namespace SteamAuth
                     postData.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
                     postData.Add("donotcache", Util.GetSystemUnixTime().ToString());
 
-                    web.MobileLoginRequest(rawLoginResponse =>
+                    web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, rawLoginResponse =>
                     {
                         LoginResponse loginResponse = null;
 
@@ -123,7 +120,7 @@ namespace SteamAuth
                         if (loginResponse.CaptchaNeeded)
                         {
                             this.RequiresCaptcha = true;
-                            this.CaptchaGID = loginResponse.CaptchaGID;
+                            this.CaptchaGID = loginResponse.CaptchaGid;
                             callback(LoginResult.NeedCaptcha);
                             return;
                         }
@@ -131,7 +128,7 @@ namespace SteamAuth
                         if (loginResponse.EmailAuthNeeded)
                         {
                             this.RequiresEmail = true;
-                            this.SteamID = loginResponse.EmailSteamID;
+                            this.SteamID = loginResponse.EmailSteamId;
                             callback(LoginResult.NeedEmail);
                             return;
                         }
@@ -167,7 +164,7 @@ namespace SteamAuth
 
                             SessionData session = new SessionData();
                             session.OAuthToken = oAuthData.OAuthToken;
-                            session.SteamID = oAuthData.SteamID;
+                            session.SteamID = oAuthData.SteamId;
                             session.SteamLogin = session.SteamID + "%7C%7C" + oAuthData.SteamLogin;
                             session.SteamLoginSecure = session.SteamID + "%7C%7C" + oAuthData.SteamLoginSecure;
                             session.WebCookie = oAuthData.Webcookie;
@@ -178,8 +175,8 @@ namespace SteamAuth
                             callback(LoginResult.LoginOkay);
                             return;
                         }
-                    }, APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies);
-                }, APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies);
+                    });
+                });
             };
 
             if (cookies.Count == 0)
@@ -193,85 +190,11 @@ namespace SteamAuth
                 WebHeaderCollection headers = new WebHeaderCollection();
                 headers["X-Requested-With"] = "com.valvesoftware.android.steam.community";
 
-                web.MobileLoginRequest(hasCookies, url, "GET", null, cookies, headers);
+                web.MobileLoginRequest(url, "GET", null, cookies, headers, hasCookies);
             } else
             {
                 hasCookies("");
             }
-        }
-
-        private class LoginResponse
-        {
-            [JsonProperty("success")]
-            public bool Success { get; set; }
-
-            [JsonProperty("login_complete")]
-            public bool LoginComplete { get; set; }
-
-            [JsonProperty("oauth")]
-            public string OAuthDataString { get; set; }
-
-            public OAuth OAuthData
-            {
-                get
-                {
-                    return OAuthDataString != null ? JsonConvert.DeserializeObject<OAuth>(OAuthDataString) : null;
-                }
-            }
-
-            [JsonProperty("captcha_needed")]
-            public bool CaptchaNeeded { get; set; }
-
-            [JsonProperty("captcha_gid")]
-            public string CaptchaGID { get; set; }
-
-            [JsonProperty("emailsteamid")]
-            public ulong EmailSteamID { get; set; }
-
-            [JsonProperty("emailauth_needed")]
-            public bool EmailAuthNeeded { get; set; }
-
-            [JsonProperty("requires_twofactor")]
-            public bool TwoFactorNeeded { get; set; }
-
-            [JsonProperty("message")]
-            public string Message { get; set; }
-
-            internal class OAuth
-            {
-                [JsonProperty("steamid")]
-                public ulong SteamID { get; set; }
-
-                [JsonProperty("oauth_token")]
-                public string OAuthToken { get; set; }
-                
-                [JsonProperty("wgtoken")]
-                public string SteamLogin { get; set; }
-
-                [JsonProperty("wgtoken_secure")]
-                public string SteamLoginSecure { get; set; }
-
-                [JsonProperty("webcookie")]
-                public string Webcookie { get; set; }
-            }
-        }
-
-        private class RSAResponse
-        {
-            [JsonProperty("success")]
-            public bool Success { get; set; }
-
-            [JsonProperty("publickey_exp")]
-            public string Exponent { get; set; }
-
-            [JsonProperty("publickey_mod")]
-            public string Modulus { get; set; }
-
-            [JsonProperty("timestamp")]
-            public string Timestamp { get; set; }
-
-            [JsonProperty("steamid")]
-            public ulong SteamID { get; set; }
         }
     }
 

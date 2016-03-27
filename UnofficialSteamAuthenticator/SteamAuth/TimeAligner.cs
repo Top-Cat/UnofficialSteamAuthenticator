@@ -1,27 +1,27 @@
-﻿using System.Net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using UnofficialSteamAuthenticator.Models;
+using UnofficialSteamAuthenticator.Models.SteamAuth;
 
-namespace SteamAuth
+namespace UnofficialSteamAuthenticator.SteamAuth
 {
-
     /// <summary>
-    /// Class to help align system time with the Steam server time. Not super advanced; probably not taking some things into account that it should.
-    /// Necessary to generate up-to-date codes. In general, this will have an error of less than a second, assuming Steam is operational.
+    ///     Class to help align system time with the Steam server time. Not super advanced; probably not taking some things into account that it should.
+    ///     Necessary to generate up-to-date codes. In general, this will have an error of less than a second, assuming Steam is operational.
     /// </summary>
     public class TimeAligner
     {
-        private static bool _aligned = false;
-        private static int _timeDifference = 0;
+        private static bool _aligned;
+        private static int _timeDifference;
 
         public static void GetSteamTime(IWebRequest web, LongCallback callback)
         {
-            if (TimeAligner._aligned)
+            if (_aligned)
             {
                 callback(Util.GetSystemUnixTime() + _timeDifference);
                 return;
             }
 
-            TimeAligner.AlignTime(web, response =>
+            AlignTime(web, response =>
             {
                 callback(Util.GetSystemUnixTime() + _timeDifference);
             });
@@ -34,28 +34,17 @@ namespace SteamAuth
             {
                 if (response != null)
                 {
-                    TimeQuery query = JsonConvert.DeserializeObject<TimeQuery>(response);
-                    TimeAligner._timeDifference = (int)(query.Response.ServerTime - currentTime);
-                    TimeAligner._aligned = true;
+                    var query = JsonConvert.DeserializeObject<WebResponse<TimeQueryResponse>>(response);
+                    _timeDifference = (int) (query.Response.ServerTime - currentTime);
+                    _aligned = true;
 
                     callback(true);
-                } else {
+                }
+                else
+                {
                     callback(false);
                 }
             });
-        }
-
-        internal class TimeQuery
-        {
-            [JsonProperty("response")]
-            internal TimeQueryResponse Response { get; set; }
-
-            internal class TimeQueryResponse
-            {
-                [JsonProperty("server_time")]
-                public long ServerTime { get; set; }
-            }
-            
         }
     }
 }

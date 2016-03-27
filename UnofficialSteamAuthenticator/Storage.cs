@@ -2,7 +2,7 @@
 using System.Linq;
 using Windows.Storage;
 using Newtonsoft.Json;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 
 namespace UnofficialSteamAuthenticator
 {

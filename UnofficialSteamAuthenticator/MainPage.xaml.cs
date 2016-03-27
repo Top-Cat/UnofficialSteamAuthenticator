@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Newtonsoft.Json;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator

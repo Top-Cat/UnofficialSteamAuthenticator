@@ -1,4 +1,4 @@
-﻿using SteamAuth;
+﻿using UnofficialSteamAuthenticator.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Models
 {

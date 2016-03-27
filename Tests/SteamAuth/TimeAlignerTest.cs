@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using SteamAuth;
+using UnofficialSteamAuthenticator.SteamAuth;
 using UnofficalSteamAuthenticator.Tests.Mock;
 
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
