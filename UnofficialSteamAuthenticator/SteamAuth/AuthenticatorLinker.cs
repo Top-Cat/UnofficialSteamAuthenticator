@@ -28,7 +28,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
         /// <summary>
         /// After the initial link step, if successful, this will be the SteamGuard data for the account. PLEASE save this somewhere after generating it; it's vital data.
         /// </summary>
-        public SteamGuardAccount LinkedAccount { get; set; }
+        public ISteamSecrets LinkedAccount { get; set; }
 
         /// <summary>
         /// True if the authenticator has been fully finalized.
@@ -123,7 +123,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             });
         }
 
-        public void FinalizeAddAuthenticator(SteamWeb web, string smsCode, FinalizeCallback callback)
+        public void FinalizeAddAuthenticator(IWebRequest web, string smsCode, FinalizeCallback callback)
         {
             var postData = new Dictionary<string, string>();
             postData["steamid"] = _session.SteamID.ToString();
@@ -219,7 +219,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             }
         }
 
-        private void _checkSMSCode(SteamWeb web, string smsCode, BCallback callback)
+        private void _checkSMSCode(IWebRequest web, string smsCode, BCallback callback)
         {
             var postData = new Dictionary<string, string>();
             postData["op"] = "check_sms_code";

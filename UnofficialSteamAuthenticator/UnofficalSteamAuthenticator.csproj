@@ -103,6 +103,7 @@
     <Compile Include="Models\SteamAuth\SuccessResponse.cs" />
     <Compile Include="Models\SteamAuth\TimeQueryResponse.cs" />
     <Compile Include="Models\WebResponse.cs" />
+    <Compile Include="SteamAuth\ISteamSecrets.cs" />
     <Compile Include="SteamAuth\IWebRequest.cs" />
     <Compile Include="SteamAuth\WGTokenInvalidException.cs" />
     <Compile Include="StringResourceLoader.cs" />

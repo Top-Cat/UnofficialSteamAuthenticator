@@ -98,7 +98,7 @@ namespace UnofficialSteamAuthenticator
                     this.Frame.Navigate(typeof(MainPage));
                     break;
                 case AuthenticatorLinker.FinalizeResult.Success:
-                    Storage.PushStore(this.linker.LinkedAccount);
+                    this.linker.LinkedAccount.PushStore();
                     this.Frame.Navigate(typeof(MainPage));
                     break;
             }
@@ -139,7 +139,7 @@ namespace UnofficialSteamAuthenticator
                     this.Frame.Navigate(typeof(MainPage));
                     break;
                 case AuthenticatorLinker.LinkResult.AwaitingFinalization:
-                    Storage.PushStore(this.linker.LinkedAccount);
+                    this.linker.LinkedAccount.PushStore();
 
                     this.RevocationGrid.Visibility = Visibility.Visible;
                     this.RevocationCode.Text = this.linker.LinkedAccount.RevocationCode;

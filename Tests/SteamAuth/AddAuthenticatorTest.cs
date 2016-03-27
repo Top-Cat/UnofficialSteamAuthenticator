@@ -10,7 +10,7 @@ using UnofficialSteamAuthenticator.SteamAuth;
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
 {
     [TestClass]
-    public class AuthenticationLinkerTest
+    public class AddAuthenticatorTest
     {
         private readonly SessionData sessionData;
         private AuthenticatorLinker linker;
@@ -20,7 +20,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
         private readonly Func<Dictionary<string, string>, bool> checkAddPhone;
         private readonly Func<Dictionary<string, string>, bool> checkAddAuthenticator;
 
-        public AuthenticationLinkerTest()
+        public AddAuthenticatorTest()
         {
             this.sessionData = new SessionData()
             {
@@ -115,7 +115,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             // Should try and add phone
             Assert.AreEqual(1, mock.CallCount("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator));
 
-            var mockB = mock.Clone();
+            var mockB = (SteamWebMock) mock.Clone();
             mock.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{}");
 
             this.linker.AddAuthenticator(mock, response =>
@@ -123,9 +123,9 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
                 Assert.AreEqual(AuthenticatorLinker.LinkResult.GeneralFailure, response);
             });
 
-            mock.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 0}}");
+            mockB.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 0}}");
 
-            this.linker.AddAuthenticator(mock, response =>
+            this.linker.AddAuthenticator(mockB, response =>
             {
                 Assert.AreEqual(AuthenticatorLinker.LinkResult.GeneralFailure, response);
             });

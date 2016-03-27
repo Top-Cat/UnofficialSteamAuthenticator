@@ -14,7 +14,7 @@ using UnofficialSteamAuthenticator.Models.SteamAuth;
 namespace UnofficialSteamAuthenticator.SteamAuth
 {
 
-    public class SteamGuardAccount
+    public class SteamGuardAccount : ISteamSecrets
     {
         [JsonProperty("shared_secret")]
         public string SharedSecret { get; set; }
@@ -99,7 +99,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             DeactivateAuthenticator(web, 2, callback);
         }
 
-        public void GenerateSteamGuardCode(SteamWeb web, Callback callback)
+        public void GenerateSteamGuardCode(IWebRequest web, Callback callback)
         {
             TimeAligner.GetSteamTime(web, time =>
             {
@@ -388,6 +388,11 @@ namespace UnofficialSteamAuthenticator.SteamAuth
                     });
                 });
             });
+        }
+
+        public void PushStore()
+        {
+            Storage.PushStore(this);
         }
     }
 }

@@ -74,8 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mock\Mock.cs" />
+    <Compile Include="Mock\SteamGuardAccountMock.cs" />
     <Compile Include="Mock\SteamWebMock.cs" />
-    <Compile Include="SteamAuth\AuthenticationLinkerTest.cs" />
+    <Compile Include="SteamAuth\FinalizeAddAuthenticatorTest.cs" />
+    <Compile Include="SteamAuth\AddAuthenticatorTest.cs" />
     <Compile Include="SteamAuth\TimeAlignerTest.cs" />
     <Compile Include="SteamAuth\UtilTest.cs" />
     <Compile Include="StorageTest.cs" />
