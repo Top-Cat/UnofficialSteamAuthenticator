@@ -1,26 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -31,181 +50,181 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>1.3</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Fehler</value>
+    <value>Błąd</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Konnte Authentifikator nicht trennen!</value>
+    <value>Nie udało się odłączyć mobilnego tokena!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Anuluj</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Bist Du sicher? Dies wird Deine Handelsanfragen für 7 Tage blockieren.</value>
+    <value>Czy jesteś pewien? To spowoduje blokadę wymian na minimum 7 dni.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Trennen?</value>
+    <value>Odłączyć?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Konten</value>
+    <value>Konta</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Anmelden</value>
+    <value>Zaloguj</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Anmelden</value>
+    <value>Zaloguj</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Authentifikator hinzufügen</value>
+    <value>Dodaj mobilny token</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Gebe Deine Handynummer in folgendem Format ein: +{00} Nummer. (Zum Beispiel: +49 123-456-7890).</value>
+    <value>Wpisz swój numer telefonu w następujący sposób: +{cC} numerTelefonu (tj. +48 123-456-789).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam Benutzername</value>
+    <value>Nazwa użytkownika Steam</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Passwort</value>
+    <value>Hasło</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Bist Du sicher? Dies wird das Konto auch aus der Benutzerliste entfernen.</value>
+    <value>Czy jesteś pewien? To spowoduje usunięcie konta także z listy.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Abmelden?</value>
+    <value>Wylogować?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Ja</value>
+    <value>Tak</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>Nein</value>
+    <value>Nie</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>E-Mail-Code eingeben</value>
+    <value>Wpisz kod otrzymany w e-mailu</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Bitte gib die Bestätigung ein</value>
+    <value>Wpisz znaki poniżej</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Bitte gib den Authentifizierungs-Code ein</value>
+    <value>Wpisz kod z mobilnego tokena</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Allgemeiner Fehler</value>
+    <value>Nieznany błąd</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Allgemeiner Fehler</value>
+    <value>Nieznany błąd</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Ungültige Daten</value>
+    <value>Nieprawidłowe dane logowania</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Zu viele Fehlversuche</value>
+    <value>Za dużo błędów</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Benötige 2FA</value>
+    <value>Potrzebny mobilny token urzytelniający</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Bist Du ein Mensch?</value>
+    <value>Czy jesteś człowiekiem?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Authentifikator verknüpfen</value>
-  </data>
-  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>Du musst dieses Gerät als Authentifikator verknüpfen, bevor Du Steam Guard-Codes erhalten oder Handelsbestätigungen durchführen kannst.</value>
+    <value>Połącz mobilny token</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Verknüpfen</value>
+    <value>Połącz</value>
+  </data>
+  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
+    <value>Musisz ustawić to urządzenie jako mobilny token urzytelniający zanim będziesz mógł otrzymywać kody lub potwierdzać wymiany.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>Kody</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Handelsanfragen</value>
+    <value>Potwierdzenia</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
     <value>Chat</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Konto wechseln</value>
+    <value>Zmień konto</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Abmelden</value>
+    <value>Wyloguj</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>Über</value>
+    <value>O aplikacji</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Trennen</value>
+    <value>Odłącz</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Fortfahren</value>
+    <value>Kontynuuj</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>SMS-Code eingeben</value>
+    <value>Wpisz kod z SMS-a</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Fehler</value>
+    <value>Błąd</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unbekannter Fehler beim Hinzufügen des Authentifikators.</value>
+    <value>Wystąpił nieznany błąd podczas łączenia mobilnego tokena z kontem.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Fehler</value>
+    <value>Błąd</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>Es ist bereits ein Authentifikator mit diesem Konto verknüpft. Entferne den bestehenden Authentifikator und versuche es erneut.</value>
+    <value>Już masz inne urządzenie połączone z tym kontem jako mobilny token. Odłącz go od konta i spróbuj ponownie.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Telefonnummer eingeben</value>
+    <value>Wpisz numer telefonu</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Ungültiger Code</value>
+    <value>Zły kod</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>Der Authentifikator wurde noch nicht verknüpft.
+    <value>Mobilny token nie został jeszcze połączony z kontem.
 
-Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!</value>
+Przed zakończeniem zapisz kod ratunkowy, na wypadek utraty telefonu.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!
+    <value>Będziesz potrzebować tego kodu aby odzyskać twoje konto Steam w wypadku utraty telefonu. NIE BĘDZIESZ MIAŁ PONOWNEJ MOŻLIWOŚCI ZAPISANIA TEGO KODU.
 
-Teile diesen Code mit niemandem.</value>
+Zapisz go i nikomu nie udostępniaj.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generiere Code...</value>
+    <value>Generowanie kodu...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App-Informationen</value>
+    <value>Informacje</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Wersja</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Entwickler</value>
+    <value>Twórca</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Quellcode</value>
+    <value>Źródło</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Hinzufügen</value>
+    <value>Dodaj</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Wechseln</value>
+    <value>Zmień</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobiler Steam-Authentifikator zur Anmeldung und dem Handel auf Steam</value>
+    <value>Mobile authenticator for logging in and trading on steam</value>
   </data>
 </root>

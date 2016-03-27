@@ -1,45 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -59,172 +59,172 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Fehler</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Не удалось отвязать аутентификатор!</value>
+    <value>Konnte Authentifikator nicht trennen!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Abbrechen</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Вы уверены? Это повлечёт задержку обмена как минимум на 7 дней.</value>
+    <value>Bist Du sicher? Dies wird Deine Handelsanfragen für 7 Tage blockieren.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Отвязать?</value>
+    <value>Trennen?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Аккаунты</value>
+    <value>Konten</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Логин</value>
+    <value>Anmelden</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Войти</value>
+    <value>Anmelden</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Добавить аутентификатор</value>
+    <value>Authentifikator hinzufügen</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Введите номер телефона в указаном формате: +{кодСтраны} номерТелефона (напр. +7 123-456-7890).</value>
+    <value>Gebe Deine Handynummer in folgendem Format ein: +{00} Nummer. (Zum Beispiel: +49 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Имя аккаунта Steam</value>
+    <value>Steam Benutzername</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Пароль</value>
+    <value>Passwort</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Вы уверены? Это действие также уберет аккаунт из списка пользователей.</value>
+    <value>Bist Du sicher? Dies wird das Konto auch aus der Benutzerliste entfernen.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Выйти?</value>
+    <value>Abmelden?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Да</value>
+    <value>Ja</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>Нет</value>
+    <value>Nein</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Введите код, присланный на почту</value>
+    <value>E-Mail-Code eingeben</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Введите символы</value>
+    <value>Bitte gib die Bestätigung ein</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Введите код подтверждения</value>
+    <value>Bitte gib den Authentifizierungs-Code ein</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Неизвестная ошибка</value>
+    <value>Allgemeiner Fehler</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Неизвестная ошибка</value>
+    <value>Allgemeiner Fehler</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Ошибка входа</value>
+    <value>Ungültige Daten</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Слишком много неудачных попыток входа</value>
+    <value>Zu viele Fehlversuche</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Требуется двухфакторная аутентификация</value>
+    <value>Benötige 2FA</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Вы человек?</value>
+    <value>Bist Du ein Mensch?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Привязать аутентификатор</value>
-  </data>
-  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>Необходимо настроить это устройство как аутентификатор прежде, чем вы сможете получать коды Steam Guard или подтверждать сделки.</value>
+    <value>Authentifikator verknüpfen</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Привязать</value>
+    <value>Verknüpfen</value>
+  </data>
+  <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
+    <value>Du musst dieses Gerät als Authentifikator verknüpfen, bevor Du Steam Guard-Codes erhalten oder Handelsbestätigungen durchführen kannst.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Steam Guard</value>
+    <value>Guard</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Подтвердить</value>
+    <value>Handelsanfragen</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
-    <value>Чат</value>
+    <value>Chat</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Сменить аккаунт</value>
+    <value>Konto wechseln</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Выйти</value>
+    <value>Abmelden</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>О программе</value>
+    <value>Über</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Открепить</value>
+    <value>Trennen</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Продолжить</value>
+    <value>Fortfahren</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Введите SMS-код</value>
+    <value>SMS-Code eingeben</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Fehler</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Неизвестная ошибка при привязке аутентификатора.</value>
+    <value>Unbekannter Fehler beim Hinzufügen des Authentifikators.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Fehler</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>Другое устройство уже настроено как аутентификатор. Удалите его из своего аккаунта и попробуйте снова.</value>
+    <value>Es ist bereits ein Authentifikator mit diesem Konto verknüpft. Entferne den bestehenden Authentifikator und versuche es erneut.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Введите номер телефона</value>
+    <value>Telefonnummer eingeben</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Неверный код</value>
+    <value>Ungültiger Code</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>Мобильный аутентификатор еще не привязан.
- 
-Прежде, чем завершить настройку аутентификатора, пожалуйста запишите код восстановления.</value>
+    <value>Der Authentifikator wurde noch nicht verknüpft.
+
+Bevor Du diesen Schritt beendest, schreibe Deinen Wiederherstellungscode auf!</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>Вам понадобится этот код, чтобы восстановить аккаунт Steam, в случае потери телефона. У вас не будет возможности вновь увидеть его после этого шага,  поэтому пожалуйста выпишите его отдельно.
+    <value>ACHTUNG: DIES IST DAS LETZTE MAL, DASS DU DIESEN CODE ZU GESICHT BEKOMMST!
 
-Никогда и никому не сообщайте этот код.</value>
+Teile diesen Code mit niemandem.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Генерация кода...</value>
+    <value>Generiere Code...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>Информация о приложении</value>
+    <value>App-Informationen</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Версия</value>
+    <value>Version</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Автор</value>
+    <value>Entwickler</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Источник</value>
+    <value>Quellcode</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Hinzufügen</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Сменить пользователя</value>
+    <value>Wechseln</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Мобильный аутентификатор для авторизации в Steam</value>
+    <value>Mobiler Steam-Authentifikator zur Anmeldung und dem Handel auf Steam</value>
   </data>
 </root>
