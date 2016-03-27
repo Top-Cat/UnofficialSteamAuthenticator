@@ -68,6 +68,13 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             {
                 Assert.AreEqual(AuthenticatorLinker.LinkResult.MustProvidePhoneNumber, response);
             });
+
+            this.linker.PhoneNumber = "";
+
+            this.linker.AddAuthenticator(mock, response =>
+            {
+                Assert.AreEqual(AuthenticatorLinker.LinkResult.MustProvidePhoneNumber, response);
+            });
         }
 
         [TestMethod]
@@ -113,17 +120,17 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             });
 
             // Should try and add phone
-            Assert.AreEqual(1, mock.CallCount("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator));
+            Assert.AreEqual(1, mock.CallCount("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator));
 
             var mockB = (SteamWebMock) mock.Clone();
-            mock.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{}");
+            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{}");
 
             this.linker.AddAuthenticator(mock, response =>
             {
                 Assert.AreEqual(AuthenticatorLinker.LinkResult.GeneralFailure, response);
             });
 
-            mockB.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 0}}");
+            mockB.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 0}}");
 
             this.linker.AddAuthenticator(mockB, response =>
             {
@@ -136,7 +143,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
         {
             var mock = new SteamWebMock();
             mock.WithArgs("Request", APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkHasPhone)("{has_phone: true}");
-            mock.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 29}}");
+            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)("{response: {status: 29}}");
 
             this.linker.AddAuthenticator(mock, response =>
             {
@@ -152,7 +159,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             var mock = new SteamWebMock();
             mock.WithArgs("Request", APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkHasPhone)("{has_phone: true}");
 
-            mock.WithArgs("Request", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)
+            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", this.checkAddAuthenticator)
                 ("{response: {status: 1, shared_secret: \"test-sharedsecret\", serial_number: \"test-serialnum\", revocation_code: \"test-revcode\", uri: \"test-uri\", server_time: " + testTime + ", " +
                  "account_name: \"test-accountname\", token_gid: \"test-tokengid\", identity_secret: \"test-identsecret\", secret_1: \"test-secret1\", " +
                  "device_id: \"test-deviceid\", fully_enrolled: true}}"); // Rogue values, should be ignored

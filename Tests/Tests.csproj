@@ -76,6 +76,7 @@
     <Compile Include="Mock\Mock.cs" />
     <Compile Include="Mock\SteamGuardAccountMock.cs" />
     <Compile Include="Mock\SteamWebMock.cs" />
+    <Compile Include="SteamAuth\ConfirmationTest.cs" />
     <Compile Include="SteamAuth\FinalizeAddAuthenticatorTest.cs" />
     <Compile Include="SteamAuth\AddAuthenticatorTest.cs" />
     <Compile Include="SteamAuth\TimeAlignerTest.cs" />

@@ -12,7 +12,10 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
 
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, Callback callback)
         {
-            this.Request(url, method, data, cookies, headers, APIEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", callback);
+            const string referer = APIEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client";
+
+            this.RegisterCall(url, method, data, cookies, headers, referer, callback)();
+            callback((string) this.GetResponse(url, method, data, cookies, headers, referer)());
         }
 
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, Callback callback)

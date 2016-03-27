@@ -51,12 +51,14 @@ namespace UnofficialSteamAuthenticator.SteamAuth
         {
             _hasPhoneAttached(web, hasPhone =>
             {
-                if (hasPhone && PhoneNumber != null)
+                bool settingNumber = !string.IsNullOrEmpty(this.PhoneNumber);
+                if (hasPhone && settingNumber)
                 {
                     callback(LinkResult.MustRemovePhoneNumber);
                     return;
                 }
-                if (!hasPhone && PhoneNumber == null) {
+                if (!hasPhone && !settingNumber)
+                {
                     callback(LinkResult.MustProvidePhoneNumber);
                     return;
                 }
@@ -199,7 +201,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
             //The act of checking the SMS code is necessary for Steam to finalize adding the phone number to the account.
             //Of course, we only want to check it if we're adding a phone number in the first place...
 
-            if (!String.IsNullOrEmpty(this.PhoneNumber))
+            if (!string.IsNullOrEmpty(this.PhoneNumber))
             {
                 this._checkSMSCode(web, smsCode, b =>
                 {

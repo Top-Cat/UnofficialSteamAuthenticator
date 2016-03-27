@@ -41,7 +41,7 @@ namespace UnofficialSteamAuthenticator
             {
                 LinkedAccount = Storage.GetSteamGuardAccount()
             };
-            this.linker.AddAuthenticator(web, this.LinkResponse);
+            this.linker.AddAuthenticator(this.web, this.LinkResponse);
         }
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace UnofficialSteamAuthenticator
             if (this.PhoneNumGrid.Visibility == Visibility.Visible)
             {
                 this.linker.PhoneNumber = this.FilterPhoneNumber(this.PhoneNum.Text);
-                this.linker.AddAuthenticator(web, this.LinkResponse);
+                this.linker.AddAuthenticator(this.web, this.LinkResponse);
             }
             else if (this.RevocationGrid.Visibility == Visibility.Visible)
             {
@@ -123,7 +123,7 @@ namespace UnofficialSteamAuthenticator
                 case AuthenticatorLinker.LinkResult.MustRemovePhoneNumber:
                     this.PhoneNum.Text = string.Empty;
                     this.linker.PhoneNumber = string.Empty;
-                    this.linker.AddAuthenticator(web, this.LinkResponse);
+                    this.linker.AddAuthenticator(this.web, this.LinkResponse);
                     break;
                 case AuthenticatorLinker.LinkResult.GeneralFailure:
                 case AuthenticatorLinker.LinkResult.AuthenticatorPresent:

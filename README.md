@@ -1,7 +1,7 @@
 # Unofficial Steam Authenticator
 
 You can search the windows app store for "Unofficial Steam Authenticator" or go here:  
-http://windowsphone.com/s?appid=edcda38f-1eec-4f21-a267-190b4222f456  
+http://windowsphone.com/s?appid=edcda38f-1eec-4f21-a267-190b4222f456
 
 --
 
@@ -28,10 +28,13 @@ If you're just happy this exists you can donate me a drink at: [paypal.me/iamtop
 
 # Translations
 
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/unofficial-steam-authenticator/localized.svg)](https://crowdin.com/project/unofficial-steam-authenticator)
+
 Community translations provided by:
 
 - German - https://steamcommunity.com/id/setoy
 - Spanish - https://steamcommunity.com/id/3xlneet
-- Russian - https://steamcommunity.com/id/Jericho_One
+- Russian - https://steamcommunity.com/id/Jericho_One + https://steamcommunity.com/id/sh4kky1337/
+- Polish - https://steamcommunity.com/id/Hypixus
 
-If you are *fluent* in a language that isn't listed and would like to help please [send me a message](//steamcommunity.com/id/top-cat) <3~
+If you are *fluent* in a language that isn't listed and would like to help please [send me a message](//steamcommunity.com/id/top-cat) or make an account with [crowdin](https://crowdin.com/project/unofficial-steam-authenticator/invite) <3~
