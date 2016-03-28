@@ -89,7 +89,7 @@
     <value>Adicionar autenticador</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Introduza o seu número de telemóvel no seguinte formato: +{cC} (número de telemóvel) [ex.: +1 123-456-7890].</value>
+    <value>Digite o seu número de telemóvel no seguinte formato: +{cC} (número de telemóvel) [ex.: +1 123-456-7890].</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
     <value>Nome de utilizador Steam</value>
@@ -116,7 +116,7 @@
     <value>Digite os caracteres</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Introduz o código autenticador</value>
+    <value>Digite o código autenticador</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
     <value>Erro desconhecido</value>
