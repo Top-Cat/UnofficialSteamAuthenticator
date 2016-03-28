@@ -47,7 +47,11 @@ namespace UnofficialSteamAuthenticator
             Confirmations.Text = StringResourceLoader.GetString("ConfirmationsButton/Label");
             SteamGuard.Text = StringResourceLoader.GetString("SteamGuardButton/Label");
             if (expand)
-                ExpandCommandBar(null, null);
+            {
+                ExpandedLabels.Visibility = Visibility.Collapsed;
+                ExpandedSecondary.Visibility = Visibility.Collapsed;
+                expand = false;
+            }
             this.ConfirmationWeb.ScriptNotify += this.WebNotify;
             this.ConfirmationWeb.NavigationCompleted += this.InjectCode;
             this.ConfirmationWeb.NavigationFailed += this.NavFailed;
@@ -387,11 +391,10 @@ namespace UnofficialSteamAuthenticator
         private void ExpandCommandBar(object sender, RoutedEventArgs e)
         {
             expand = !expand;
-            Visibility vis = Visibility.Visible;
             if (!expand)
-                vis = Visibility.Collapsed;
-            ExpandedLabels.Visibility = vis;
-            ExpandedSecondary.Visibility = vis;
+                CloseCommandBar.Begin();
+            else
+                OpenCommandBar.Begin();
         }
     }
 }

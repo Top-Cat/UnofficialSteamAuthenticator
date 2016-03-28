@@ -5,16 +5,76 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="OpenCommandBar">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedSecondary">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ExpandedSecondary">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedLabels">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ExpandedLabels">
+                <EasingDoubleKeyFrame KeyTime="0" Value="20"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="CloseCommandBar">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedSecondary">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ExpandedSecondary">
+                <SplineDoubleKeyFrame KeyTime="0" Value="120"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedLabels">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ExpandedLabels">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="20"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid x:Name="LayoutRoot" Background="#1b2838">
 
         <WebView x:Name="ConfirmationWeb"
                  Height="Auto"
-                 Visibility="Collapsed" />
+                 Visibility="Collapsed" Margin="0,0,0,70"/>
 
         <WebView x:Name="ChatWeb"
                  Height="Auto"
-                 Visibility="Collapsed" />
+                 Visibility="Collapsed" Margin="0,0,0,70" />
         <!--  Steam Guard  -->
         <StackPanel x:Name="SteamGuardGrid"
                     Grid.Row="0"
@@ -79,46 +139,49 @@
                     Foreground="White" />
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom" Background="#282828">
-            <StackPanel x:Name="ExpandedSecondary" Visibility="Collapsed">
-                <Button x:Name="UsersButton" Click="UsersButton_Click" BorderThickness="0" Content="Change Account"/>
-                <Button x:Name="AboutButton" Click="AboutButton_Click" BorderThickness="0" Content="About"/>
+            <StackPanel x:Name="ExpandedSecondary" Visibility="Collapsed" Height="120">
+                <Button x:Name="UsersButton" HorizontalAlignment="Stretch" Click="UsersButton_Click"  BorderThickness="0" Content="Change Account" HorizontalContentAlignment="Left"/>
+                <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Click="AboutButton_Click" BorderThickness="0" Content="About" HorizontalContentAlignment="Left"/>
             </StackPanel>
             <Grid Height="70" Background="#FF1F1F1F" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Grid Width="80" Height="70">
                         <Button Margin="0" Click="SteamGuardButton_Click" BorderThickness="0" Padding="0" Width="80" Height="70" Background="Transparent">
-                            <TextBlock Text="&#xE8D7;" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
+                            <TextBlock Text="&#xE8D7;" FontWeight="Normal" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
                         </Button>
                     </Grid>
                     <Grid Width="80" Height="70">
                         <Button Margin="0" Click="ConfirmationsButton_Click" BorderThickness="0" Padding="0" Width="80" Height="70" Background="Transparent">
-                            <TextBlock Text="&#xE719;" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
+                            <TextBlock Text="&#xE719;" FontWeight="Normal" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
                         </Button>
                     </Grid>
                     <Grid Width="80" Height="70">
                         <Button Margin="0" Click="MessageButton_Click" BorderThickness="0" Padding="0" Width="80" Height="70" Background="Transparent">
-                            <TextBlock Text="&#xE8BD;" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
+                            <TextBlock Text="&#xE8BD;" FontWeight="Normal" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
                         </Button>
                     </Grid>
                     <Grid Width="80" Height="70">
                         <Button Click="ExpandCommandBar" BorderThickness="0" Padding="0" Width="80" Height="70" Background="Transparent">
-                            <TextBlock Text="&#xE712;" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
+                            <TextBlock Text="&#xE712;" FontWeight="Normal" FontFamily="/Assets/segmdl2.ttf#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White" IsHitTestVisible="False"/>
                         </Button>
                     </Grid>
                 </StackPanel>
             </Grid>
             <Grid Background="#FF1F1F1F">
-            <StackPanel x:Name="ExpandedLabels" Visibility="Collapsed" Margin="0,-10,0,0" Orientation="Horizontal" HorizontalAlignment="Right" Background="#FF1F1F1F">
-                <Grid Width="80">
-                    <TextBlock x:Name="SteamGuard" HorizontalAlignment="Center" Text="Guard"/>
-                </Grid>
-                <Grid Width="80">
-                    <TextBlock x:Name="Confirmations" HorizontalAlignment="Center" Text="Confirmations"/>
-                </Grid>
-                <Grid Width="80">
-                    <TextBlock x:Name="Message" HorizontalAlignment="Center" Text="Chat" />
-                </Grid>
-                <Grid Width="70"/>
+                <StackPanel x:Name="ExpandedLabels" Visibility="Collapsed" Margin="0,-10,0,0" Orientation="Horizontal" HorizontalAlignment="Right" Background="#FF1F1F1F" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <CompositeTransform/>
+                    </StackPanel.RenderTransform>
+                    <Grid Width="80">
+                        <TextBlock x:Name="SteamGuard" HorizontalAlignment="Center" Text="Guard"/>
+                    </Grid>
+                    <Grid Width="80">
+                        <TextBlock x:Name="Confirmations" HorizontalAlignment="Center" Text="Confirmations"/>
+                    </Grid>
+                    <Grid Width="80">
+                        <TextBlock x:Name="Message" HorizontalAlignment="Center" Text="Chat" />
+                    </Grid>
+                    <Grid Width="70"/>
                 </StackPanel>
             </Grid>
         </StackPanel>
