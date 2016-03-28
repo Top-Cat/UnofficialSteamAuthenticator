@@ -158,6 +158,7 @@ namespace UnofficialSteamAuthenticator
             else if (response == LoginResult.LoginOkay)
             {
                 Storage.PushStore(this.userLogin.Session);
+                Storage.SetCurrentUser(this.userLogin.Session.SteamID);
                 this.Frame.Navigate(typeof(MainPage), this.userLogin.Session);
             }
         }

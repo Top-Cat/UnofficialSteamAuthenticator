@@ -11,7 +11,7 @@ namespace UnofficialSteamAuthenticator.Models
         private string content;
         private string title;
 
-        public User(ulong steamId, string content)
+        public User(ulong steamId, long lastCurrent, string content)
         {
             this.SteamId = steamId;
             this.SteamGuardAccount = Storage.GetSteamGuardAccount(steamId);
@@ -21,9 +21,11 @@ namespace UnofficialSteamAuthenticator.Models
             this.content = content;
             this.AccountName = this.SteamGuardAccount.AccountName ?? this.SteamGuardAccount.Session.Username;
             this.Avatar = new Avatar(steamId);
+            this.LastCurrent = lastCurrent;
         }
 
         public ulong SteamId { get; }
+        public long LastCurrent { get; }
 
         public string Title
         {

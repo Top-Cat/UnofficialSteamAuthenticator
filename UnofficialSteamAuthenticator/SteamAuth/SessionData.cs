@@ -12,6 +12,7 @@ namespace UnofficialSteamAuthenticator.SteamAuth
         public string WebCookie { get; set; }
         public string OAuthToken { get; set; }
         public ulong SteamID { get; set; }
+        public long LastCurrent { get; set; }
 
         public void AddCookies(CookieContainer cookies)
         {
