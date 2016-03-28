@@ -48,10 +48,12 @@ namespace UnofficialSteamAuthenticator
             {
                 ids += steamId + ",";
 
-                var usr = new User(steamId, StringResourceLoader.GetString("GeneratingCode_Ellipsis"));
+                var usr = new User(steamId, accs[steamId].LastCurrent, StringResourceLoader.GetString("GeneratingCode_Ellipsis"));
                 this.listElems.Add(steamId, usr);
                 this.AccountList.Items?.Add(usr);
             }
+
+            this.AccountList.ItemsSource = this.AccountList.Items.OrderByDescending(item => ((User) item).LastCurrent).ToList();
 
             string accessToken = accs.First().Value.OAuthToken;
             this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET", this.SummariesCallback);

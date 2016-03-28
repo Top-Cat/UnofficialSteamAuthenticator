@@ -80,6 +80,13 @@ namespace UnofficialSteamAuthenticator
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["currentAccount"] = steamid;
+
+            SessionData data = GetSessionData();
+            if (data == null)
+                return;
+
+            data.LastCurrent = Util.GetSystemUnixTime();
+            PushStore(data);
         }
 
         public static SessionData GetSessionData()
@@ -137,7 +144,6 @@ namespace UnofficialSteamAuthenticator
             accounts[session.SteamID] = session;
 
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
-            SetCurrentUser(session.SteamID);
         }
 
         public static void Logout(ulong steamid)
