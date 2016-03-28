@@ -1,12 +1,13 @@
 ﻿using System;
 using Windows.Phone.UI.Input;
 using Windows.System;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class AboutPage
+    public sealed partial class AboutPage : Page
     {
         public AboutPage()
         {

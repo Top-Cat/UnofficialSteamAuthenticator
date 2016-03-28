@@ -17,7 +17,7 @@ using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class UsersPage
+    public sealed partial class UsersPage : Page
     {
         private readonly Dictionary<ulong, User> listElems = new Dictionary<ulong, User>();
         private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
