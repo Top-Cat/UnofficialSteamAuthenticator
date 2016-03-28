@@ -59,172 +59,205 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Fout</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>Authenticator ontkoppelen mislukt!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will incur trade holds for at least 7 days.</value>
+    <value>Weet je het zeker? Dit zal handelsopdrachten voor ten minste 7 dagen blokkeren.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>Ontkoppelen?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
     <value>Accounts</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>Inloggen</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Aanmelden</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>Authenticator toevoegen</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
+    <value>Voer uw telefoonnummer in middels de volgende notatie: +{cC} telefoonnummer (bijvoorbeeld +1 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam username</value>
+    <value>Steam gebruikersnaam</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list aswell.</value>
+    <value>Weet je het zeker? Dit zal deze account verwijderen uit de lijst met gebruikers.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Logout?</value>
+    <value>Uitloggen?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Yes</value>
+    <value>Ja</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>No</value>
+    <value>Nee</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Enter email code</value>
+    <value>E-mail code invoeren</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Enter the characters</value>
+    <value>Voer de karakters in</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Enter authenticator code</value>
+    <value>Authenticator code invoeren</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Onbekende fout</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Onbekende fout</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Invalid Login</value>
+    <value>Ongeldige logingegevens</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Too many failures</value>
+    <value>Te veel fouten</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Need 2FA</value>
+    <value>2FA is noodzakelijk</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>Ben je een mens?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Link authenticator</value>
+    <value>Authenticator koppelen</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Link</value>
+    <value>Koppelen</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>You need to set up this device as an authenticator before you can get steam guard codes or confirm trades.</value>
+    <value>U moet dit apparaat instellen als een authenticator voordat u kunt steam guardcodes kunt krijgen voor het bevestigen van de handelstransacties.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>Bescherm</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Bevestigen</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
-    <value>Chat</value>
+    <value>Chatten</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Account wisselen</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Logout</value>
+    <value>Uitloggen</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>Meer over</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Unlink</value>
+    <value>Ontkoppelen</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Continue</value>
+    <value>Doorgaan</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Enter SMS Code</value>
+    <value>SMS-Code invoeren</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Fout</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unknown error linking authenticator.</value>
+    <value>Onbekende fout bij koppelen authenticator.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Fout</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
+    <value>Je hebt al een ander apparaat ingesteld als een authenticator. Ontkoppel deze binnen uw account en probeer het opnieuw.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Telefoonnummer invoeren</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Bad Code</value>
+    <value>Incorrecte code</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
+    <value>Deze authenticator is nu nog niet definitief gekoppeld.
 
-Before finalizing the authenticator, please write down your revocation code.</value>
+Alvorens het proces af te ronden en definitief te koppelen, schrijf deze herroepingscode ergens duidelijk op.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
+    <value>Deze code is noodzakelijk om weer toegang te krijgen tot je Steam account als je je apparaat verliest. Het is niet mogelijk om deze code later weer op te vragen, dus schrijf deze alsjeblieft ergens op.
 
-Do not share it with anyone.</value>
+Deel deze code met niemand.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>Code aan het genereren...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>App gegevens</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versie</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>Gecreëerd door</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Bron</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Toevoegen</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>Wisselen</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>Mobiele authenticator voor het inloggen en handelen op steam</value>
+  </data>
+  <data name="ExportFlyout.Text" xml:space="preserve">
+    <value>Exporteer</value>
+  </data>
+  <data name="LogoutFlyout.Text" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="Encryption_BadPassword_Message" xml:space="preserve">
+    <value>De sleutel die u hebt ingevoerd komt niet overeen met een van de bestaande versleutelde accounts. Probeer het opnieuw of kies een andere bestemming.</value>
+  </data>
+  <data name="Encryption_BadPassword_Title" xml:space="preserve">
+    <value>Sleutel incorrect</value>
+  </data>
+  <data name="Encryption_Promt_Message" xml:space="preserve">
+    <value>Voer een encryptie sleutel in, van ten minste 3 tekens</value>
+  </data>
+  <data name="Encryption_Promt_Title" xml:space="preserve">
+    <value>Versleutelen</value>
+  </data>
+  <data name="Export_Failed_Message" xml:space="preserve">
+    <value>Exporteren van maFiles mislukt</value>
+  </data>
+  <data name="Export_Failed_Title" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Export_Success_Message" xml:space="preserve">
+    <value>maFiles met succes geëxporteerd</value>
+  </data>
+  <data name="Export_Success_Title" xml:space="preserve">
+    <value>Gelukt</value>
+  </data>
+  <data name="Encryption_ShortPassword_Message" xml:space="preserve">
+    <value>De sleutel die u hebt opgegeven was te kort</value>
   </data>
 </root>
