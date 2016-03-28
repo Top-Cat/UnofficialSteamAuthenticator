@@ -27,7 +27,7 @@
             <TextBlock Margin="10,0,0,0"
                        FontSize="20"
                        Foreground="White"
-                       Text="v1.2.0" />
+                       Text="v1.3.0" />
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="20,27,20,20">
             <TextBlock x:Uid="About_AppCreator"
