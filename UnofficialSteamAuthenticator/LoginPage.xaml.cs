@@ -148,9 +148,11 @@ namespace UnofficialSteamAuthenticator
                 this.CaptchaGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
 
                 var myUri = new Uri("https://steamcommunity.com/login/rendercaptcha/?gid=" + this.userLogin.CaptchaGID, UriKind.Absolute);
-                var bmi = new BitmapImage();
-                bmi.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                bmi.UriSource = myUri;
+                var bmi = new BitmapImage()
+                {
+                    CreateOptions = BitmapCreateOptions.IgnoreImageCache,
+                    UriSource = myUri
+                };
                 this.Captcha.Source = bmi;
             }
             else if (response == LoginResult.LoginOkay)

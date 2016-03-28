@@ -9,11 +9,21 @@
     <Grid x:Name="LayoutRoot" Background="#1b2838">
         <Grid.Resources>
             <DataTemplate x:Key="UserTemplate">
-                <Grid>
+                <Grid IsHoldingEnabled="True" Holding="AccountList_OnHolding">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Uid="ExportFlyout"
+                                Text="Export"
+                                Click="ExportButton_Click"/>
+                            <MenuFlyoutItem x:Uid="LogoutFlyout"
+                                Text="Logout"
+                                Click="LogoutButton_Click"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
                     <Border Margin="0,9.5,0,0" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                         <Image Width="79"
                                Height="79"
@@ -59,6 +69,11 @@
                               Icon="Add"
                               Label="Add" />
             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="AboutButton"
+                              Click="AboutButton_Click"
+                              Label="About" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

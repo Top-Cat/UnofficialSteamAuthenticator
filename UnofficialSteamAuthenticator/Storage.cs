@@ -140,20 +140,26 @@ namespace UnofficialSteamAuthenticator
             SetCurrentUser(session.SteamID);
         }
 
+        public static void Logout(ulong steamid)
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            Dictionary<ulong, SessionData> accounts = GetAccounts();
+            accounts.Remove(steamid);
+
+            localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
+        }
+
         public static void Logout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-            if (localSettings.Values.ContainsKey("currentAccount"))
-            {
-                var currentAcc = (ulong) localSettings.Values["currentAccount"];
+            if (!localSettings.Values.ContainsKey("currentAccount"))
+                return;
 
-                Dictionary<ulong, SessionData> accounts = GetAccounts();
-                accounts.Remove(currentAcc);
-
-                localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
-                localSettings.Values.Remove("currentAccount");
-            }
+            var currentAcc = (ulong) localSettings.Values["currentAccount"];
+            Logout(currentAcc);
+            localSettings.Values.Remove("currentAccount");
         }
     }
 }

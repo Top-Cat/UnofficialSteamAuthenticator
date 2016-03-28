@@ -7,19 +7,19 @@ namespace UnofficialSteamAuthenticator.Models
     /// </summary>
     internal class User : ModelBase
     {
-        private readonly SteamGuardAccount steamGuardAccount;
+        public SteamGuardAccount SteamGuardAccount { get; }
         private string content;
         private string title;
 
         public User(ulong steamId, string content)
         {
             this.SteamId = steamId;
-            this.steamGuardAccount = Storage.GetSteamGuardAccount(steamId);
+            this.SteamGuardAccount = Storage.GetSteamGuardAccount(steamId);
 
             // skip notifying in constructor
-            this.title = this.steamGuardAccount.DisplayName;
+            this.title = this.SteamGuardAccount.DisplayName;
             this.content = content;
-            this.AccountName = this.steamGuardAccount.AccountName ?? this.steamGuardAccount.Session.Username;
+            this.AccountName = this.SteamGuardAccount.AccountName ?? this.SteamGuardAccount.Session.Username;
             this.Avatar = new Avatar(steamId);
         }
 
@@ -32,8 +32,8 @@ namespace UnofficialSteamAuthenticator.Models
             {
                 this.title = value;
 
-                this.steamGuardAccount.DisplayName = value;
-                Storage.PushStore(this.steamGuardAccount);
+                this.SteamGuardAccount.DisplayName = value;
+                Storage.PushStore(this.SteamGuardAccount);
 
                 this.OnPropertyChanged();
             }
@@ -54,7 +54,7 @@ namespace UnofficialSteamAuthenticator.Models
 
         internal void UpdateCode(long time)
         {
-            this.Content = this.steamGuardAccount.FullyEnrolled ? this.steamGuardAccount.GenerateSteamGuardCodeForTime(time) : "2FA not setup";
+            this.Content = this.SteamGuardAccount.FullyEnrolled ? this.SteamGuardAccount.GenerateSteamGuardCodeForTime(time) : "2FA not setup";
         }
     }
 }
