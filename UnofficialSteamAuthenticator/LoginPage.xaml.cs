@@ -6,10 +6,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using UnofficialSteamAuthenticator.SteamAuth;
+using Windows.UI.Xaml.Controls;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class LoginPage
+    public sealed partial class LoginPage : Page
     {
         private readonly Dictionary<LoginResult, string> responses = new Dictionary<LoginResult, string>();
         private readonly SteamWeb web = ((App) Application.Current).SteamWeb;

@@ -5,10 +5,11 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using UnofficialSteamAuthenticator.SteamAuth;
+using Windows.UI.Xaml.Controls;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class AuthenticatorPage
+    public sealed partial class AuthenticatorPage : Page
     {
         private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
         private AuthenticatorLinker linker;

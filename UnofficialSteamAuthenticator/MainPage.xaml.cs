@@ -19,7 +19,7 @@ using UnofficialSteamAuthenticator.Models;
 
 namespace UnofficialSteamAuthenticator
 {
-    public sealed partial class MainPage
+    public sealed partial class MainPage : Page
     {
         private const string ChatUrl = "https://steamcommunity.com/chat";
         private readonly SteamWeb web = ((App) Application.Current).SteamWeb;
@@ -41,6 +41,17 @@ namespace UnofficialSteamAuthenticator
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            UsersButton.Content = StringResourceLoader.GetString("UsersButton/Label");
+            AboutButton.Content = StringResourceLoader.GetString("AboutButton/Label");
+            Message.Text = StringResourceLoader.GetString("MessageButton/Label");
+            Confirmations.Text = StringResourceLoader.GetString("ConfirmationsButton/Label");
+            SteamGuard.Text = StringResourceLoader.GetString("SteamGuardButton/Label");
+            if (expand)
+            {
+                ExpandedLabels.Visibility = Visibility.Collapsed;
+                ExpandedSecondary.Visibility = Visibility.Collapsed;
+                expand = false;
+            }
             this.ConfirmationWeb.ScriptNotify += this.WebNotify;
             this.ConfirmationWeb.NavigationCompleted += this.InjectCode;
             this.ConfirmationWeb.NavigationFailed += this.NavFailed;
@@ -375,6 +386,15 @@ namespace UnofficialSteamAuthenticator
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage));
+        }
+        bool expand = false;
+        private void ExpandCommandBar(object sender, RoutedEventArgs e)
+        {
+            expand = !expand;
+            if (!expand)
+                CloseCommandBar.Begin();
+            else
+                OpenCommandBar.Begin();
         }
     }
 }
