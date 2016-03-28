@@ -59,172 +59,201 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>Falha ao desassociar o autenticador!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will incur trade holds for at least 7 days.</value>
+    <value>Tens a certeza? Isto causará retenção de trocas para pelo menos 7 dias.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>Desassociar?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>Contas</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>Iniciar sessão</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Iniciar sessão</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>Adicionar autenticador</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
+    <value>Introduza o seu número de telemóvel no seguinte formato: +{cC} (número de telemóvel) [ex.: +1 123-456-7890].</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam username</value>
+    <value>Nome de utilizador Steam</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Palavra-chave</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list aswell.</value>
+    <value>Tens a certeza? Isso irá remover a conta da lista de utilizadores.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Logout?</value>
+    <value>Terminar sessão?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Yes</value>
+    <value>Sim</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>No</value>
+    <value>Não</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Enter email code</value>
+    <value>Digite o código obtido via e-mail</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Enter the characters</value>
+    <value>Digite os caracteres</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Enter authenticator code</value>
+    <value>Introduz o código autenticador</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Erro desconhecido</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Erro desconhecido</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Invalid Login</value>
+    <value>Dados de início de sessão inválidos</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Too many failures</value>
+    <value>Demasiadas falhas</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Need 2FA</value>
+    <value>2FA necessário</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>Você é humano?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Link authenticator</value>
+    <value>Associar autenticador</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Link</value>
+    <value>Associar</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>You need to set up this device as an authenticator before you can get steam guard codes or confirm trades.</value>
+    <value>É necessário configurar este dispositivo como autenticador antes de poder obter chaves Steam Guard ou confirmar trocas.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>Chaves Steam Guard</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmar</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
-    <value>Chat</value>
+    <value>Bate-Papo</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Trocar de conta</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Logout</value>
+    <value>Terminar sessão</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>Sobre</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Unlink</value>
+    <value>Desassociar</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuar</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Enter SMS Code</value>
+    <value>Introduza o código obtido via SMS</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unknown error linking authenticator.</value>
+    <value>Erro desconhecido ao associar o autenticador.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
+    <value>Já tem outro dispositivo configurado como autenticador. Remove-o da sua conta e tente novamente.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Introduzira o seu número de telemóvel</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Bad Code</value>
+    <value>Código inválido</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
-
-Before finalizing the authenticator, please write down your revocation code.</value>
+    <value>O autenticador ainda não foi associado. Antes de finalizar o autenticador, por favor anote o código de recuperação.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
-
-Do not share it with anyone.</value>
+    <value>Você vai precisar deste código para recuperar sua conta Steam, se você perder seu telefone. Você não será capaz de visualizá-lo novamente após esta etapa, por isso, por favor anotá-la agora. Não o compartilhe com ninguém.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>Gerando código...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>Informações da aplicação</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versão</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>Criador</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Fonte (Source)</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Adicionar</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>Trocar</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>Autenticador móvel para iniciar sessão e realizar trocas no steam</value>
+  </data>
+  <data name="ExportFlyout.Text" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="LogoutFlyout.Text" xml:space="preserve">
+    <value>Terminar sessão</value>
+  </data>
+  <data name="Encryption_BadPassword_Message" xml:space="preserve">
+    <value>A senha que você digitou não corresponde às das contas criptografadas existentes. Tente novamente ou escolhe um destino diferente.</value>
+  </data>
+  <data name="Encryption_BadPassword_Title" xml:space="preserve">
+    <value>Chave de acesso inválido</value>
+  </data>
+  <data name="Encryption_Promt_Message" xml:space="preserve">
+    <value>Por favor insira uma senha encriptada com pelo menos 3 caracteres</value>
+  </data>
+  <data name="Encryption_Promt_Title" xml:space="preserve">
+    <value>Encriptar</value>
+  </data>
+  <data name="Export_Failed_Message" xml:space="preserve">
+    <value>Falha ao exportar maFiles</value>
+  </data>
+  <data name="Export_Failed_Title" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="Export_Success_Message" xml:space="preserve">
+    <value>maFiles exportado com sucesso</value>
+  </data>
+  <data name="Export_Success_Title" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="Encryption_ShortPassword_Message" xml:space="preserve">
+    <value>A senha que você inseriu é muito curto</value>
   </data>
 </root>
