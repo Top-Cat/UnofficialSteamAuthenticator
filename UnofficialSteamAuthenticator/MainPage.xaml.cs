@@ -170,7 +170,14 @@ namespace UnofficialSteamAuthenticator
 
         private void steamGuardUpdate_Tick(object sender, object e)
         {
-            this.storyboard?.Stop();
+            try
+            {
+                this.storyboard?.Stop();
+            }
+            catch (NotImplementedException)
+            {
+                // Not sure why this happens
+            }
 
             if (this.SteamGuardGrid.Visibility != Visibility.Visible)
             {
@@ -357,23 +364,6 @@ namespace UnofficialSteamAuthenticator
                     await dialog.ShowAsync();
                 }
             });
-        }
-
-        private async void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new MessageDialog(StringResourceLoader.GetString("User_Logout_Prompt_Message"))
-            {
-                Title = StringResourceLoader.GetString("User_Logout_Prompt_Title")
-            };
-            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Yes_Text"), this.DoLogout));
-            dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_No_Text"))); // Take no action
-            await dialog.ShowAsync();
-        }
-
-        private void DoLogout(IUICommand command)
-        {
-            Storage.Logout();
-            this.Frame.Navigate(typeof(LoginPage));
         }
 
         private void UsersButton_Click(object sender, RoutedEventArgs e)

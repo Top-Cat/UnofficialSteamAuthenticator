@@ -101,9 +101,6 @@
                 <AppBarButton x:Uid="UsersButton"
                               Click="UsersButton_Click"
                               Label="Switch account" />
-                <AppBarButton x:Uid="LogoutButton"
-                              Click="LogoutButton_Click"
-                              Label="Logout" />
                 <AppBarSeparator />
                 <AppBarButton x:Uid="AboutButton"
                               Click="AboutButton_Click"

@@ -98,7 +98,7 @@
     <value>Password</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list aswell.</value>
+    <value>Are you sure? This will remove this account from the user list.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
     <value>Logout?</value>
@@ -226,5 +226,35 @@ Do not share it with anyone.</value>
   </data>
   <data name="App_Description" xml:space="preserve">
     <value>Mobile authenticator for logging in and trading on steam</value>
+  </data>
+  <data name="ExportFlyout.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="LogoutFlyout.Text" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Encryption_BadPassword_Message" xml:space="preserve">
+    <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
+  </data>
+  <data name="Encryption_BadPassword_Title" xml:space="preserve">
+    <value>Bad passkey</value>
+  </data>
+  <data name="Encryption_Promt_Message" xml:space="preserve">
+    <value>Please enter an encryption passkey</value>
+  </data>
+  <data name="Encryption_Promt_Title" xml:space="preserve">
+    <value>Encrypt</value>
+  </data>
+  <data name="Export_Failed_Message" xml:space="preserve">
+    <value>Failed to export maFiles</value>
+  </data>
+  <data name="Export_Failed_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Export_Success_Message" xml:space="preserve">
+    <value>maFiles successfully exported</value>
+  </data>
+  <data name="Export_Success_Title" xml:space="preserve">
+    <value>Success</value>
   </data>
 </root>

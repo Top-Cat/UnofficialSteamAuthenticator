@@ -92,7 +92,10 @@
     <Compile Include="AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileEncryptor.cs" />
     <Compile Include="Models\Avatar.cs" />
+    <Compile Include="Models\Sda\Manifest.cs" />
+    <Compile Include="Models\Sda\ManifestEntry.cs" />
     <Compile Include="Models\SteamAuth\FinalizeAuthenticatorResponse.cs" />
     <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />
     <Compile Include="Models\SteamAuth\OAuth.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="SteamAuth\ISteamSecrets.cs" />
     <Compile Include="SteamAuth\IWebRequest.cs" />
     <Compile Include="SteamAuth\WGTokenInvalidException.cs" />
+    <Compile Include="SdaStorage.cs" />
     <Compile Include="StringResourceLoader.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Player.cs" />

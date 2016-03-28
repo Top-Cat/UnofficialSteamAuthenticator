@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
+using UnofficialSteamAuthenticator.Models;
 using UnofficialSteamAuthenticator.SteamAuth;
 
 // The WebView Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
@@ -35,21 +36,31 @@ namespace UnofficialSteamAuthenticator
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            if (args.Kind == ActivationKind.Protocol)
+            switch (args.Kind)
             {
-                var protocolArgs = (ProtocolActivatedEventArgs) args;
+                case ActivationKind.Protocol:
+                    var protocolArgs = (ProtocolActivatedEventArgs) args;
 
-                var rootFrame = (Frame) Window.Current.Content;
-                object page = rootFrame.Content;
-                if (page is MainPage)
-                {
-                    var mainPage = (MainPage) page;
-                    mainPage.HandleUri(protocolArgs.Uri);
-                }
-                else
-                {
-                    this.OpenApp(rootFrame, protocolArgs.Uri);
-                }
+                    var rootFrame = (Frame) Window.Current.Content;
+                    var mainPage = (MainPage) rootFrame.Content;
+                    if (mainPage != null)
+                    {
+                        mainPage.HandleUri(protocolArgs.Uri);
+                    }
+                    else
+                    {
+                        this.OpenApp(rootFrame, protocolArgs.Uri);
+                    }
+                    break;
+                case ActivationKind.PickFolderContinuation:
+                    var pickFolderArgs = (FolderPickerContinuationEventArgs) args;
+
+                    if (pickFolderArgs.Folder == null) // Probably cancelled
+                        return;
+
+                    var usr = (ulong) pickFolderArgs.ContinuationData["user"];
+                    SdaStorage.SaveMaFile(usr, pickFolderArgs.Folder);
+                    break;
             }
         }
 
