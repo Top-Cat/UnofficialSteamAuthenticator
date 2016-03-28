@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Windows.Storage;
-using Newtonsoft.Json;
-using UnofficialSteamAuthenticator.SteamAuth;
-using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using UnofficialSteamAuthenticator.Models;
+using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Models.Sda;
 
 namespace UnofficialSteamAuthenticator
@@ -55,7 +53,7 @@ namespace UnofficialSteamAuthenticator
                 string encrypted = FileEncryptor.EncryptData(password, salt, iV, jsonAccount);
                 string filename = usr + ".maFile";
 
-                var newEntry = new ManifestEntry()
+                var newEntry = new ManifestEntry
                 {
                     SteamId = usr,
                     Iv = iV,
@@ -64,7 +62,10 @@ namespace UnofficialSteamAuthenticator
                 };
 
                 if (manifest.Entries == null)
-                    manifest.Entries = new List<ManifestEntry> { newEntry };
+                    manifest.Entries = new List<ManifestEntry>
+                    {
+                        newEntry
+                    };
 
                 if (manifest.Entries.Any(entry => entry.SteamId == usr))
                 {
@@ -91,7 +92,11 @@ namespace UnofficialSteamAuthenticator
             }
             else
             {
-                var dialog = new MessageDialog(StringResourceLoader.GetString("Encryption_BadPassword_Message"))
+                var dialog = new MessageDialog(
+                    password.Length >= 3 ?
+                        StringResourceLoader.GetString("Encryption_BadPassword_Message") :
+                        StringResourceLoader.GetString("Encryption_ShortPassword_Message")
+                )
                 {
                     Title = StringResourceLoader.GetString("Encryption_BadPassword_Title")
                 };
@@ -102,6 +107,8 @@ namespace UnofficialSteamAuthenticator
 
         private static async Task<bool> CheckPassword(Manifest manifest, IStorageFolder folder, string password)
         {
+            if (password.Length < 3)
+                return false;
             if (manifest.Entries == null)
                 return true;
 
@@ -120,7 +127,7 @@ namespace UnofficialSteamAuthenticator
         private static async Task<string> GetPassword()
         {
             var tb = new TextBox();
-            var dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
                 Title = StringResourceLoader.GetString("Encryption_Promt_Title")
             };
@@ -130,7 +137,7 @@ namespace UnofficialSteamAuthenticator
             panel.Children.Add(new TextBlock
             {
                 Text = StringResourceLoader.GetString("Encryption_Promt_Message"),
-                TextWrapping = TextWrapping.Wrap,
+                TextWrapping = TextWrapping.Wrap
             });
             panel.Children.Add(tb);
 

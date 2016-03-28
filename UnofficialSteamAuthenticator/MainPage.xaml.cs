@@ -132,7 +132,8 @@ namespace UnofficialSteamAuthenticator
                             }
                             else
                             {
-                                this.LogoutButton_Click(null, null);
+                                Storage.Logout();
+                                this.Frame.Navigate(typeof(LoginPage));
                             }
                         });
                     });
