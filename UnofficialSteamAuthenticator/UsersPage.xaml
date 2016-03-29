@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="#1b2838">
@@ -70,6 +71,9 @@
                               Label="Add" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="SettingsButton"
+                              Click="SettingsButton_Click"
+                              Label="Settings" />
                 <AppBarButton x:Uid="AboutButton"
                               Click="AboutButton_Click"
                               Label="About" />
