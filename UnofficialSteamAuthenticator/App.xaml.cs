@@ -42,9 +42,10 @@ namespace UnofficialSteamAuthenticator
                     var protocolArgs = (ProtocolActivatedEventArgs) args;
 
                     var rootFrame = (Frame) Window.Current.Content;
-                    var mainPage = (MainPage) rootFrame.Content;
-                    if (mainPage != null)
+
+                    if (rootFrame.Content is MainPage)
                     {
+                        var mainPage = (MainPage) rootFrame.Content;
                         mainPage.HandleUri(protocolArgs.Uri);
                     }
                     else

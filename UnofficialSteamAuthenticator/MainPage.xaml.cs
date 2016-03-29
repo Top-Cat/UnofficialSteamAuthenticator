@@ -31,7 +31,6 @@ namespace UnofficialSteamAuthenticator
         public MainPage()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         private void WebNotify(object sender, NotifyEventArgs e)
@@ -375,6 +374,11 @@ namespace UnofficialSteamAuthenticator
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage));
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage));
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿<Page x:Class="UnofficialSteamAuthenticator.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Enabled"
+      mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot" Background="#1b2838">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="12,17,12,12">
+            <TextBlock x:Uid="Settings_Headline"
+                       FontSize="40"
+                       Foreground="White"
+                       Text="Settings" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="20,0,20,20">
+            <TextBlock x:Uid="Settings_Language"
+                       FontSize="28"
+                       Foreground="White"
+                       Text="Language" />
+            <ComboBox x:Uid="Settings_LanguageCombo"
+                      x:Name="LanguageCombo" />
+            <TextBlock x:Uid="Settings_Language_Sub"
+                       FontSize="14"
+                       Foreground="Gray"
+                       Text="You will need to restart the app for this to take effect"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="20,0,20,20">
+            <Button x:Uid="Settings_Exit"
+                    Content="Exit App"
+                    Click="ButtonBase_OnClick" />
+        </StackPanel>
+    </Grid>
+</Page>

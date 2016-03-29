@@ -18,7 +18,6 @@ namespace UnofficialSteamAuthenticator
         public LoginPage()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
 
             this.responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
             this.responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));

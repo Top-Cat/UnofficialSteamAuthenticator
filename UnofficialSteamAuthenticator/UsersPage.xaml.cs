@@ -88,11 +88,11 @@ namespace UnofficialSteamAuthenticator
 
         private void BackPressed(object sender, BackPressedEventArgs args)
         {
-            if (this.Frame.CanGoBack)
-            {
-                args.Handled = true;
-                this.Frame.GoBack();
-            }
+            if (!this.Frame.CanGoBack)
+                return;
+
+            args.Handled = true;
+            this.Frame.GoBack();
         }
 
         private void AccountList_ItemClick(object sender, ItemClickEventArgs e)
@@ -189,6 +189,11 @@ namespace UnofficialSteamAuthenticator
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage));
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage));
         }
     }
 }
