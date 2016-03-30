@@ -8,6 +8,9 @@ namespace UnofficialSteamAuthenticator
 {
     public class Storage
     {
+        ///<summary>
+        ///Extract SteamGuardAccount object by Steam username from phone's storage.
+        ///</summary>
         public static SteamGuardAccount GetSteamGuardAccount(string username)
         {
             SteamGuardAccount response = null;
@@ -25,7 +28,9 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        ///<summary>
+        ///Extract SteamGuardAccount object by SteamID from phone's storage.
+        ///</summary>
         public static SteamGuardAccount GetSteamGuardAccount(ulong steamId)
         {
             SteamGuardAccount response;
@@ -54,7 +59,9 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        ///<summary>
+        ///Recieve SteamGuardAccount object for current session.
+        ///</summary>
         public static SteamGuardAccount GetSteamGuardAccount()
         {
             SteamGuardAccount response = null;
@@ -68,7 +75,9 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        ///<summary>
+        ///Save SteamGuardAccount object to phone's storage.
+        ///</summary>
         public static void PushStore(SteamGuardAccount account)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -88,7 +97,9 @@ namespace UnofficialSteamAuthenticator
             data.LastCurrent = Util.GetSystemUnixTime();
             PushStore(data);
         }
-
+        ///<summary>
+        ///Recieve Session object for current Account.
+        ///</summary>
         public static SessionData GetSessionData()
         {
             Dictionary<ulong, SessionData> response = GetAccounts();
@@ -111,7 +122,9 @@ namespace UnofficialSteamAuthenticator
             }
             return null;
         }
-
+        ///<summary>
+        ///Recieves 
+        ///</summary>
         public static Dictionary<ulong, SessionData> GetAccounts()
         {
             var response = new Dictionary<ulong, SessionData>();
@@ -135,7 +148,9 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        ///<summary>
+        ///Save Session object data to phone's storage.
+        ///</summary>
         public static void PushStore(SessionData session)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -145,7 +160,9 @@ namespace UnofficialSteamAuthenticator
 
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
-
+        ///<summary>
+        ///Deletes account from phone's storage.
+        ///</summary>
         public static void Logout(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -155,7 +172,9 @@ namespace UnofficialSteamAuthenticator
 
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
-
+        ///<summary>
+        ///Deletes current account from phone's storage.
+        ///</summary>
         public static void Logout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
