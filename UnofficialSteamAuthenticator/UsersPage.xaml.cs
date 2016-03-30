@@ -33,7 +33,6 @@ namespace UnofficialSteamAuthenticator
             HardwareButtons.BackPressed += this.BackPressed;
 
             this.listElems.Clear();
-            this.AccountList.Items?.Clear();
 
             this.steamGuardUpdate_Tick(null, null);
 
@@ -50,10 +49,9 @@ namespace UnofficialSteamAuthenticator
 
                 var usr = new User(steamId, accs[steamId].LastCurrent, StringResourceLoader.GetString("GeneratingCode_Ellipsis"));
                 this.listElems.Add(steamId, usr);
-                this.AccountList.Items?.Add(usr);
             }
 
-            this.AccountList.ItemsSource = this.AccountList.Items.OrderByDescending(item => ((User) item).LastCurrent).ToList();
+            this.AccountList.ItemsSource = this.listElems.Values.OrderByDescending(item => item.LastCurrent).ToList();
 
             string accessToken = accs.First().Value.OAuthToken;
             this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET", this.SummariesCallback);
