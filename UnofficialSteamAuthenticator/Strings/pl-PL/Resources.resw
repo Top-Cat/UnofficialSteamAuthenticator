@@ -98,7 +98,7 @@
     <value>Hasło</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list.</value>
+    <value>Czy na pewno? Spowoduje to usunięcie tego konta z listy użytkowników.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
     <value>Wylogować?</value>
@@ -225,39 +225,54 @@ Zapisz go i nikomu nie udostępniaj.</value>
     <value>Zmień</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>Mobilny token do logowania i wymian na Steam</value>
   </data>
   <data name="ExportFlyout.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>Eksportuj</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>Wyloguj</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
-    <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
+    <value>Hasło, które podałeśdla zaszyfrowanych kont, jest nieprawidłowe. Spróbuj ponownie lub wybierz inne miejsce docelowe.</value>
   </data>
   <data name="Encryption_BadPassword_Title" xml:space="preserve">
-    <value>Bad passkey</value>
+    <value>Złe hasło</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>Please enter an encryption passkey at least 3 characters long</value>
+    <value>Proszę podać hasło, musi mieć przynajmniej 3 znaki długości</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
-    <value>Encrypt</value>
+    <value>Zaszyfruj</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
-    <value>Failed to export maFiles</value>
+    <value>Wystąpił błąd podczas zapisu pliku maFile</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Błąd</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
-    <value>maFiles successfully exported</value>
+    <value>pliki maFile zostały wyeksportowane pomyślnie</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>Sukces</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
-    <value>The passkey you entered was too short</value>
+    <value>Hasło, które wpisałeś, jest za krótkie</value>
+  </data>
+  <data name="Settings_Headline.Text" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="SettingsButton.Label" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="Settings_Exit.Content" xml:space="preserve">
+    <value>Wyjdź</value>
+  </data>
+  <data name="Settings_Language.Text" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="Settings_Language_Sub.Text" xml:space="preserve">
+    <value>Aby zmiany miały miejsce, musisz ponownie uruchomić aplikację</value>
   </data>
 </root>
