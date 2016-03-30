@@ -260,4 +260,19 @@ Do not share it with anyone.</value>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
     <value>The passkey you entered was too short</value>
   </data>
+  <data name="Settings_Headline.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsButton.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Exit.Content" xml:space="preserve">
+    <value>Exit App</value>
+  </data>
+  <data name="Settings_Language.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Language_Sub.Text" xml:space="preserve">
+    <value>You will need to restart the app for this to take effect</value>
+  </data>
 </root>

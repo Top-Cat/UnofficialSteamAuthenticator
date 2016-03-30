@@ -71,7 +71,7 @@
     <value>Cancelar</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Tens a certeza? Isto causará retenção de trocas para pelo menos 7 dias.</value>
+    <value>Tem certeza? Isto causará retenção de trocas para pelo menos 7 dias.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
     <value>Desassociar?</value>
@@ -98,7 +98,7 @@
     <value>Palavra-chave</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Tens a certeza? Isso irá remover a conta da lista de utilizadores.</value>
+    <value>Tem certeza? Isto irá remover esta conta da lista de utilizadores.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
     <value>Terminar sessão?</value>
@@ -170,7 +170,7 @@
     <value>Continuar</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Introduza o código obtido via SMS</value>
+    <value>Digite o código obtido via SMS</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
     <value>Erro</value>
@@ -255,5 +255,20 @@
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
     <value>A senha que você inseriu é muito curto</value>
+  </data>
+  <data name="Settings_Headline.Text" xml:space="preserve">
+    <value>Definições</value>
+  </data>
+  <data name="SettingsButton.Label" xml:space="preserve">
+    <value>Definições</value>
+  </data>
+  <data name="Settings_Exit.Content" xml:space="preserve">
+    <value>Sair da aplicação</value>
+  </data>
+  <data name="Settings_Language.Text" xml:space="preserve">
+    <value>Língua</value>
+  </data>
+  <data name="Settings_Language_Sub.Text" xml:space="preserve">
+    <value>Você precisará de reiniciar a aplicação para que esta alteração seja aplicada</value>
   </data>
 </root>
