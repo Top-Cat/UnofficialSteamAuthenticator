@@ -16,7 +16,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UnofficialSteamAuthenticator.App">
-      <m3:VisualElements DisplayName="Unofficial Steam Authenticator" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Provides two factor auth for steam login and trading." ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="Unofficial Steam Authenticator" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Provides two factor auth for steam login and trading." ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
+        <m3:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
         <m3:DefaultTile Square71x71Logo="Assets\Square71x71Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
@@ -26,6 +27,11 @@
           <Protocol Name="steammobile">
             <DisplayName>Steam Mobile Handler</DisplayName>
           </Protocol>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="UnofficalSteamAuthenticator.NotificationTask.BackgroundTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
         </Extension>
       </Extensions>
       <ApplicationContentUriRules>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.Mock
 {

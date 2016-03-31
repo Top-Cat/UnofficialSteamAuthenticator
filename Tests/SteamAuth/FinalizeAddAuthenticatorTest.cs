@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using UnofficalSteamAuthenticator.Tests.Mock;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
 {

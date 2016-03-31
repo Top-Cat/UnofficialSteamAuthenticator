@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+using UnofficialSteamAuthenticator.Lib.Models;
+
+namespace UnofficialSteamAuthenticator.Lib.SteamAuth
+{
+    public delegate void FinalizeCallback(AuthenticatorLinker.FinalizeResult result);
+    public delegate void LinkCallback(AuthenticatorLinker.LinkResult response);
+    public delegate void BCallback(bool response);
+    public delegate void FCCallback(List<Confirmation> response, WGTokenInvalidException ex);
+    public delegate void SummaryCallback(Players players);
+    public delegate void Callback(string response);
+    public delegate void LoginCallback(LoginResult result);
+    public delegate void LongCallback(long time);
+}

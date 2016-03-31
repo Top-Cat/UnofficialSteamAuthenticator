@@ -20,7 +20,7 @@ namespace UnofficialSteamAuthenticator
             string currentLanguage = ResourceContext.GetForCurrentView().Languages[0];
             foreach (string language in GlobalizationPreferences.Languages)
             {
-                var model = new Models.Language(language);
+                var model = new Lib.Models.Language(language);
                 this.LanguageCombo.Items?.Add(model);
 
                 if (language == currentLanguage)
@@ -53,7 +53,7 @@ namespace UnofficialSteamAuthenticator
 
         private static void LanguageCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var language = (Models.Language) e.AddedItems[0];
+            var language = (Lib.Models.Language) e.AddedItems[0];
             ApplicationLanguages.PrimaryLanguageOverride = language.Code;
         }
 

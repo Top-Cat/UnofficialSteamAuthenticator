@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Phone.UI.Input;
 using Windows.UI.Core;
@@ -13,9 +14,9 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
-using Newtonsoft.Json;
-using UnofficialSteamAuthenticator.SteamAuth;
-using UnofficialSteamAuthenticator.Models;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.Models;
+using UnofficialSteamAuthenticator.Lib;
 
 namespace UnofficialSteamAuthenticator
 {
@@ -27,6 +28,7 @@ namespace UnofficialSteamAuthenticator
         private string confUrl = string.Empty;
         private string confWebUrl = string.Empty;
         private Storyboard storyboard;
+        private readonly Regex confIdRegex = new Regex("#conf_(\\d+)");
 
         public MainPage()
         {
@@ -46,14 +48,24 @@ namespace UnofficialSteamAuthenticator
             this.ChatWeb.NavigationFailed += this.NavFailed;
             HardwareButtons.BackPressed += this.BackPressed;
 
-            this.account = Storage.GetSteamGuardAccount();
+            if (e.Parameter is string)
+            {
+                var steamid = ulong.Parse((string) e.Parameter);
+                Storage.SetCurrentUser(steamid);
+
+                this.account = Storage.GetSteamGuardAccount();
+                this.ConfirmationsButton_Click(null, null);
+            }
+            else
+            {
+                this.account = Storage.GetSteamGuardAccount();
+                this.SteamGuardButton_Click(null, null);
+            }
 
             if ((DateTime.UtcNow - this.account.DisplayCache).Days > 1)
             {
-                this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + this.account.Session.OAuthToken + "&steamids=" + this.account.Session.SteamID, "GET", this.SummariesCallback);
+                UserSummary.GetSummaries(this.web, this.account.Session, new [] { this.account.Session.SteamID }, SummariesCallback);
             }
-
-            this.SteamGuardButton_Click(null, null);
         }
 
         private void NavFailed(object sender, WebViewNavigationFailedEventArgs e)
@@ -61,10 +73,8 @@ namespace UnofficialSteamAuthenticator
             this.SteamGuardButton_Click(null, null);
         }
 
-        private async void SummariesCallback(string responseString)
+        private async void SummariesCallback(Players responseObj)
         {
-            var responseObj = JsonConvert.DeserializeObject<Players>(responseString ?? string.Empty);
-
             if (responseObj?.PlayersList == null)
             {
                 return;
@@ -72,15 +82,12 @@ namespace UnofficialSteamAuthenticator
 
             await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                foreach (Player p in responseObj.PlayersList)
+                foreach (Player p in responseObj.PlayersList.Where(p => p.SteamId == this.account.Session.SteamID))
                 {
-                    if (p.SteamId == this.account.Session.SteamID)
-                    {
-                        this.account.DisplayName = p.Username;
-                        Storage.PushStore(this.account);
+                    this.account.DisplayName = p.Username;
+                    this.account.PushStore();
 
-                        this.SteamGuardButton_Click(null, null);
-                    }
+                    this.SteamGuardButton_Click(null, null);
                 }
             });
         }
@@ -126,7 +133,6 @@ namespace UnofficialSteamAuthenticator
                         {
                             if (success)
                             {
-                                Storage.PushStore(this.account.Session);
                                 this.SteamGuardButton_Click(null, null);
                             }
                             else
@@ -282,12 +288,21 @@ namespace UnofficialSteamAuthenticator
         {
             this.confWebUrl = e.Uri.AbsoluteUri;
 
-            if (e.IsSuccess && this.confWebUrl == this.confUrl)
+            if (e.IsSuccess && this.confIdRegex.IsMatch(e.Uri.Fragment))
             {
-                // Try to only inject this once
-                string[] args =
-                {
-                    @"
+                // Viewing a confirmation {confId}, if fragment is empty the list is being viewed
+                int confId = int.Parse(this.confIdRegex.Matches(e.Uri.Fragment)[0].Groups[1].Value);
+                this.account.NotifySince = confId;
+                this.account.PushStore();
+            }
+
+            if (!e.IsSuccess || this.confWebUrl != this.confUrl)
+                return;
+
+            // Try to only inject this once
+            string[] args =
+            {
+                @"
                     if (!window.SGHandler) {
                         window.SGHandler = {
                             Value: 0,
@@ -312,9 +327,8 @@ namespace UnofficialSteamAuthenticator
                             runLocalUrlO(url);
                         }
                     }"
-                };
-                await this.ConfirmationWeb.InvokeScriptAsync("eval", args);
-            }
+            };
+            await this.ConfirmationWeb.InvokeScriptAsync("eval", args);
         }
 
         private void HideAll()
@@ -348,7 +362,7 @@ namespace UnofficialSteamAuthenticator
                 if (response)
                 {
                     this.account.FullyEnrolled = false;
-                    Storage.PushStore(this.account);
+                    this.account.PushStore();
                     await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         this.SteamGuardButton_Click(null, null);

@@ -96,9 +96,13 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnofficialSteamAuthenticator\UnofficalSteamAuthenticator.csproj">
-      <Project>{6053f604-eed0-4329-8135-0dd9f3de41ed}</Project>
-      <Name>UnofficalSteamAuthenticator</Name>
+    <ProjectReference Include="..\NotificationTask\NotificationTask.csproj">
+      <Project>{b7d850fe-a53a-4b10-b2e2-b31c13d4642a}</Project>
+      <Name>NotificationTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SteamAuth\Lib.csproj">
+      <Project>{9924cdcc-ba75-4f8c-8f72-0b9985968c1d}</Project>
+      <Name>Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

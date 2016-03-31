@@ -11,9 +11,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Newtonsoft.Json;
-using UnofficialSteamAuthenticator.SteamAuth;
-using UnofficialSteamAuthenticator.Models;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.Models;
+using UnofficialSteamAuthenticator.Lib;
 
 namespace UnofficialSteamAuthenticator
 {
@@ -42,25 +42,19 @@ namespace UnofficialSteamAuthenticator
                 return;
             }
 
-            string ids = string.Empty;
             foreach (ulong steamId in accs.Keys)
             {
-                ids += steamId + ",";
-
                 var usr = new User(steamId, accs[steamId].LastCurrent, StringResourceLoader.GetString("GeneratingCode_Ellipsis"));
                 this.listElems.Add(steamId, usr);
             }
 
             this.AccountList.ItemsSource = this.listElems.Values.OrderByDescending(item => item.LastCurrent).ToList();
 
-            string accessToken = accs.First().Value.OAuthToken;
-            this.web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + accessToken + "&steamids=" + ids, "GET", this.SummariesCallback);
+            UserSummary.GetSummaries(this.web, accs.First().Value, accs.Keys.ToArray(), this.SummariesCallback);
         }
 
-        private async void SummariesCallback(string responseString)
+        private async void SummariesCallback(Players responseObj)
         {
-            var responseObj = JsonConvert.DeserializeObject<Players>(responseString ?? string.Empty);
-
             if (responseObj?.PlayersList == null)
             {
                 return;

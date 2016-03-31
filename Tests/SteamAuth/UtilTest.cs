@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
 {

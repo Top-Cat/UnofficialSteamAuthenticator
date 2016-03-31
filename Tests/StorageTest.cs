@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Windows.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UnofficialSteamAuthenticator.SteamAuth;
-using UnofficialSteamAuthenticator;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using UnofficialSteamAuthenticator.Lib;
 
 namespace UnofficalSteamAuthenticator.Tests
 {
@@ -47,8 +47,10 @@ namespace UnofficalSteamAuthenticator.Tests
             SessionData acc;
 
             this.localSettings.Values["sessionJson"] = "{\"SteamID\":" + TestSteamid + "}";
-            acc = new SessionData();
-            acc.SteamID = TestSteamid + 1;
+            acc = new SessionData()
+            {
+                SteamID = TestSteamid + 1
+            };
 
             Storage.PushStore(acc);
 

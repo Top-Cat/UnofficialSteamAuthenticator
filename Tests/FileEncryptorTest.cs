@@ -4,6 +4,7 @@ using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using UnofficialSteamAuthenticator;
+using UnofficialSteamAuthenticator.Lib;
 
 namespace UnofficalSteamAuthenticator.Tests
 {
