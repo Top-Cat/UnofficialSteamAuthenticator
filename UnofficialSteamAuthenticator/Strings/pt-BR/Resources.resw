@@ -128,151 +128,147 @@
     <value>Dados de início de sessão inválidos</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Too many failures</value>
+    <value>Erros demais</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Need 2FA</value>
+    <value>Necessita Autenticação</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>Você é humano?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Link authenticator</value>
+    <value>Associar autenticador</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Link</value>
+    <value>Associar</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>You need to set up this device as an authenticator before you can get steam guard codes or confirm trades.</value>
+    <value>É necessário configurar este dispositivo como um autenticador para que você possa gerar chaves Steam Guard ou confirmar trocas.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>Chave</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmar</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
-    <value>Chat</value>
+    <value>Conversas</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Trocar de conta</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Logout</value>
+    <value>Sair</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>Sobre</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Unlink</value>
+    <value>Desassociar</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuar</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Enter SMS Code</value>
+    <value>Digite o código recebido via SMS</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unknown error linking authenticator.</value>
+    <value>Erro desconhecido ao associar o autenticador.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
+    <value>Você já possui outro dispositivo configurado como autenticador. Remova-o da sua conta e tente novamente.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Digite o número de telefone</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Bad Code</value>
+    <value>Código inválido</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
-
-Before finalizing the authenticator, please write down your revocation code.</value>
+    <value>O autenticador móvel ainda não foi associado. Antes de finalizar o autenticador, por favor anote o código de recuperação.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
-
-Do not share it with anyone.</value>
+    <value>Você vai precisar deste código para recuperar sua conta Steam caso perder seu telefone. Você não será capaz de obtê-lo novamente após esta etapa, por isso, por favor, anote-o agora. Não o compartilhe com ninguém.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>Gerando código...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>Informações do aplicativo</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versão</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>Criador</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Fonte</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Adicionar</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>Alternar</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>Autenticador móvel para iniciar sessão e realizar trocas na Steam</value>
   </data>
   <data name="ExportFlyout.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>Exportar</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>Sair</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
-    <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
+    <value>A senha que você digitou não corresponde a nenhuma das contas criptografadas existentes. Tente novamente ou escolha um destino diferente.</value>
   </data>
   <data name="Encryption_BadPassword_Title" xml:space="preserve">
-    <value>Bad passkey</value>
+    <value>Chave de acesso inválido</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>Please enter an encryption passkey at least 3 characters long</value>
+    <value>Por favor insira uma senha encriptada com pelo menos 3 caracteres</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
-    <value>Encrypt</value>
+    <value>Encriptar</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
-    <value>Failed to export maFiles</value>
+    <value>Falha ao exportar maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Erro</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
-    <value>maFiles successfully exported</value>
+    <value>maFiles exportado com sucesso</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>Sucesso</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
-    <value>The passkey you entered was too short</value>
+    <value>A senha que você inseriu é muito curta</value>
   </data>
   <data name="Settings_Headline.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Opções</value>
   </data>
   <data name="SettingsButton.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>Opções</value>
   </data>
   <data name="Settings_Exit.Content" xml:space="preserve">
-    <value>Exit App</value>
+    <value>Sair do app</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Língua</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>You will need to restart the app for this to take effect</value>
+    <value>Você precisará de reiniciar o app para que esta alteração seja aplicada</value>
   </data>
 </root>
