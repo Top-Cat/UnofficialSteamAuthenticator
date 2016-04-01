@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
 using Newtonsoft.Json;
@@ -8,6 +8,10 @@ namespace UnofficialSteamAuthenticator
 {
     public class Storage
     {
+        /// <summary>
+        /// Extract SteamGuardAccount object by Steam username from phone's storage.
+        /// </summary>
+        /// <param name="username">Steam username of SteamGuardAccount object to extract.</param>
         public static SteamGuardAccount GetSteamGuardAccount(string username)
         {
             SteamGuardAccount response = null;
@@ -25,7 +29,10 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        /// <summary>
+        /// Extract SteamGuardAccount object by SteamID from phone's storage.
+        /// </summary>
+        /// <param name="steamId">SteamID of SteamGuardAccount object to extract.</param>
         public static SteamGuardAccount GetSteamGuardAccount(ulong steamId)
         {
             SteamGuardAccount response;
@@ -54,7 +61,9 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        /// <summary>
+        /// Receive SteamGuardAccount object for current session.
+        /// </summary>
         public static SteamGuardAccount GetSteamGuardAccount()
         {
             SteamGuardAccount response = null;
@@ -68,14 +77,20 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        /// <summary>
+        /// Save SteamGuardAccount object to phone's storage.
+        /// </summary>
+        /// <param name="account">SteamGuardAccount object to save.</param>
         public static void PushStore(SteamGuardAccount account)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["steamGuard-" + account.Session.SteamID] = JsonConvert.SerializeObject(account);
             localSettings.Values["steamUser-" + account.AccountName] = account.Session.SteamID;
         }
-
+        /// <summary>
+        /// Sets current account to given SteamID.
+        /// </summary>
+        /// <param name="steamid">SteamID of an account to be set.</param>
         public static void SetCurrentUser(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -88,7 +103,9 @@ namespace UnofficialSteamAuthenticator
             data.LastCurrent = Util.GetSystemUnixTime();
             PushStore(data);
         }
-
+        /// <summary>
+        /// Receive Session object for current Account.
+        /// </summary>
         public static SessionData GetSessionData()
         {
             Dictionary<ulong, SessionData> response = GetAccounts();
@@ -111,7 +128,9 @@ namespace UnofficialSteamAuthenticator
             }
             return null;
         }
-
+        /// <summary>
+        /// Receives JSON representations of Session objects in phone's storage.
+        /// </summary>
         public static Dictionary<ulong, SessionData> GetAccounts()
         {
             var response = new Dictionary<ulong, SessionData>();
@@ -135,7 +154,10 @@ namespace UnofficialSteamAuthenticator
 
             return response;
         }
-
+        /// <summary>
+        /// Save SessionData object data to phone's storage.
+        /// </summary>
+        /// <param name="session">SessionData object to save.</param>
         public static void PushStore(SessionData session)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -145,7 +167,10 @@ namespace UnofficialSteamAuthenticator
 
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
-
+        /// <summary>
+        /// Deletes account from phone's storage.
+        /// </summary>
+        /// <param name="steamid">SteamID of an account to delete.</param>
         public static void Logout(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -155,7 +180,9 @@ namespace UnofficialSteamAuthenticator
 
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
-
+        /// <summary>
+        /// Deletes current account from phone's storage.
+        /// </summary>
         public static void Logout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
