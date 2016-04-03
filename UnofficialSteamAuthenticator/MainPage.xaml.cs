@@ -64,9 +64,9 @@ namespace UnofficialSteamAuthenticator
                 this.SteamGuardButton_Click(null, null);
             }
 
-            if ((DateTime.UtcNow - this.account.DisplayCache).Days > 1)
+            if (this.account != null && (DateTime.UtcNow - this.account.DisplayCache).Days > 1)
             {
-                UserSummary.GetSummaries(this.web, this.account.Session, new [] { this.account.Session.SteamID }, SummariesCallback);
+                UserSummary.GetSummaries(this.web, this.account.Session, new [] { this.account.Session.SteamID }, this.SummariesCallback);
             }
         }
 
