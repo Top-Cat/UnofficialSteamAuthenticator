@@ -47,10 +47,10 @@ namespace UnofficialSteamAuthenticator
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
         {
-            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = false;
+            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = this.FamilyPin.IsTabStop = false;
             this.ErrorLabel.Visibility = this.BtnContinue.Visibility = Visibility.Collapsed;
             this.Progress.Visibility = Visibility.Visible;
-            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = true;
+            this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = this.FamilyPin.IsTabStop = true;
 
             if (this.PhoneNumGrid.Visibility == Visibility.Visible)
             {
