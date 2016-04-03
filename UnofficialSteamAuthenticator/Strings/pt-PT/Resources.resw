@@ -271,4 +271,10 @@
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
     <value>Você precisará de reiniciar a aplicação para que esta alteração seja aplicada</value>
   </data>
+  <data name="FamilyPinIncorrect" xml:space="preserve">
+    <value>Invalid Pin</value>
+  </data>
+  <data name="TxtFamilyPin.Text" xml:space="preserve">
+    <value>Enter Family View Pin</value>
+  </data>
 </root>
