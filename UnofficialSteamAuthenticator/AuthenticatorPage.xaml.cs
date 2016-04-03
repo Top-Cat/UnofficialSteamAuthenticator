@@ -4,7 +4,8 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using UnofficialSteamAuthenticator.Lib;
 
 namespace UnofficialSteamAuthenticator
 {

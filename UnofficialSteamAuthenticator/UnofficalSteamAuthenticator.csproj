@@ -83,7 +83,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Models\Language.cs" />
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -96,50 +95,15 @@
     <Compile Include="AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileEncryptor.cs" />
-    <Compile Include="Models\Avatar.cs" />
-    <Compile Include="Models\Sda\Manifest.cs" />
-    <Compile Include="Models\Sda\ManifestEntry.cs" />
-    <Compile Include="Models\SteamAuth\FinalizeAuthenticatorResponse.cs" />
-    <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />
-    <Compile Include="Models\SteamAuth\OAuth.cs" />
-    <Compile Include="Models\SteamAuth\LoginResponse.cs" />
-    <Compile Include="Models\SteamAuth\RSAResponse.cs" />
-    <Compile Include="Models\SteamAuth\RefreshSessionDataResponse.cs" />
-    <Compile Include="Models\SteamAuth\HasPhoneResponse.cs" />
-    <Compile Include="Models\SteamAuth\SuccessResponse.cs" />
-    <Compile Include="Models\SteamAuth\TimeQueryResponse.cs" />
-    <Compile Include="Models\WebResponse.cs" />
-    <Compile Include="SteamAuth\ISteamSecrets.cs" />
-    <Compile Include="SteamAuth\IWebRequest.cs" />
-    <Compile Include="SteamAuth\WGTokenInvalidException.cs" />
-    <Compile Include="SdaStorage.cs" />
-    <Compile Include="StringResourceLoader.cs" />
-    <Compile Include="Models\ModelBase.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Players.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UsersPage.xaml.cs">
       <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SteamAuth\Callbacks.cs" />
-    <Compile Include="Storage.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SteamAuth\APIEndpoints.cs" />
-    <Compile Include="SteamAuth\AuthenticatorLinker.cs" />
-    <Compile Include="SteamAuth\Confirmation.cs" />
-    <Compile Include="SteamAuth\SessionData.cs" />
-    <Compile Include="SteamAuth\SteamGuardAccount.cs" />
-    <Compile Include="SteamAuth\SteamWeb.cs" />
-    <Compile Include="SteamAuth\TimeAligner.cs" />
-    <Compile Include="SteamAuth\UserLogin.cs" />
-    <Compile Include="SteamAuth\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -147,6 +111,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BadgeLogo.scale-240.png" />
     <Content Include="Assets\revocation-exclamation.png" />
     <Content Include="Assets\revocation-pencil.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
@@ -156,13 +121,6 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\Wide310x150Logo.scale-240.png" />
     <None Include="Package.StoreAssociation.xml" />
-    <PRIResource Include="Strings\en-US\Resources.resw" />
-    <PRIResource Include="Strings\de-DE\Resources.resw" />
-    <PRIResource Include="Strings\da-DK\Resources.resw" />
-    <PRIResource Include="Strings\cs-CZ\Resources.resw" />
-    <PRIResource Include="Strings\ca-ES\Resources.resw" />
-    <PRIResource Include="Strings\ar-SA\Resources.resw" />
-    <PRIResource Include="Strings\af-ZA\Resources.resw" />
     <PRIResource Include="Strings\zh-TW\Resources.resw" />
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
     <PRIResource Include="Strings\vi-VN\Resources.resw" />
@@ -185,8 +143,15 @@
     <PRIResource Include="Strings\fr-FR\Resources.resw" />
     <PRIResource Include="Strings\fi-FI\Resources.resw" />
     <PRIResource Include="Strings\es-ES\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\en-GB\Resources.resw" />
     <PRIResource Include="Strings\el-GR\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
+    <PRIResource Include="Strings\da-DK\Resources.resw" />
+    <PRIResource Include="Strings\cs-CZ\Resources.resw" />
+    <PRIResource Include="Strings\ca-ES\Resources.resw" />
+    <PRIResource Include="Strings\ar-SA\Resources.resw" />
+    <PRIResource Include="Strings\af-ZA\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -219,10 +184,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="crypto, Version=1.8.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.0\lib\wpa81\crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=1.0.0.4220, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
@@ -233,10 +194,6 @@
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights.PersistenceChannel, Version=1.0.0.4223, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.PersistenceChannel.1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.PersistenceChannel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -253,7 +210,18 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Service References\Application Insights\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationTask\NotificationTask.csproj">
+      <Project>{b7d850fe-a53a-4b10-b2e2-b31c13d4642a}</Project>
+      <Name>NotificationTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SteamAuth\Lib.csproj">
+      <Project>{9924cdcc-ba75-4f8c-8f72-0b9985968c1d}</Project>
+      <Name>Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

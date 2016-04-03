@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UnofficialSteamAuthenticator.SteamAuth;
+﻿using System;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.SteamAuth
 {
@@ -18,11 +19,32 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
         [TestMethod]
         public void TestDeviceId()
         {
-            string deviceIdA = Util.GenerateDeviceID();
-            string deviceIdB = Util.GenerateDeviceID();
+            string deviceIdA = Util.GenerateDeviceId();
+            string deviceIdB = Util.GenerateDeviceId();
 
             Assert.IsTrue(deviceIdA.Length > 0);
             Assert.IsFalse(deviceIdA.Equals(deviceIdB));
+        }
+
+        [TestMethod]
+        public void TestConvertToSteam3()
+        {
+            Assert.AreEqual(46559209U, Util.ConvertToSteam3(76561198006824937));
+            Assert.AreEqual(46559208U, Util.ConvertToSteam3(76561198006824936));
+            Assert.AreEqual(1U, Util.ConvertToSteam3(76561197960265729));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                Util.ConvertToSteam3(76561197960265728);
+            });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                Util.ConvertToSteam3(76561197960265720);
+            });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                Util.ConvertToSteam3(76561266679742464);
+            });
         }
 
         [TestMethod]

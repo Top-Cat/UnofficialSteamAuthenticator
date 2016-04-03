@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.Tests.Mock
 {
-    class SteamGuardAccountMock : Mock, ISteamSecrets
+    internal class SteamGuardAccountMock : Mock, ISteamSecrets
     {
         public string SharedSecret { get; set; }
         public string SerialNumber { get; set; }

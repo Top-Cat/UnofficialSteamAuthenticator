@@ -8,8 +8,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
-using UnofficialSteamAuthenticator.Models;
-using UnofficialSteamAuthenticator.SteamAuth;
+using UnofficialSteamAuthenticator.Lib.Models;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using UnofficalSteamAuthenticator.NotificationTask;
+using UnofficialSteamAuthenticator.Lib;
 
 // The WebView Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
@@ -32,6 +34,7 @@ namespace UnofficialSteamAuthenticator
             WindowsAppInitializer.InitializeAsync();
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            BackgroundTask.Register();
         }
 
         protected override void OnActivated(IActivatedEventArgs args)
@@ -79,6 +82,8 @@ namespace UnofficialSteamAuthenticator
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+
+            BackgroundTask.SetBadgeCount(0);
 
             var rootFrame = Window.Current.Content as Frame;
 
@@ -128,6 +133,11 @@ namespace UnofficialSteamAuthenticator
                 {
                     throw new Exception("Failed to create initial page");
                 }
+            }
+
+            if (e.Arguments.Length > 0)
+            {
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
 
             // Ensure the current window is active
