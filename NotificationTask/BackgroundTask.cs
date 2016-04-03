@@ -55,7 +55,10 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                 });
             }
 
-            WaitHandle.WaitAll(locks.ToArray());
+            if (locks.Count > 0)
+            {
+                WaitHandle.WaitAll(locks.ToArray());
+            }
             SetBadgeCount(notifCount);
         }
 

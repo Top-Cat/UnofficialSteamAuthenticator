@@ -34,7 +34,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             Assert.AreEqual(2, mock.CallCount("Request"));
 
             // Steamweb will now respond with a time
-            mock.WithArgs("Request", APIEndpoints.TWO_FACTOR_TIME_QUERY, "POST")(new object[] { "{response: {server_time: " + testTime + "}}", HttpStatusCode.OK });
+            mock.WithArgs("Request", ApiEndpoints.TWO_FACTOR_TIME_QUERY, "POST")(new object[] { "{response: {server_time: " + testTime + "}}", HttpStatusCode.OK });
 
             // No alignment yet, makes successful request
             // Should call the callback with an aligned time

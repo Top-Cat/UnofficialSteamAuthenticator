@@ -51,7 +51,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             WebCallback hasCookies = (res, code) =>
             {
                 postData.Add("username", this.Username);
-                web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, (rsaRawResponse, rsaCode) =>
+                web.MobileLoginRequest(ApiEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, (rsaRawResponse, rsaCode) =>
                 {
                     if (rsaRawResponse == null || rsaCode != HttpStatusCode.OK || rsaRawResponse.Contains("<BODY>\nAn error occurred while processing your request."))
                     {
@@ -96,7 +96,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     postData.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
                     postData.Add("donotcache", Util.GetSystemUnixTime().ToString());
 
-                    web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, (rawLoginResponse, loginCode) =>
+                    web.MobileLoginRequest(ApiEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, (rawLoginResponse, loginCode) =>
                     {
                         LoginResponse loginResponse = null;
 

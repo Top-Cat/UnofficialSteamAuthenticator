@@ -101,6 +101,19 @@
             <TextBox Name="SmsCode" BorderBrush="LightGray" />
         </StackPanel>
 
+        <StackPanel x:Name="FamilyGrid"
+                    Grid.Row="1"
+                    Margin="12,17,12,28"
+                    Visibility="Collapsed">
+            <!--  SMS Code  -->
+            <TextBlock x:Uid="TxtFamilyPin"
+                       FontSize="20"
+                       Foreground="White"
+                       Text="Enter Family View Pin"
+                       TextWrapping="Wrap" />
+            <PasswordBox Name="FamilyPin" BorderBrush="LightGray" />
+        </StackPanel>
+
         <StackPanel Grid.Row="2" Margin="12,17,12,28">
             <!--  Login Button  -->
             <TextBlock x:Name="ErrorLabel"

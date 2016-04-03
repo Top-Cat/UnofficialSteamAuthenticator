@@ -20,6 +20,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         /// </summary>
         public string PhoneNumber = null;
 
+        public string Pin = null;
+
         /// <summary>
         /// Randomly-generated device ID. Should only be generated once per linker.
         /// </summary>
@@ -35,29 +37,34 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         /// </summary>
         public bool Finalized = false;
 
-        private SessionData _session;
-        private CookieContainer _cookies;
+        private readonly SessionData session;
+        private readonly CookieContainer cookies;
 
         public AuthenticatorLinker(SessionData session)
         {
-            this._session = session;
+            this.session = session;
             this.DeviceID = Util.GenerateDeviceId();
 
-            this._cookies = new CookieContainer();
-            session.AddCookies(_cookies);
+            this.cookies = new CookieContainer();
+            session.AddCookies(this.cookies);
         }
 
         public void AddAuthenticator(IWebRequest web, LinkCallback callback)
         {
-            this._hasPhoneAttached(web, hasPhone =>
+            HasPhoneCallback hasPhoneCallback = hasPhone =>
             {
+                if (hasPhone == PhoneStatus.FamilyView)
+                {
+                    callback(LinkResult.FamilyViewEnabled);
+                    return;
+                }
                 bool settingNumber = !string.IsNullOrEmpty(this.PhoneNumber);
-                if (hasPhone && settingNumber)
+                if (hasPhone == PhoneStatus.Attached && settingNumber)
                 {
                     callback(LinkResult.MustRemovePhoneNumber);
                     return;
                 }
-                if (!hasPhone && !settingNumber)
+                if (hasPhone == PhoneStatus.Detatched && !settingNumber)
                 {
                     callback(LinkResult.MustProvidePhoneNumber);
                     return;
@@ -72,13 +79,13 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     }
 
                     var postData = new Dictionary<string, string>();
-                    postData["access_token"] = _session.OAuthToken;
-                    postData["steamid"] = _session.SteamID.ToString();
+                    postData["access_token"] = this.session.OAuthToken;
+                    postData["steamid"] = this.session.SteamID.ToString();
                     postData["authenticator_type"] = "1";
                     postData["device_identifier"] = this.DeviceID;
                     postData["sms_phone_id"] = "1";
 
-                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData, (response, code) =>
+                    web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData, (response, code) =>
                     {
                         if (response == null || code != HttpStatusCode.OK)
                         {
@@ -108,29 +115,48 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         this.LinkedAccount = addAuthenticatorResponse.Response;
                         // Force not enrolled at this stage
                         this.LinkedAccount.FullyEnrolled = false;
-                        this.LinkedAccount.Session = this._session;
+                        this.LinkedAccount.Session = this.session;
                         this.LinkedAccount.DeviceID = this.DeviceID;
 
                         callback(LinkResult.AwaitingFinalization);
                     });
                 };
 
-                if (!hasPhone)
+                if (hasPhone == PhoneStatus.Detatched)
                 {
-                    _addPhoneNumber(web, numberAddedCallback);
+                    this._addPhoneNumber(web, numberAddedCallback);
                 } else
                 {
                     numberAddedCallback(true);
                 }
-            });
+            };
+
+            if (string.IsNullOrEmpty(this.Pin))
+            {
+                this._hasPhoneAttached(web, hasPhoneCallback);
+            }
+            else
+            {
+                this.UnlockFamilyView(web, success =>
+                {
+                    if (success)
+                    {
+                        this._hasPhoneAttached(web, hasPhoneCallback);
+                    }
+                    else
+                    {
+                        callback(LinkResult.FamilyViewEnabled);
+                    }
+                });
+            }
         }
 
         public void FinalizeAddAuthenticator(IWebRequest web, string smsCode, FinalizeCallback callback)
         {
             var postData = new Dictionary<string, string>
             {
-                ["steamid"] = this._session.SteamID.ToString(),
-                ["access_token"] = this._session.OAuthToken,
+                ["steamid"] = this.session.SteamID.ToString(),
+                ["access_token"] = this.session.OAuthToken,
                 ["activation_code"] = smsCode
             };
             var tries = 0;
@@ -196,7 +222,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 TimeAligner.GetSteamTime(web, steamTime => {
                     postData["authenticator_time"] = steamTime.ToString();
 
-                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", postData, reqCallback);
+                    web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", postData, reqCallback);
                 });
             };
 
@@ -229,10 +255,10 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             {
                 ["op"] = "check_sms_code",
                 ["arg"] = smsCode,
-                ["sessionid"] = this._session.SessionID
+                ["sessionid"] = this.session.SessionID
             };
 
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) => {
+            web.Request(ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, this.cookies, (response, code) => {
                 if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
@@ -250,10 +276,10 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             {
                 ["op"] = "add_phone_number",
                 ["arg"] = this.PhoneNumber,
-                ["sessionid"] = this._session.SessionID
+                ["sessionid"] = this.session.SessionID
             };
 
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) =>
+            web.Request(ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, this.cookies, (response, code) =>
             {
                 if (response == null || code != HttpStatusCode.OK)
                 {
@@ -266,24 +292,61 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             });
         }
 
-        private void _hasPhoneAttached(IWebRequest web, BCallback callback)
+        private void _hasPhoneAttached(IWebRequest web, HasPhoneCallback callback)
         {
-            var postData = new Dictionary<string, string>();
-            postData["op"] = "has_phone";
-            postData["arg"] = "null";
-            postData["sessionid"] = _session.SessionID;
-
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) =>
+            var postData = new Dictionary<string, string>
             {
+                ["op"] = "has_phone",
+                ["arg"] = "null",
+                ["sessionid"] = this.session.SessionID
+            };
+
+            web.Request(ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, this.cookies, (response, code) =>
+            {
+                if (code == HttpStatusCode.Forbidden)
+                {
+                    callback(PhoneStatus.FamilyView);
+                    return;
+                }
+
+                if (response == null || code != HttpStatusCode.OK)
+                {
+                    callback(PhoneStatus.Detatched);
+                    return;
+                }
+
+                var hasPhoneResponse = JsonConvert.DeserializeObject<HasPhoneResponse>(response);
+                callback(hasPhoneResponse.HasPhone ? PhoneStatus.Attached : PhoneStatus.Detatched);
+            });
+        }
+
+        private void UnlockFamilyView(IWebRequest web, BCallback callback)
+        {
+            var postData = new Dictionary<string, string>
+            {
+                ["pin"] = this.Pin
+            };
+
+            web.Request(ApiEndpoints.STORE_BASE + "/parental/ajaxunlock", "POST", postData, this.cookies, (response, code) =>
+            {
+                this.Pin = string.Empty; // Make sure we don't try again unless we fail
+
                 if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
                     return;
                 }
 
-                var hasPhoneResponse = JsonConvert.DeserializeObject<HasPhoneResponse>(response);
-                callback(hasPhoneResponse.HasPhone);
+                var successResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
+                callback(successResponse.Success);
             });
+        }
+
+        public enum PhoneStatus
+        {
+            Attached,
+            Detatched,
+            FamilyView
         }
 
         public enum LinkResult
@@ -292,7 +355,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             MustRemovePhoneNumber, //A phone number is already on the account
             AwaitingFinalization, //Must provide an SMS code
             GeneralFailure, //General failure (really now!)
-            AuthenticatorPresent
+            AuthenticatorPresent,
+            FamilyViewEnabled
         }
 
         public enum FinalizeResult

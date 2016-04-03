@@ -13,7 +13,7 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
 
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
-            const string referer = APIEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client";
+            const string referer = ApiEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client";
 
             this.RegisterCall(url, method, data, cookies, headers, referer, callback)();
             object[] response = (object[]) this.GetResponse(url, method, data, cookies, headers, referer)() ?? new object[] { null, HttpStatusCode.NotFound };
@@ -45,7 +45,7 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
-            this.Request(url, method, data, cookies, headers, APIEndpoints.COMMUNITY_BASE, callback);
+            this.Request(url, method, data, cookies, headers, ApiEndpoints.COMMUNITY_BASE, callback);
         }
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebCallback callback)

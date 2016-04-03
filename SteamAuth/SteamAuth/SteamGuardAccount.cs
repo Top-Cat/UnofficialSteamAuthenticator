@@ -91,7 +91,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
             try
             {
-                web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, (res, code) =>
+                web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, (res, code) =>
                 {
                     var removeResponse = JsonConvert.DeserializeObject<WebResponse<SuccessResponse>>(res);
 
@@ -225,7 +225,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         /// <returns></returns>
         public void RefreshSession(SteamWeb web, BCallback callback)
         {
-            string url = APIEndpoints.MOBILEAUTH_GETWGTOKEN;
+            string url = ApiEndpoints.MOBILEAUTH_GETWGTOKEN;
             var postData = new Dictionary<string, string>();
             postData.Add("access_token", this.Session.OAuthToken);
 
@@ -266,7 +266,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         {
             GenerateConfirmationQueryParams(web, op, queryParams =>
             {
-                string url = APIEndpoints.COMMUNITY_BASE + "/mobileconf/ajaxop";
+                string url = ApiEndpoints.COMMUNITY_BASE + "/mobileconf/ajaxop";
                 string queryString = "?op=" + op + "&";
                 queryString += queryParams;
                 queryString += "&cid=" + conf.ID + "&ck=" + conf.Key;
@@ -306,7 +306,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         public string GenerateConfirmationUrl(string queryString)
         {
-            return APIEndpoints.COMMUNITY_BASE + "/mobileconf/conf?" + queryString;
+            return ApiEndpoints.COMMUNITY_BASE + "/mobileconf/conf?" + queryString;
         }
 
         public void GenerateConfirmationQueryParams(SteamWeb web, string tag, Callback callback)
@@ -375,7 +375,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         private void _getConfirmationDetails(SteamWeb web, Confirmation conf, ConfirmationCallback callback)
         {
-            string url = APIEndpoints.COMMUNITY_BASE + "/mobileconf/details/" + conf.ID + "?";
+            string url = ApiEndpoints.COMMUNITY_BASE + "/mobileconf/details/" + conf.ID + "?";
             GenerateConfirmationQueryParams(web, "details", queryString =>
             {
                 url += queryString;
