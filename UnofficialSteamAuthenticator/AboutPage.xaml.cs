@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.ApplicationModel;
 using Windows.Phone.UI.Input;
 using Windows.System;
 using Windows.UI.Xaml.Input;
@@ -11,10 +12,11 @@ namespace UnofficialSteamAuthenticator
         public AboutPage()
         {
             this.InitializeComponent();
-            this.SourceRow.PointerPressed += this.SourceRow_PointerPressed;
+            this.SourceRow.PointerPressed += SourceRow_PointerPressed;
+            this.About_AppVersionTxt.Text = $"v{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}";
         }
 
-        private async void SourceRow_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private static async void SourceRow_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             var github = new Uri("http://github.com/Top-Cat/UnofficialSteamAuthenticator");
             await Launcher.LaunchUriAsync(github);
@@ -32,11 +34,11 @@ namespace UnofficialSteamAuthenticator
 
         private void BackPressed(object sender, BackPressedEventArgs args)
         {
-            if (this.Frame.CanGoBack)
-            {
-                args.Handled = true;
-                this.Frame.GoBack();
-            }
+            if (!this.Frame.CanGoBack)
+                return;
+
+            args.Handled = true;
+            this.Frame.GoBack();
         }
     }
 }
