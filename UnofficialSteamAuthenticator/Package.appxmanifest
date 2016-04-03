@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="7454ThomasCheyney.SteamAuthenticator" Publisher="CN=3D63FC23-731A-432B-B419-D65629B6D2E9" Version="1.3.0.1" />
+  <Identity Name="7454ThomasCheyney.SteamAuthenticator" Publisher="CN=3D63FC23-731A-432B-B419-D65629B6D2E9" Version="1.4.1.0" />
   <mp:PhoneIdentity PhoneProductId="66245cdd-1f74-4872-a029-66c34bf1327a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Unofficial Steam Authenticator</DisplayName>
