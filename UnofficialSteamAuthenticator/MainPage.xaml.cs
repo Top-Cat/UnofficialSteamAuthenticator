@@ -143,7 +143,11 @@ namespace UnofficialSteamAuthenticator
                         {
                             if (success)
                             {
-                                this.SteamGuardButton_Click(null, null);
+                                Action<object, RoutedEventArgs> call = this.ChatWeb.Visibility == Visibility.Visible ? this.MessageButton_Click :
+                                    this.ConfirmationWeb.Visibility == Visibility.Visible ? this.ConfirmationsButton_Click :
+                                    (Action<object, RoutedEventArgs>) this.SteamGuardButton_Click;
+
+                                call(null, null);
                             }
                             else
                             {
