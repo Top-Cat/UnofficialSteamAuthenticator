@@ -77,9 +77,9 @@ namespace UnofficialSteamAuthenticator.Lib.Models
 
                 this.Get();
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
-                // No network, don't retry
+                // No network or no permission??, don't retry
             }
         }
     }
