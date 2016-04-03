@@ -231,7 +231,7 @@
     <value>Export</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>Выйти</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
     <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
@@ -270,9 +270,15 @@
     <value>Exit App</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
     <value>You will need to restart the app for this to take effect</value>
+  </data>
+  <data name="FamilyPinIncorrect" xml:space="preserve">
+    <value>Invalid Pin</value>
+  </data>
+  <data name="TxtFamilyPin.Text" xml:space="preserve">
+    <value>Enter Family View Pin</value>
   </data>
 </root>

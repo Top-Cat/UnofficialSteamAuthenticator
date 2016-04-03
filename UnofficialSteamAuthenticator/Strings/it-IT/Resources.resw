@@ -275,4 +275,10 @@ Non condividerlo con nessuno.</value>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
     <value>You will need to restart the app for this to take effect</value>
   </data>
+  <data name="FamilyPinIncorrect" xml:space="preserve">
+    <value>Invalid Pin</value>
+  </data>
+  <data name="TxtFamilyPin.Text" xml:space="preserve">
+    <value>Enter Family View Pin</value>
+  </data>
 </root>
