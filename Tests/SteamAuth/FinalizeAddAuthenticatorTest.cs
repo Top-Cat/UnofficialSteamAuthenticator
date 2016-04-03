@@ -56,14 +56,14 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             this.linker.PhoneNumber = "test-phone";
 
             var mock = new SteamWebMock();
-            mock.WithArgs("Request", APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkSmsCode)(new object[] { "{success: false}", HttpStatusCode.OK });
+            mock.WithArgs("Request", ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkSmsCode)(new object[] { "{success: false}", HttpStatusCode.OK });
 
             this.linker.FinalizeAddAuthenticator(mock, TestSmsCode, response =>
             {
                 Assert.AreEqual(AuthenticatorLinker.FinalizeResult.BadSMSCode, response);
             });
 
-            Assert.AreEqual(1, mock.CallCount("Request", APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkSmsCode));
+            Assert.AreEqual(1, mock.CallCount("Request", ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", this.checkSmsCode));
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
         public void TestErrorCodes()
         {
             var mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 89, want_more: false, success: false}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 89, want_more: false, success: false}}", HttpStatusCode.OK });
 
             var guardMock = new SteamGuardAccountMock();
             guardMock.WithArgs("GenerateSteamGuardCode")(TestSteamGuardCode);
@@ -98,7 +98,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             });
 
             mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 0, want_more: true, success: false}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 0, want_more: true, success: false}}", HttpStatusCode.OK });
 
             this.linker.FinalizeAddAuthenticator(mock, TestSmsCode, response =>
             {
@@ -106,7 +106,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             });
 
             mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 88, want_more: true, success: false}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 88, want_more: true, success: false}}", HttpStatusCode.OK });
 
             this.linker.FinalizeAddAuthenticator(mock, TestSmsCode, response =>
             {
@@ -114,7 +114,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             });
 
             mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 0, want_more: true, success: true}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 0, want_more: true, success: true}}", HttpStatusCode.OK });
 
             this.linker.FinalizeAddAuthenticator(mock, TestSmsCode, response =>
             {
@@ -122,7 +122,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
             });
 
             mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 88, want_more: true, success: true}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 88, want_more: true, success: true}}", HttpStatusCode.OK });
 
             this.linker.FinalizeAddAuthenticator(mock, TestSmsCode, response =>
             {
@@ -134,7 +134,7 @@ namespace UnofficalSteamAuthenticator.Tests.SteamAuth
         public void TestLinkAuth()
         {
             var mock = new SteamWebMock();
-            mock.WithArgs("MobileLoginRequest", APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 1, want_more: false, success: true}}", HttpStatusCode.OK });
+            mock.WithArgs("MobileLoginRequest", ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", this.checkFinalize)(new object[] { "{response: {server_time: 0, status: 1, want_more: false, success: true}}", HttpStatusCode.OK });
 
             var guardMock = new SteamGuardAccountMock();
             guardMock.WithArgs("GenerateSteamGuardCode")(TestSteamGuardCode);

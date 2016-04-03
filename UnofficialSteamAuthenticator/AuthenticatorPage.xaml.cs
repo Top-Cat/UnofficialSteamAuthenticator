@@ -35,7 +35,7 @@ namespace UnofficialSteamAuthenticator
         {
             HardwareButtons.BackPressed += this.NavigateBack;
 
-            this.BtnContinue.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Collapsed;
+            this.BtnContinue.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.ErrorLabel.Visibility = this.FamilyGrid.Visibility = Visibility.Collapsed;
             this.Progress.Visibility = Visibility.Visible;
 
             this.linker = new AuthenticatorLinker(Storage.GetSessionData())
@@ -62,6 +62,11 @@ namespace UnofficialSteamAuthenticator
                 this.SmsCode.Text = string.Empty;
                 this.Progress.Visibility = this.RevocationGrid.Visibility = Visibility.Collapsed;
                 this.BtnContinue.Visibility = this.SmsGrid.Visibility = Visibility.Visible;
+            }
+            else if (this.FamilyGrid.Visibility == Visibility.Visible)
+            {
+                this.linker.Pin = this.FamilyPin.Password;
+                this.linker.AddAuthenticator(this.web, this.LinkResponse);
             }
             else if (this.SmsGrid.Visibility == Visibility.Visible)
             {
@@ -107,14 +112,15 @@ namespace UnofficialSteamAuthenticator
 
         private async void LinkResponseReal(AuthenticatorLinker.LinkResult linkResponse)
         {
-            bool firstRun = this.PhoneNumGrid.Visibility == Visibility.Collapsed;
-            this.Progress.Visibility = this.ErrorLabel.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = Visibility.Collapsed;
+            bool phoneWasVis = this.PhoneNumGrid.Visibility == Visibility.Visible;
+            bool familyWasVis = this.FamilyGrid.Visibility == Visibility.Visible;
+            this.Progress.Visibility = this.ErrorLabel.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.FamilyGrid.Visibility = Visibility.Collapsed;
 
             switch (linkResponse)
             {
                 case AuthenticatorLinker.LinkResult.MustProvidePhoneNumber:
                     this.ErrorLabel.Text = StringResourceLoader.GetString("EnterPhoneNumber");
-                    if (!firstRun)
+                    if (phoneWasVis)
                     {
                         this.ErrorLabel.Visibility = Visibility.Visible;
                     }
@@ -125,6 +131,15 @@ namespace UnofficialSteamAuthenticator
                     this.PhoneNum.Text = string.Empty;
                     this.linker.PhoneNumber = string.Empty;
                     this.linker.AddAuthenticator(this.web, this.LinkResponse);
+                    break;
+                case AuthenticatorLinker.LinkResult.FamilyViewEnabled:
+                    this.ErrorLabel.Text = StringResourceLoader.GetString("FamilyPinIncorrect");
+                    if (familyWasVis)
+                    {
+                        this.ErrorLabel.Visibility = Visibility.Visible;
+                    }
+                    this.FamilyPin.Password = string.Empty;
+                    this.FamilyGrid.Visibility = Visibility.Visible;
                     break;
                 case AuthenticatorLinker.LinkResult.GeneralFailure:
                 case AuthenticatorLinker.LinkResult.AuthenticatorPresent:

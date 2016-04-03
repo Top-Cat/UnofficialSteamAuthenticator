@@ -73,7 +73,7 @@ namespace UnofficialSteamAuthenticator
         private void NavFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
             // Family view now returns 403
-            if (this.ConfirmationWeb.Visibility == Visibility.Visible && e.WebErrorStatus == WebErrorStatus.Forbidden)
+            if (e.WebErrorStatus == WebErrorStatus.Forbidden)
                 return;
 
             Action<object, RoutedEventArgs> call = e.Uri.Fragment.Length > 0 ?

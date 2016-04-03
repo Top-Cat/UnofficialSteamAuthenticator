@@ -31,7 +31,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public static void AlignTime(IWebRequest web, BCallback callback)
         {
             long currentTime = Util.GetSystemUnixTime();
-            web.Request(APIEndpoints.TWO_FACTOR_TIME_QUERY, "POST", (response, code) =>
+            web.Request(ApiEndpoints.TWO_FACTOR_TIME_QUERY, "POST", (response, code) =>
             {
                 if (response != null && code == HttpStatusCode.OK)
                 {

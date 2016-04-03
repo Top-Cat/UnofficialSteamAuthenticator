@@ -14,7 +14,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
     {
         public static void GetSummaries(SteamWeb web, SessionData session, ulong[] steamids, SummaryCallback summariesCallback)
         {
-            web.Request(APIEndpoints.USER_SUMMARIES_URL + "?access_token=" + session.OAuthToken + "&steamids=" + string.Join(",", steamids.Select(steamid => steamid.ToString()).ToArray()), "GET", (response, code) =>
+            web.Request(ApiEndpoints.USER_SUMMARIES_URL + "?access_token=" + session.OAuthToken + "&steamids=" + string.Join(",", steamids.Select(steamid => steamid.ToString()).ToArray()), "GET", (response, code) =>
             {
                 summariesCallback(JsonConvert.DeserializeObject<Players>(response ?? string.Empty));
             });
