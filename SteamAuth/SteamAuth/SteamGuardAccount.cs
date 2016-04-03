@@ -79,11 +79,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         public SessionData Session { get; set; }
 
-        private static byte[] steamGuardCodeTranslations = new byte[] { 50, 51, 52, 53, 54, 55, 56, 57, 66, 67, 68, 70, 71, 72, 74, 75, 77, 78, 80, 81, 82, 84, 86, 87, 88, 89 };
+        private static readonly byte[] SteamGuardCodeTranslations = { 50, 51, 52, 53, 54, 55, 56, 57, 66, 67, 68, 70, 71, 72, 74, 75, 77, 78, 80, 81, 82, 84, 86, 87, 88, 89 };
 
         public void DeactivateAuthenticator(SteamWeb web, int scheme, BCallback callback)
         {
-            var postData = new Dictionary<String, String>();
+            var postData = new Dictionary<string, string>();
             postData.Add("steamid", this.Session.SteamID.ToString());
             postData.Add("steamguard_scheme", scheme.ToString());
             postData.Add("revocation_code", this.RevocationCode);
@@ -91,11 +91,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
             try
             {
-                web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, res =>
+                web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, (res, code) =>
                 {
                     var removeResponse = JsonConvert.DeserializeObject<WebResponse<SuccessResponse>>(res);
 
-                    callback(!(removeResponse == null || removeResponse.Response == null || !removeResponse.Response.Success));
+                    callback(!(removeResponse?.Response == null || !removeResponse.Response.Success));
                 });
             }
             catch (Exception)
@@ -107,7 +107,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public void DeactivateAuthenticator(SteamWeb web, BCallback callback)
         {
             // Default scheme = 2
-            DeactivateAuthenticator(web, 2, callback);
+            this.DeactivateAuthenticator(web, 2, callback);
         }
 
         public void GenerateSteamGuardCode(IWebRequest web, Callback callback)
@@ -149,8 +149,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                 for (int i = 0; i < 5; ++i)
                 {
-                    codeArray[i] = steamGuardCodeTranslations[codePoint % steamGuardCodeTranslations.Length];
-                    codePoint /= steamGuardCodeTranslations.Length;
+                    codeArray[i] = SteamGuardCodeTranslations[codePoint % SteamGuardCodeTranslations.Length];
+                    codePoint /= SteamGuardCodeTranslations.Length;
                 }
             }
             catch (Exception)
@@ -160,28 +160,29 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             return Encoding.UTF8.GetString(codeArray, 0, codeArray.Length);
         }
 
-        public void FetchConfirmations(SteamWeb web, FCCallback callback)
+        public void FetchConfirmations(SteamWeb web, FcCallback callback)
         {
-            this.GenerateConfirmationURL(web, url =>
+            this.GenerateConfirmationUrl(web, url =>
             {
                 CookieContainer cookies = new CookieContainer();
                 this.Session.AddCookies(cookies);
 
-                web.Request(url, "GET", null, cookies, response =>
+                web.Request(url, "GET", null, cookies, (response, code) =>
                 {
-                    List<Confirmation> ret = new List<Confirmation>();
-                    if (response == null || response.Contains("<div>Nothing to confirm</div>"))
+                    var ret = new List<Confirmation>();
+                    if (response == null || code != HttpStatusCode.OK)
                     {
-                        callback(ret, new WGTokenInvalidException());
+                        // Forbidden = family view, NotFound = bad token
+                        callback(ret, code == HttpStatusCode.Forbidden ? null : new WGTokenInvalidException());
                         return;
                     }
 
                     // Was it so hard?
-                    HtmlDocument doc = new HtmlDocument();
+                    var doc = new HtmlDocument();
                     doc.LoadHtml(response);
 
                     HtmlNode list = doc.GetElementbyId("mobileconf_list");
-                    if (list == null)
+                    if (list == null || response.Contains("<div>Nothing to confirm</div>"))
                     {
                         callback(ret, null);
                         return;
@@ -225,12 +226,12 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public void RefreshSession(SteamWeb web, BCallback callback)
         {
             string url = APIEndpoints.MOBILEAUTH_GETWGTOKEN;
-            Dictionary<string, string> postData = new Dictionary<string, string>();
+            var postData = new Dictionary<string, string>();
             postData.Add("access_token", this.Session.OAuthToken);
 
-            web.Request(url, "POST", postData, response =>
+            web.Request(url, "POST", postData, (response, code) =>
             {
-                if (response == null)
+                if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
                     return;
@@ -273,44 +274,44 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                 CookieContainer cookies = new CookieContainer();
                 this.Session.AddCookies(cookies);
-                string referer = GenerateConfirmationURL(queryParams);
+                string referer = this.GenerateConfirmationUrl(queryParams);
 
-                web.Request(url, "GET", null, cookies, response =>
+                web.Request(url, "GET", null, cookies, (response, code) =>
                 {
-                    if (response == null)
+                    if (response == null || code != HttpStatusCode.OK)
                     {
                         callback(false);
                         return;
                     }
 
-                    SuccessResponse confResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
+                    var confResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
                     callback(confResponse.Success);
                 });
             });
         }
 
-        public void GenerateConfirmationURL(SteamWeb web, string tag, Callback callback)
+        public void GenerateConfirmationUrl(SteamWeb web, string tag, Callback callback)
         {
-            GenerateConfirmationQueryParams(web, tag, queryString =>
+            this.GenerateConfirmationQueryParams(web, tag, queryString =>
             {
-                callback(GenerateConfirmationURL(queryString));
+                callback(this.GenerateConfirmationUrl(queryString));
             });
         }
 
-        public void GenerateConfirmationURL(SteamWeb web, Callback callback)
+        public void GenerateConfirmationUrl(SteamWeb web, Callback callback)
         {
             // Default tag = conf
-            GenerateConfirmationURL(web, "conf", callback);
+            this.GenerateConfirmationUrl(web, "conf", callback);
         }
 
-        public string GenerateConfirmationURL(string queryString)
+        public string GenerateConfirmationUrl(string queryString)
         {
             return APIEndpoints.COMMUNITY_BASE + "/mobileconf/conf?" + queryString;
         }
 
         public void GenerateConfirmationQueryParams(SteamWeb web, string tag, Callback callback)
         {
-            if (String.IsNullOrEmpty(DeviceID))
+            if (string.IsNullOrEmpty(this.DeviceID))
                 throw new ArgumentException("Device ID is not present");
 
             TimeAligner.GetSteamTime(web, time =>
@@ -352,9 +353,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         private delegate void ConfirmationCallback(ConfirmationDetailsResponse time);
 
-        public void GetConfirmationTradeOfferID(SteamWeb web, Confirmation conf, LongCallback callback)
+        public void GetConfirmationTradeOfferId(SteamWeb web, Confirmation conf, LongCallback callback)
         {
-            _getConfirmationDetails(web, conf, confDetails =>
+            this._getConfirmationDetails(web, conf, confDetails =>
             {
                 if (confDetails == null || !confDetails.Success)
                 {
@@ -362,13 +363,13 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     return;
                 }
 
-                Regex tradeOfferIDRegex = new Regex("<div class=\"tradeoffer\" id=\"tradeofferid_(\\d+)\" >");
-                if (!tradeOfferIDRegex.IsMatch(confDetails.Html))
+                var tradeOfferIdRegex = new Regex("<div class=\"tradeoffer\" id=\"tradeofferid_(\\d+)\" >");
+                if (!tradeOfferIdRegex.IsMatch(confDetails.Html))
                 {
                     callback(-1);
                     return;
                 }
-                callback(long.Parse(tradeOfferIDRegex.Match(confDetails.Html).Groups[1].Value));
+                callback(long.Parse(tradeOfferIdRegex.Match(confDetails.Html).Groups[1].Value));
             });
         }
 
@@ -381,11 +382,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                 CookieContainer cookies = new CookieContainer();
                 this.Session.AddCookies(cookies);
-                GenerateConfirmationURL(web, referer =>
+                this.GenerateConfirmationUrl(web, referer =>
                 {
-                    web.Request(url, "GET", null, cookies, response =>
+                    web.Request(url, "GET", null, cookies, (response, code) =>
                     {
-                        if (String.IsNullOrEmpty(response))
+                        if (string.IsNullOrEmpty(response) || code != HttpStatusCode.OK)
                         {
                             callback(null);
                             return;

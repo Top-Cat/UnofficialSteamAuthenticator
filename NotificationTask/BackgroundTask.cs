@@ -5,34 +5,14 @@ using System.Threading;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using UnofficialSteamAuthenticator.Lib.SteamAuth;
 using UnofficialSteamAuthenticator.Lib;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficalSteamAuthenticator.NotificationTask
 {
     public sealed class BackgroundTask : IBackgroundTask
     {
         private const string TaskName = "usa.notification";
-
-        public static async void Register()
-        {
-            BackgroundAccessStatus result = await BackgroundExecutionManager.RequestAccessAsync();
-
-            if (result == BackgroundAccessStatus.Denied)
-                return;
-
-            KeyValuePair<Guid, IBackgroundTaskRegistration> task = BackgroundTaskRegistration.AllTasks.FirstOrDefault(x => x.Value.Name == TaskName);
-            task.Value?.Unregister(true);
-
-            var taskBuilder = new BackgroundTaskBuilder()
-            {
-                Name = TaskName,
-                TaskEntryPoint = "UnofficalSteamAuthenticator.NotificationTask.BackgroundTask"
-            };
-            taskBuilder.SetTrigger(new TimeTrigger(15, false));
-            taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-            taskBuilder.Register();
-        }
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -68,7 +48,7 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                         ShowNotification(steamid, c.ID.ToString(), c.Description, c.Description2);
                     }
                     notifCount += response.Count;
-                    acc.NotifySince = response.Max(x => x.ID);
+                    acc.NotifySince = response.DefaultIfEmpty().Max(x => x?.ID ?? 0);
                     acc.PushStore();
 
                     lck.Set();
@@ -77,6 +57,26 @@ namespace UnofficalSteamAuthenticator.NotificationTask
 
             WaitHandle.WaitAll(locks.ToArray());
             SetBadgeCount(notifCount);
+        }
+
+        public static async void Register()
+        {
+            BackgroundAccessStatus result = await BackgroundExecutionManager.RequestAccessAsync();
+
+            if (result == BackgroundAccessStatus.Denied)
+                return;
+
+            KeyValuePair<Guid, IBackgroundTaskRegistration> task = BackgroundTaskRegistration.AllTasks.FirstOrDefault(x => x.Value.Name == TaskName);
+            task.Value?.Unregister(true);
+
+            var taskBuilder = new BackgroundTaskBuilder
+            {
+                Name = TaskName,
+                TaskEntryPoint = "UnofficalSteamAuthenticator.NotificationTask.BackgroundTask"
+            };
+            taskBuilder.SetTrigger(new TimeTrigger(15, false));
+            taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+            taskBuilder.Register();
         }
 
         public static void SetBadgeCount(int c)
@@ -102,11 +102,17 @@ namespace UnofficalSteamAuthenticator.NotificationTask
             var launchToast = new ToastNotification(toast)
             {
                 Tag = id,
-                Group = "Trade"
+                Group = Util.ConvertToSteam3(steamid).ToString()
             };
 
             ToastNotifier toastNotifier = ToastNotificationManager.CreateToastNotifier();
             toastNotifier.Show(launchToast);
+        }
+
+        public static void RemoveUserNotifications(ulong steamid)
+        {
+            ToastNotificationManager.History.RemoveGroup(Util.ConvertToSteam3(steamid).ToString());
+            SetBadgeCount(0);
         }
     }
 }

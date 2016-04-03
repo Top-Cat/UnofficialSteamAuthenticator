@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -19,35 +21,32 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         /// <param name="data">Name-data pairs</param>
         /// <param name="cookies">current cookie container</param>
         /// <returns>response body</returns>
-        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, Callback callback)
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
             Request(url, method, data, cookies, headers, APIEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", callback);
         }
 
-        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, Callback callback)
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebCallback callback)
         {
             MobileLoginRequest(url, method, data, cookies, null, callback);
         }
 
-        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, Callback callback)
+        public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, WebCallback callback)
         {
             MobileLoginRequest(url, method, data, null, callback);
         }
 
-        public void MobileLoginRequest(string url, string method, Callback callback)
+        public void MobileLoginRequest(string url, string method, WebCallback callback)
         {
             MobileLoginRequest(url, method, null, callback);
         }
 
-        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, string referer, Callback callback)
+        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, string referer, WebCallback callback)
         {
             List<string> dataFormatted = new List<string>();
             if (data != null)
             {
-                foreach (KeyValuePair<string, string> entry in data)
-                {
-                    dataFormatted.Add(String.Format("{0}={1}", WebUtility.UrlEncode(entry.Key), WebUtility.UrlEncode(entry.Value)));
-                }
+                dataFormatted.AddRange(data.Select(entry => $"{WebUtility.UrlEncode(entry.Key)}={WebUtility.UrlEncode(entry.Value)}"));
             }
 
             string query = string.Join("&", dataFormatted);
@@ -84,7 +83,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                 request.BeginGetRequestStream(iar =>
                 {
-                    HttpWebRequest req = (HttpWebRequest)iar.AsyncState;
+                    var req = (HttpWebRequest) iar.AsyncState;
                     byte[] byteArray = Encoding.UTF8.GetBytes(query);
 
                     using (Stream postStream = req.EndGetRequestStream(iar))
@@ -105,47 +104,63 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             }
         }
 
-        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, Callback callback)
+        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
             Request(url, method, data, cookies, headers, APIEndpoints.COMMUNITY_BASE, callback);
         }
 
-        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, Callback callback)
+        public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebCallback callback)
         {
             Request(url, method, data, cookies, null, callback);
         }
 
-        public void Request(string url, string method, Dictionary<string, string> data, Callback callback)
+        public void Request(string url, string method, Dictionary<string, string> data, WebCallback callback)
         {
             Request(url, method, data, null, callback);
         }
 
-        public void Request(string url, string method, Callback callback)
+        public void Request(string url, string method, WebCallback callback)
         {
             Request(url, method, null, callback);
         }
 
-        private static void ResponseCallback(IAsyncResult result, Callback callback)
+        private static void ResponseCallback(IAsyncResult result, WebCallback callback)
         {
-            HttpWebRequest request = (HttpWebRequest)result.AsyncState;
-            try {
-                using (HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result))
+            var request = (HttpWebRequest)result.AsyncState;
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse) request.EndGetResponse(result);
+            }
+            catch (WebException ex)
+            {
+                response = (HttpWebResponse) ex.Response;
+            }
+            finally
+            {
+                using (StreamReader responseStream = GetStreamForResponse(response))
                 {
-                    if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                    {
-                        callback(null);
-                    }
-
-                    using (StreamReader responseStream = new StreamReader(response.GetResponseStream()))
-                    {
-                        callback(responseStream.ReadToEnd());
-                    }
+                    callback(responseStream.ReadToEnd(), response.StatusCode);
                 }
             }
-            catch (WebException)
+        }
+
+        private static StreamReader GetStreamForResponse(WebResponse webResponse)
+        {
+            Stream stream;
+            switch (webResponse.Headers["Content-Encoding"]?.ToUpperInvariant())
             {
-                callback(null);
+                case "GZIP":
+                    stream = new GZipStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+                    break;
+                case "DEFLATE":
+                    stream = new DeflateStream(webResponse.GetResponseStream(), CompressionMode.Decompress);
+                    break;
+                default:
+                    stream = webResponse.GetResponseStream();
+                    break;
             }
+            return new StreamReader(stream);
         }
     }
 }

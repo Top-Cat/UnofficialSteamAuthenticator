@@ -44,10 +44,8 @@ namespace UnofficalSteamAuthenticator.Tests
         [TestMethod]
         public void TestUpgradeAccounts()
         {
-            SessionData acc;
-
             this.localSettings.Values["sessionJson"] = "{\"SteamID\":" + TestSteamid + "}";
-            acc = new SessionData()
+            var acc = new SessionData()
             {
                 SteamID = TestSteamid + 1
             };

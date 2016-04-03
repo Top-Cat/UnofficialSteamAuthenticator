@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net;
+using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib.Models.SteamAuth;
 
@@ -30,9 +31,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public static void AlignTime(IWebRequest web, BCallback callback)
         {
             long currentTime = Util.GetSystemUnixTime();
-            web.Request(APIEndpoints.TWO_FACTOR_TIME_QUERY, "POST", response =>
+            web.Request(APIEndpoints.TWO_FACTOR_TIME_QUERY, "POST", (response, code) =>
             {
-                if (response != null)
+                if (response != null && code == HttpStatusCode.OK)
                 {
                     var query = JsonConvert.DeserializeObject<WebResponse<TimeQueryResponse>>(response);
                     timeDifference = (int) (query.Response.ServerTime - currentTime);

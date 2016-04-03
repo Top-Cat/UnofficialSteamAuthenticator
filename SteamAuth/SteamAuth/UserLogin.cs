@@ -48,12 +48,12 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             var postData = new Dictionary<string, string>();
             var cookies = _cookies;
 
-            Callback hasCookies = res =>
+            WebCallback hasCookies = (res, code) =>
             {
                 postData.Add("username", this.Username);
-                web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, rsaRawResponse =>
+                web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/getrsakey", "POST", postData, cookies, (rsaRawResponse, rsaCode) =>
                 {
-                    if (rsaRawResponse == null || rsaRawResponse.Contains("<BODY>\nAn error occurred while processing your request."))
+                    if (rsaRawResponse == null || rsaCode != HttpStatusCode.OK || rsaRawResponse.Contains("<BODY>\nAn error occurred while processing your request."))
                     {
                         callback(LoginResult.GeneralFailure);
                         return;
@@ -63,7 +63,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                     if (!rsaResponse.Success)
                     {
-                        callback(LoginResult.BadRSA);
+                        callback(LoginResult.BadRsa);
                         return;
                     }
 
@@ -96,11 +96,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     postData.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
                     postData.Add("donotcache", Util.GetSystemUnixTime().ToString());
 
-                    web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, rawLoginResponse =>
+                    web.MobileLoginRequest(APIEndpoints.COMMUNITY_BASE + "/login/dologin", "POST", postData, cookies, (rawLoginResponse, loginCode) =>
                     {
                         LoginResponse loginResponse = null;
 
-                        if (rawLoginResponse != null)
+                        if (rawLoginResponse != null && loginCode == HttpStatusCode.OK)
                         {
                             loginResponse = JsonConvert.DeserializeObject<LoginResponse>(rawLoginResponse);
                         }
@@ -136,7 +136,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         if (loginResponse.TwoFactorNeeded && !loginResponse.Success)
                         {
                             this.Requires2FA = true;
-                            callback(LoginResult.Need2FA);
+                            callback(LoginResult.Need2Fa);
                             return;
                         }
 
@@ -146,7 +146,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                             return;
                         }
 
-                        if (loginResponse.OAuthData == null || loginResponse.OAuthData.OAuthToken == null || loginResponse.OAuthData.OAuthToken.Length == 0)
+                        if (string.IsNullOrEmpty(loginResponse.OAuthData?.OAuthToken))
                         {
                             callback(LoginResult.GeneralFailure);
                             return;
@@ -157,24 +157,22 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                             callback(LoginResult.BadCredentials);
                             return;
                         }
-                        else
-                        {
-                            var readableCookies = cookies.GetCookies(new Uri("https://steamcommunity.com"));
-                            var oAuthData = loginResponse.OAuthData;
 
-                            SessionData session = new SessionData();
-                            session.OAuthToken = oAuthData.OAuthToken;
-                            session.SteamID = oAuthData.SteamId;
-                            session.SteamLogin = session.SteamID + "%7C%7C" + oAuthData.SteamLogin;
-                            session.SteamLoginSecure = session.SteamID + "%7C%7C" + oAuthData.SteamLoginSecure;
-                            session.WebCookie = oAuthData.Webcookie;
-                            session.SessionID = readableCookies["sessionid"].Value;
-                            session.Username = this.Username;
-                            this.Session = session;
-                            this.LoggedIn = true;
-                            callback(LoginResult.LoginOkay);
-                            return;
-                        }
+                        CookieCollection readableCookies = cookies.GetCookies(new Uri("https://steamcommunity.com"));
+                        OAuth oAuthData = loginResponse.OAuthData;
+
+                        this.Session = new SessionData
+                        {
+                            OAuthToken = oAuthData.OAuthToken,
+                            SteamID = oAuthData.SteamId,
+                            SteamLogin = oAuthData.SteamId + "%7C%7C" + oAuthData.SteamLogin,
+                            SteamLoginSecure = oAuthData.SteamId + "%7C%7C" + oAuthData.SteamLoginSecure,
+                            WebCookie = oAuthData.Webcookie,
+                            SessionID = readableCookies["sessionid"].Value,
+                            Username = this.Username
+                        };
+                        this.LoggedIn = true;
+                        callback(LoginResult.LoginOkay);
                     });
                 });
             };
@@ -182,18 +180,20 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             if (cookies.Count == 0)
             {
                 //Generate a SessionID
-                string url = "https://steamcommunity.com/login?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client";
+                const string url = "https://steamcommunity.com/login?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client";
                 cookies.Add(SteamWeb.uri, new Cookie("mobileClientVersion", "0 (2.1.3)", "/"));
                 cookies.Add(SteamWeb.uri, new Cookie("mobileClient", "android", "/"));
                 cookies.Add(SteamWeb.uri, new Cookie("Steam_Language", "english", "/"));
 
-                WebHeaderCollection headers = new WebHeaderCollection();
-                headers["X-Requested-With"] = "com.valvesoftware.android.steam.community";
+                var headers = new WebHeaderCollection
+                {
+                    ["X-Requested-With"] = "com.valvesoftware.android.steam.community"
+                };
 
                 web.MobileLoginRequest(url, "GET", null, cookies, headers, hasCookies);
             } else
             {
-                hasCookies("");
+                hasCookies("", HttpStatusCode.OK);
             }
         }
     }
@@ -202,10 +202,10 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
     {
         LoginOkay,
         GeneralFailure,
-        BadRSA,
+        BadRsa,
         BadCredentials,
         NeedCaptcha,
-        Need2FA,
+        Need2Fa,
         NeedEmail,
         TooManyFailedLogins,
     }

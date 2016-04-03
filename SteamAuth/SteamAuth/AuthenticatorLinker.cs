@@ -41,7 +41,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public AuthenticatorLinker(SessionData session)
         {
             this._session = session;
-            this.DeviceID = Util.GenerateDeviceID();
+            this.DeviceID = Util.GenerateDeviceId();
 
             this._cookies = new CookieContainer();
             session.AddCookies(_cookies);
@@ -49,7 +49,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         public void AddAuthenticator(IWebRequest web, LinkCallback callback)
         {
-            _hasPhoneAttached(web, hasPhone =>
+            this._hasPhoneAttached(web, hasPhone =>
             {
                 bool settingNumber = !string.IsNullOrEmpty(this.PhoneNumber);
                 if (hasPhone && settingNumber)
@@ -78,9 +78,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     postData["device_identifier"] = this.DeviceID;
                     postData["sms_phone_id"] = "1";
 
-                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData, response =>
+                    web.MobileLoginRequest(APIEndpoints.STEAMAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", postData, (response, code) =>
                     {
-                        if (response == null)
+                        if (response == null || code != HttpStatusCode.OK)
                         {
                             callback(LinkResult.GeneralFailure);
                             return;
@@ -107,9 +107,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                         this.LinkedAccount = addAuthenticatorResponse.Response;
                         // Force not enrolled at this stage
-                        LinkedAccount.FullyEnrolled = false;
-                        LinkedAccount.Session = this._session;
-                        LinkedAccount.DeviceID = this.DeviceID;
+                        this.LinkedAccount.FullyEnrolled = false;
+                        this.LinkedAccount.Session = this._session;
+                        this.LinkedAccount.DeviceID = this.DeviceID;
 
                         callback(LinkResult.AwaitingFinalization);
                     });
@@ -127,15 +127,17 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         public void FinalizeAddAuthenticator(IWebRequest web, string smsCode, FinalizeCallback callback)
         {
-            var postData = new Dictionary<string, string>();
-            postData["steamid"] = _session.SteamID.ToString();
-            postData["access_token"] = _session.OAuthToken;
-            postData["activation_code"] = smsCode;
-            int tries = 0;
+            var postData = new Dictionary<string, string>
+            {
+                ["steamid"] = this._session.SteamID.ToString(),
+                ["access_token"] = this._session.OAuthToken,
+                ["activation_code"] = smsCode
+            };
+            var tries = 0;
 
             Callback makeRequest = r => { };
 
-            Callback reqCallback = response =>
+            WebCallback reqCallback = (response, code) =>
             {
                 if (tries > 30)
                 {
@@ -143,7 +145,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     return;
                 }
 
-                if (response == null)
+                if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(FinalizeResult.GeneralFailure);
                     return;
@@ -151,7 +153,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
                 var finalizeResponse = JsonConvert.DeserializeObject<WebResponse<FinalizeAuthenticatorResponse>>(response);
 
-                if (finalizeResponse == null || finalizeResponse.Response == null)
+                if (finalizeResponse?.Response == null)
                 {
                     callback(FinalizeResult.GeneralFailure);
                     return;
@@ -181,7 +183,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 if (finalizeResponse.Response.WantMore)
                 {
                     tries++;
-                    LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
+                    this.LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
                     return;
                 }
 
@@ -207,7 +209,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 {
                     if (b)
                     {
-                        LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
+                        this.LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
                     }
                     else
                     {
@@ -217,19 +219,21 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             }
             else
             {
-                LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
+                this.LinkedAccount.GenerateSteamGuardCode(web, makeRequest);
             }
         }
 
         private void _checkSMSCode(IWebRequest web, string smsCode, BCallback callback)
         {
-            var postData = new Dictionary<string, string>();
-            postData["op"] = "check_sms_code";
-            postData["arg"] = smsCode;
-            postData["sessionid"] = _session.SessionID;
+            var postData = new Dictionary<string, string>
+            {
+                ["op"] = "check_sms_code",
+                ["arg"] = smsCode,
+                ["sessionid"] = this._session.SessionID
+            };
 
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, response => {
-                if (response == null)
+            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) => {
+                if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
                     return;
@@ -242,14 +246,16 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         private void _addPhoneNumber(IWebRequest web, BCallback callback)
         {
-            var postData = new Dictionary<string, string>();
-            postData["op"] = "add_phone_number";
-            postData["arg"] = PhoneNumber;
-            postData["sessionid"] = _session.SessionID;
-
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, response =>
+            var postData = new Dictionary<string, string>
             {
-                if (response == null)
+                ["op"] = "add_phone_number",
+                ["arg"] = this.PhoneNumber,
+                ["sessionid"] = this._session.SessionID
+            };
+
+            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) =>
+            {
+                if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
                     return;
@@ -267,9 +273,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             postData["arg"] = "null";
             postData["sessionid"] = _session.SessionID;
 
-            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, response =>
+            web.Request(APIEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, _cookies, (response, code) =>
             {
-                if (response == null)
+                if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
                     return;

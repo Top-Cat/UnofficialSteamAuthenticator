@@ -21,7 +21,7 @@ namespace UnofficialSteamAuthenticator
             this.InitializeComponent();
 
             this.responses.Add(LoginResult.GeneralFailure, StringResourceLoader.GetString("LoginResult_GeneralFailure_Text"));
-            this.responses.Add(LoginResult.BadRSA, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
+            this.responses.Add(LoginResult.BadRsa, StringResourceLoader.GetString("LoginResult_BadRSA_Text"));
             this.responses.Add(LoginResult.BadCredentials, StringResourceLoader.GetString("LoginResult_BadCredentials_Text"));
             this.responses.Add(LoginResult.TooManyFailedLogins, StringResourceLoader.GetString("LoginResult_TooManyFailedLogins_Text"));
         }
@@ -103,7 +103,7 @@ namespace UnofficialSteamAuthenticator
                 this.ErrorLabel.Text = this.responses[response];
                 this.LoginGrid.Visibility = this.ErrorLabel.Visibility = Visibility.Visible;
             }
-            else if (response == LoginResult.Need2FA)
+            else if (response == LoginResult.Need2Fa)
             {
                 SteamGuardAccount account = Storage.GetSteamGuardAccount(this.UserName.Text);
                 if (string.IsNullOrWhiteSpace(this.userLogin.TwoFactorCode) && account != null)
@@ -118,7 +118,7 @@ namespace UnofficialSteamAuthenticator
                             await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 this.userLogin.TwoFactorCode = "-";
-                                this.ProcessLoginResponse(LoginResult.Need2FA);
+                                this.ProcessLoginResponse(LoginResult.Need2Fa);
                             });
                             return;
                         }

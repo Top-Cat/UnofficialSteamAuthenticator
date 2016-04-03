@@ -12,8 +12,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using UnofficalSteamAuthenticator.NotificationTask;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib;
@@ -70,7 +72,15 @@ namespace UnofficialSteamAuthenticator
 
         private void NavFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
-            this.SteamGuardButton_Click(null, null);
+            // Family view now returns 403
+            if (this.ConfirmationWeb.Visibility == Visibility.Visible && e.WebErrorStatus == WebErrorStatus.Forbidden)
+                return;
+
+            Action<object, RoutedEventArgs> call = e.Uri.Fragment.Length > 0 ?
+                (this.ConfirmationWeb.Visibility == Visibility.Visible ? (Action<object, RoutedEventArgs>) this.ConfirmationsButton_Click : this.MessageButton_Click) :
+                this.SteamGuardButton_Click;
+
+            call(null, null);
         }
 
         private async void SummariesCallback(Players responseObj)
@@ -252,7 +262,7 @@ namespace UnofficialSteamAuthenticator
 
             this.ConfirmationWeb.Visibility = Visibility.Visible;
 
-            this.account.GenerateConfirmationURL(this.web, async response =>
+            this.account.GenerateConfirmationUrl(this.web, async response =>
             {
                 this.confUrl = response;
                 HttpRequestMessage message = this.GetMessageForUrl(response);
@@ -298,6 +308,8 @@ namespace UnofficialSteamAuthenticator
 
             if (!e.IsSuccess || this.confWebUrl != this.confUrl)
                 return;
+
+            BackgroundTask.RemoveUserNotifications(this.account.Session.SteamID);
 
             // Try to only inject this once
             string[] args =
