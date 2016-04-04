@@ -13,6 +13,11 @@ namespace UnofficialSteamAuthenticator.Lib
 {
     public sealed class SdaStorage
     {
+        /// <summary>
+        /// Saves .maFile and JSON(if exist - add new entry to it) collection of accounts.
+        /// </summary>
+        /// <param name="usr">SteamID of account to export.</param>
+        /// <param name="folder">Target directory for exported data.</param>
         public static async void SaveMaFile(ulong usr, StorageFolder folder)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -104,7 +109,14 @@ namespace UnofficialSteamAuthenticator.Lib
                 await dialog.ShowAsync();
             }
         }
-
+        
+        /// <summary>
+        /// Checks if password for encrypted user account file is correct. 
+        /// </summary>
+        /// <param name="manifest">manifest.json file containing encryption data.</param>
+        /// <param name="folder">Directory containing account's data.</param>
+        /// <param name="password">Password to check.</param>
+        /// <returns>Returns true if password is correct.</returns>
         private static async Task<bool> CheckPassword(Manifest manifest, IStorageFolder folder, string password)
         {
             if (password.Length < 3)
@@ -124,6 +136,10 @@ namespace UnofficialSteamAuthenticator.Lib
             return true;
         }
 
+        /// <summary>
+        /// Creates a dialog asking user for encrypted file's password.
+        /// </summary>
+        /// <returns>Password of encrypted file given by user.</returns>
         private static async Task<string> GetPassword()
         {
             var tb = new TextBox();
