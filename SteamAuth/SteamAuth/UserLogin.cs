@@ -1,41 +1,39 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using UnofficialSteamAuthenticator.Lib.Models.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 {
-
     /// <summary>
-    /// Handles logging the user into the mobile Steam website. Necessary to generate OAuth token and session cookies.
+    ///     Handles logging the user into the mobile Steam website. Necessary to generate OAuth token and session cookies.
     /// </summary>
     public class UserLogin
     {
-        public string Username;
-        public string Password;
-        public ulong SteamID;
-
-        public bool RequiresCaptcha;
-        public string CaptchaGID = null;
+        private readonly CookieContainer _cookies = new CookieContainer();
+        public string CaptchaGID;
         public string CaptchaText = null;
-
-        public bool RequiresEmail;
-        public string EmailDomain = null;
         public string EmailCode = null;
+        public string EmailDomain = null;
+        public bool LoggedIn;
+        public string Password;
 
         public bool Requires2FA;
+
+        public bool RequiresCaptcha;
+
+        public bool RequiresEmail;
+
+        public SessionData Session;
+        public ulong SteamID;
         public string TwoFactorCode = null;
-
-        public SessionData Session = null;
-        public bool LoggedIn = false;
-
-        private CookieContainer _cookies = new CookieContainer();
+        public string Username;
 
         public UserLogin(string username, string password)
         {
@@ -46,7 +44,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         public void DoLogin(SteamWeb web, LoginCallback callback)
         {
             var postData = new Dictionary<string, string>();
-            var cookies = _cookies;
+            CookieContainer cookies = this._cookies;
 
             WebCallback hasCookies = (res, code) =>
             {
@@ -67,10 +65,10 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         return;
                     }
 
-                    BigInteger mod = new BigInteger(rsaResponse.Modulus, 16);
-                    BigInteger exp = new BigInteger(rsaResponse.Exponent, 16);
+                    var mod = new BigInteger(rsaResponse.Modulus, 16);
+                    var exp = new BigInteger(rsaResponse.Exponent, 16);
                     var encryptEngine = new Pkcs1Encoding(new RsaEngine());
-                    RsaKeyParameters rsaParams = new RsaKeyParameters(false, mod, exp);
+                    var rsaParams = new RsaKeyParameters(false, mod, exp);
 
                     encryptEngine.Init(true, rsaParams);
 
@@ -86,7 +84,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     postData.Add("captchagid", this.RequiresCaptcha ? this.CaptchaGID : "-1");
                     postData.Add("captcha_text", this.RequiresCaptcha ? this.CaptchaText : "");
 
-                    postData.Add("emailsteamid", (this.Requires2FA || this.RequiresEmail) ? this.SteamID.ToString() : "");
+                    postData.Add("emailsteamid", this.Requires2FA || this.RequiresEmail ? this.SteamID.ToString() : "");
                     postData.Add("emailauth", this.RequiresEmail ? this.EmailCode : "");
 
                     postData.Add("rsatimestamp", rsaResponse.Timestamp);
@@ -191,7 +189,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 };
 
                 web.MobileLoginRequest(url, "GET", null, cookies, headers, hasCookies);
-            } else
+            }
+            else
             {
                 hasCookies("", HttpStatusCode.OK);
             }
@@ -207,6 +206,6 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         NeedCaptcha,
         Need2Fa,
         NeedEmail,
-        TooManyFailedLogins,
+        TooManyFailedLogins
     }
 }

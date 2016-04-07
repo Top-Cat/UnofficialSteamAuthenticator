@@ -16,7 +16,12 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             IBuffer random = CryptographicBuffer.GenerateRandom(32);
             string random32 = CryptographicBuffer.EncodeToHexString(random).Replace("-", "").Substring(0, 32).ToLower();
 
-            return "android:" + SplitOnRatios(random32, new[] { 8, 4, 4, 4, 12 }, "-");
+            var ratios = new[]
+            {
+                8, 4, 4, 4, 12
+            };
+
+            return "android:" + SplitOnRatios(random32, ratios, "-");
         }
 
         public static ulong ConvertToSteam3(ulong steamid)
