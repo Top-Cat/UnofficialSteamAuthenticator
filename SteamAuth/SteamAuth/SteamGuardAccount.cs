@@ -100,7 +100,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         ///     Refreshes the Steam session. Necessary to perform confirmations if your session has expired or changed.
         /// </summary>
         /// <returns></returns>
-        public void RefreshSession(SteamWeb web, BCallback callback)
+        public void RefreshSession(SteamWeb web, BFCallback callback)
         {
             string url = ApiEndpoints.MOBILEAUTH_GETWGTOKEN;
             var postData = new Dictionary<string, string>();
@@ -110,7 +110,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             {
                 if (response == null || code != HttpStatusCode.OK)
                 {
-                    callback(false);
+                    callback(Success.Error);
                     return;
                 }
 
@@ -119,7 +119,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     var refreshResponse = JsonConvert.DeserializeObject<WebResponse<RefreshSessionDataResponse>>(response);
                     if (string.IsNullOrEmpty(refreshResponse?.Response?.Token))
                     {
-                        callback(false);
+                        callback(Success.Failure);
                         return;
                     }
 
@@ -130,11 +130,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     this.Session.SteamLoginSecure = tokenSecure;
                     Storage.PushStore(this.Session);
 
-                    callback(true);
+                    callback(Success.Success);
                 }
                 catch (Exception)
                 {
-                    callback(false);
+                    callback(Success.Error);
                 }
             });
         }
