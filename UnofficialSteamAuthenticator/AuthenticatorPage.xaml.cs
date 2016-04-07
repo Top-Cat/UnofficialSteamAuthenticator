@@ -27,16 +27,23 @@ namespace UnofficialSteamAuthenticator
 
         private void NavigateBack(object s, BackPressedEventArgs args)
         {
-            if (this.Frame.CanGoBack)
+            args.Handled = true;
+            this.Back();
+        }
+
+        private async void Back()
+        {
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                args.Handled = true;
-                this.Frame.GoBack();
-            }
-            else
-            {
-                args.Handled = true;
-                this.Frame.Navigate(typeof(MainPage));
-            }
+                if (this.Frame.CanGoBack)
+                {
+                    this.Frame.GoBack();
+                }
+                else
+                {
+                    this.Frame.Navigate(typeof(MainPage));
+                }
+            });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -56,17 +63,22 @@ namespace UnofficialSteamAuthenticator
 
             acc.RefreshSession(this.web, success =>
             {
-                if (!success)
+                switch (success)
                 {
-                    this.Logout();
-                    return;
+                    case Success.Failure:
+                        this.Logout();
+                        break;
+                    case Success.Error:
+                        this.Back();
+                        break;
+                    case Success.Success:
+                        this.linker = new AuthenticatorLinker(Storage.GetSessionData())
+                        {
+                            LinkedAccount = acc
+                        };
+                        this.linker.AddAuthenticator(this.web, this.LinkResponse);
+                        break;
                 }
-
-                this.linker = new AuthenticatorLinker(Storage.GetSessionData())
-                {
-                    LinkedAccount = acc
-                };
-                this.linker.AddAuthenticator(this.web, this.LinkResponse);
             });
         }
 

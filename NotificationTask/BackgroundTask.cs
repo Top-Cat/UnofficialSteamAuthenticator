@@ -34,7 +34,7 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                     {
                         acc.RefreshSession(web, success =>
                         {
-                            if (!success)
+                            if (success == Success.Failure)
                             {
                                 Storage.Logout(acc.Session.SteamID);
                             }

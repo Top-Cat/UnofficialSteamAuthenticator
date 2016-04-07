@@ -141,13 +141,17 @@ namespace UnofficialSteamAuthenticator
                     {
                         await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
-                            if (success)
+                            if (success == Success.Success)
                             {
                                 Action<object, RoutedEventArgs> call = this.ChatWeb.Visibility == Visibility.Visible ? this.MessageButton_Click :
                                     this.ConfirmationWeb.Visibility == Visibility.Visible ? this.ConfirmationsButton_Click :
                                     (Action<object, RoutedEventArgs>) this.SteamGuardButton_Click;
 
                                 call(null, null);
+                            }
+                            else if (success == Success.Error)
+                            {
+                                this.SteamGuardButton_Click(null, null);
                             }
                             else
                             {
@@ -376,7 +380,7 @@ namespace UnofficialSteamAuthenticator
             // Always refresh session before trying to prevent confusing responses from steam
             this.account.RefreshSession(this.web, async success =>
             {
-                if (success)
+                if (success == Success.Success)
                 {
                     this.account.DeactivateAuthenticator(this.web, async response =>
                     {
@@ -391,17 +395,13 @@ namespace UnofficialSteamAuthenticator
                         }
                         else
                         {
-                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                            {
-                                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
-                                {
-                                    Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
-                                };
-                                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
-                                await dialog.ShowAsync();
-                            });
+                            this.UnlinkFailed();
                         }
                     });
+                }
+                else if (success == Success.Error)
+                {
+                    this.UnlinkFailed();
                 }
                 else
                 {
@@ -411,6 +411,19 @@ namespace UnofficialSteamAuthenticator
                         this.Frame.Navigate(typeof(LoginPage));
                     });
                 }
+            });
+        }
+
+        private async void UnlinkFailed()
+        {
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                {
+                    Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
+                };
+                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
+                await dialog.ShowAsync();
             });
         }
 

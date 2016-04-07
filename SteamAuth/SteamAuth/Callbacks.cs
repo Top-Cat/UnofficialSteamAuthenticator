@@ -5,11 +5,20 @@ using UnofficialSteamAuthenticator.Lib.Models.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 {
+    public enum Success
+    {
+        Success,
+        Failure,
+        Error
+    }
+
     public delegate void FinalizeCallback(AuthenticatorLinker.FinalizeResult result);
 
     public delegate void LinkCallback(AuthenticatorLinker.LinkResult response);
 
     public delegate void BCallback(bool response);
+
+    public delegate void BFCallback(Success response);
 
     public delegate void HasPhoneCallback(AuthenticatorLinker.PhoneStatus response);
 

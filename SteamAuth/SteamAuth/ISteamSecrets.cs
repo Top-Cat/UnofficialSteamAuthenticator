@@ -51,6 +51,6 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         void PushStore();
         void GenerateSteamGuardCode(IWebRequest web, Callback makeRequest);
-        void RefreshSession(SteamWeb web, BCallback callback);
+        void RefreshSession(SteamWeb web, BFCallback callback);
     }
 }
