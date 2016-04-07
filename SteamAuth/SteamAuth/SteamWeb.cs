@@ -8,13 +8,12 @@ using System.Text;
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 {
-
     public class SteamWeb : IWebRequest
     {
         public static Uri uri = new Uri("https://steamcommunity.com");
 
         /// <summary>
-        /// Perform a mobile login request
+        ///     Perform a mobile login request
         /// </summary>
         /// <param name="url">API url</param>
         /// <param name="method">GET or POST</param>
@@ -23,27 +22,27 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         /// <returns>response body</returns>
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
-            Request(url, method, data, cookies, headers, ApiEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", callback);
+            this.Request(url, method, data, cookies, headers, ApiEndpoints.COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", callback);
         }
 
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebCallback callback)
         {
-            MobileLoginRequest(url, method, data, cookies, null, callback);
+            this.MobileLoginRequest(url, method, data, cookies, null, callback);
         }
 
         public void MobileLoginRequest(string url, string method, Dictionary<string, string> data, WebCallback callback)
         {
-            MobileLoginRequest(url, method, data, null, callback);
+            this.MobileLoginRequest(url, method, data, null, callback);
         }
 
         public void MobileLoginRequest(string url, string method, WebCallback callback)
         {
-            MobileLoginRequest(url, method, null, callback);
+            this.MobileLoginRequest(url, method, null, callback);
         }
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, string referer, WebCallback callback)
         {
-            List<string> dataFormatted = new List<string>();
+            var dataFormatted = new List<string>();
             if (data != null)
             {
                 dataFormatted.AddRange(data.Select(entry => $"{WebUtility.UrlEncode(entry.Key)}={WebUtility.UrlEncode(entry.Value)}"));
@@ -61,7 +60,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 headers = new WebHeaderCollection();
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = method;
             request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
             foreach (string key in headers.AllKeys)
@@ -96,7 +95,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         ResponseCallback(fin, callback);
                     }, req);
                 }, request);
-            } else {
+            }
+            else
+            {
                 request.BeginGetResponse(fin =>
                 {
                     ResponseCallback(fin, callback);
@@ -106,27 +107,27 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebHeaderCollection headers, WebCallback callback)
         {
-            Request(url, method, data, cookies, headers, ApiEndpoints.COMMUNITY_BASE, callback);
+            this.Request(url, method, data, cookies, headers, ApiEndpoints.COMMUNITY_BASE, callback);
         }
 
         public void Request(string url, string method, Dictionary<string, string> data, CookieContainer cookies, WebCallback callback)
         {
-            Request(url, method, data, cookies, null, callback);
+            this.Request(url, method, data, cookies, null, callback);
         }
 
         public void Request(string url, string method, Dictionary<string, string> data, WebCallback callback)
         {
-            Request(url, method, data, null, callback);
+            this.Request(url, method, data, null, callback);
         }
 
         public void Request(string url, string method, WebCallback callback)
         {
-            Request(url, method, null, callback);
+            this.Request(url, method, null, callback);
         }
 
         private static void ResponseCallback(IAsyncResult result, WebCallback callback)
         {
-            var request = (HttpWebRequest)result.AsyncState;
+            var request = (HttpWebRequest) result.AsyncState;
             HttpWebResponse response = null;
             try
             {

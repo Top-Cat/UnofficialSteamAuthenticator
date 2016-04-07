@@ -20,13 +20,13 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             cookies.Add(uri, new Cookie("mobileClientVersion", "0 (2.1.3)", "/"));
             cookies.Add(uri, new Cookie("mobileClient", "android", "/"));
 
-            cookies.Add(uri, new Cookie("steamid", SteamID.ToString(), "/"));
-            cookies.Add(uri, new Cookie("steamLogin", SteamLogin, "/")
+            cookies.Add(uri, new Cookie("steamid", this.SteamID.ToString(), "/"));
+            cookies.Add(uri, new Cookie("steamLogin", this.SteamLogin, "/")
             {
                 HttpOnly = true
             });
 
-            cookies.Add(uri, new Cookie("steamLoginSecure", SteamLoginSecure, "/")
+            cookies.Add(uri, new Cookie("steamLoginSecure", this.SteamLoginSecure, "/")
             {
                 HttpOnly = true,
                 Secure = true
