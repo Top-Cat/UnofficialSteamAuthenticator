@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Lib.Models;
 
@@ -16,7 +17,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         {
             web.Request(ApiEndpoints.USER_SUMMARIES_URL + "?access_token=" + session.OAuthToken + "&steamids=" + string.Join(",", steamids.Select(steamid => steamid.ToString()).ToArray()), "GET", (response, code) =>
             {
-                summariesCallback(JsonConvert.DeserializeObject<Players>(response ?? string.Empty));
+                summariesCallback(code != HttpStatusCode.OK ? new Players() : JsonConvert.DeserializeObject<Players>(response ?? string.Empty));
             });
         }
     }

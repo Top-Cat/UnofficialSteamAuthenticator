@@ -373,25 +373,43 @@ namespace UnofficialSteamAuthenticator
 
         private void DoUnlink(IUICommand command)
         {
-            this.account.DeactivateAuthenticator(this.web, async response =>
+            // Always refresh session before trying to prevent confusing responses from steam
+            this.account.RefreshSession(this.web, async success =>
             {
-                if (response)
+                if (success)
                 {
-                    this.account.FullyEnrolled = false;
-                    this.account.PushStore();
-                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    this.account.DeactivateAuthenticator(this.web, async response =>
                     {
-                        this.SteamGuardButton_Click(null, null);
+                        if (response)
+                        {
+                            this.account.FullyEnrolled = false;
+                            this.account.PushStore();
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                this.SteamGuardButton_Click(null, null);
+                            });
+                        }
+                        else
+                        {
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                            {
+                                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                                {
+                                    Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
+                                };
+                                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
+                                await dialog.ShowAsync();
+                            });
+                        }
                     });
                 }
                 else
                 {
-                    var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                    Storage.Logout();
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
-                    };
-                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
-                    await dialog.ShowAsync();
+                        this.Frame.Navigate(typeof(LoginPage));
+                    });
                 }
             });
         }
