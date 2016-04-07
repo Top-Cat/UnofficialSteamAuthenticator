@@ -28,7 +28,7 @@ namespace UnofficialSteamAuthenticator.Lib
 
         public static SteamGuardAccount GetSteamGuardAccount(ulong steamId)
         {
-            SteamGuardAccount response;
+            SteamGuardAccount response = null;
 
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("steamGuard-" + steamId))
@@ -36,10 +36,8 @@ namespace UnofficialSteamAuthenticator.Lib
                 var data = (string) localSettings.Values["steamGuard-" + steamId];
                 response = JsonConvert.DeserializeObject<SteamGuardAccount>(data);
             }
-            else
-            {
-                response = new SteamGuardAccount();
-            }
+            // Make sure this can't return null
+            response = response ?? new SteamGuardAccount();
 
             Dictionary<ulong, SessionData> accs = GetAccounts();
             if (accs.ContainsKey(steamId))
@@ -103,11 +101,7 @@ namespace UnofficialSteamAuthenticator.Lib
                 }
             }
 
-            if (response.Count > 0)
-            {
-                return response.First().Value;
-            }
-            return null;
+            return response.Count > 0 ? response.First().Value : null;
         }
 
         public static Dictionary<ulong, SessionData> GetAccounts()

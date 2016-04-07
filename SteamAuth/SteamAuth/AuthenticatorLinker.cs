@@ -94,7 +94,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         }
 
                         var addAuthenticatorResponse = JsonConvert.DeserializeObject<WebResponse<SteamGuardAccount>>(response);
-                        if (addAuthenticatorResponse == null || addAuthenticatorResponse.Response == null)
+                        if (addAuthenticatorResponse?.Response == null)
                         {
                             callback(LinkResult.GeneralFailure);
                             return;

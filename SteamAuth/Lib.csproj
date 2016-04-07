@@ -89,6 +89,7 @@
     <Compile Include="Models\Sda\ManifestEntry.cs" />
     <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />
     <Compile Include="Models\SteamAuth\FinalizeAuthenticatorResponse.cs" />
+    <Compile Include="Models\SteamAuth\UnlinkResponse.cs" />
     <Compile Include="Models\SteamAuth\HasPhoneResponse.cs" />
     <Compile Include="Models\SteamAuth\LoginResponse.cs" />
     <Compile Include="Models\SteamAuth\OAuth.cs" />

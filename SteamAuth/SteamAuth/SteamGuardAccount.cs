@@ -89,19 +89,19 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             postData.Add("revocation_code", this.RevocationCode);
             postData.Add("access_token", this.Session.OAuthToken);
 
-            try
+            web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, (res, code) =>
             {
-                web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/RemoveAuthenticator/v0001", "POST", postData, (res, code) =>
+                try
                 {
-                    var removeResponse = JsonConvert.DeserializeObject<WebResponse<SuccessResponse>>(res);
+                    var removeResponse = JsonConvert.DeserializeObject<WebResponse<UnlinkResponse>>(res);
 
-                    callback(!(removeResponse?.Response == null || !removeResponse.Response.Success));
-                });
-            }
-            catch (Exception)
-            {
-                callback(false);
-            }
+                    callback(removeResponse?.Response != null && (removeResponse.Response.Success || removeResponse.Response.AttemptsRemaining > 0));
+                }
+                catch (Exception)
+                {
+                    callback(false);
+                }
+            });
         }
 
         public void DeactivateAuthenticator(SteamWeb web, BCallback callback)
@@ -114,13 +114,13 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         {
             TimeAligner.GetSteamTime(web, time =>
             {
-                callback(GenerateSteamGuardCodeForTime(time));
+                callback(this.GenerateSteamGuardCodeForTime(time));
             });
         }
 
         public string GenerateSteamGuardCodeForTime(long time)
         {
-            if (this.SharedSecret == null || this.SharedSecret.Length == 0)
+            if (string.IsNullOrEmpty(this.SharedSecret))
             {
                 return "";
             }
@@ -240,7 +240,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 try
                 {
                     var refreshResponse = JsonConvert.DeserializeObject<WebResponse<RefreshSessionDataResponse>>(response);
-                    if (refreshResponse == null || refreshResponse.Response == null || String.IsNullOrEmpty(refreshResponse.Response.Token))
+                    if (string.IsNullOrEmpty(refreshResponse?.Response?.Token))
                     {
                         callback(false);
                         return;

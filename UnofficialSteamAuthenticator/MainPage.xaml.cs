@@ -113,11 +113,11 @@ namespace UnofficialSteamAuthenticator
 
         private void BackPressed(object s, BackPressedEventArgs args)
         {
-            if (this.ConfirmationWeb.Visibility == Visibility.Visible && this.ConfirmationWeb.CanGoBack && this.confWebUrl != this.confUrl)
-            {
-                this.ConfirmationWeb.GoBack();
-                args.Handled = true;
-            }
+            if (this.ConfirmationWeb.Visibility != Visibility.Visible || !this.ConfirmationWeb.CanGoBack || this.confWebUrl == this.confUrl)
+                return;
+
+            this.ConfirmationWeb.GoBack();
+            args.Handled = true;
         }
 
         internal void HandleUri(Uri uri)
@@ -143,7 +143,11 @@ namespace UnofficialSteamAuthenticator
                         {
                             if (success)
                             {
-                                this.SteamGuardButton_Click(null, null);
+                                Action<object, RoutedEventArgs> call = this.ChatWeb.Visibility == Visibility.Visible ? this.MessageButton_Click :
+                                    this.ConfirmationWeb.Visibility == Visibility.Visible ? this.ConfirmationsButton_Click :
+                                    (Action<object, RoutedEventArgs>) this.SteamGuardButton_Click;
+
+                                call(null, null);
                             }
                             else
                             {
@@ -369,25 +373,43 @@ namespace UnofficialSteamAuthenticator
 
         private void DoUnlink(IUICommand command)
         {
-            this.account.DeactivateAuthenticator(this.web, async response =>
+            // Always refresh session before trying to prevent confusing responses from steam
+            this.account.RefreshSession(this.web, async success =>
             {
-                if (response)
+                if (success)
                 {
-                    this.account.FullyEnrolled = false;
-                    this.account.PushStore();
-                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    this.account.DeactivateAuthenticator(this.web, async response =>
                     {
-                        this.SteamGuardButton_Click(null, null);
+                        if (response)
+                        {
+                            this.account.FullyEnrolled = false;
+                            this.account.PushStore();
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                this.SteamGuardButton_Click(null, null);
+                            });
+                        }
+                        else
+                        {
+                            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                            {
+                                var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                                {
+                                    Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
+                                };
+                                dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
+                                await dialog.ShowAsync();
+                            });
+                        }
                     });
                 }
                 else
                 {
-                    var dialog = new MessageDialog(StringResourceLoader.GetString("Authenticator_Unlink_Failed_Message"))
+                    Storage.Logout();
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        Title = StringResourceLoader.GetString("Authenticator_Unlink_Failed_Title")
-                    };
-                    dialog.Commands.Add(new UICommand(StringResourceLoader.GetString("UiCommand_Ok_Text")));
-                    await dialog.ShowAsync();
+                        this.Frame.Navigate(typeof(LoginPage));
+                    });
                 }
             });
         }
