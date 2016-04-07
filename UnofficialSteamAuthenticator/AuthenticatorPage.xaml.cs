@@ -27,8 +27,16 @@ namespace UnofficialSteamAuthenticator
 
         private void NavigateBack(object s, BackPressedEventArgs args)
         {
-            args.Handled = true;
-            this.Frame.Navigate(typeof(MainPage));
+            if (this.Frame.CanGoBack)
+            {
+                args.Handled = true;
+                this.Frame.GoBack();
+            }
+            else
+            {
+                args.Handled = true;
+                this.Frame.Navigate(typeof(MainPage));
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -40,24 +48,34 @@ namespace UnofficialSteamAuthenticator
 
             // Always refresh session before trying linking to prevent confusing responses from steam
             SteamGuardAccount acc = Storage.GetSteamGuardAccount();
-            acc.RefreshSession(this.web, async success =>
+            if (acc == null)
             {
-                if (success)
+                this.Logout();
+                return;
+            }
+
+            acc.RefreshSession(this.web, success =>
+            {
+                if (!success)
                 {
-                    this.linker = new AuthenticatorLinker(Storage.GetSessionData())
-                    {
-                        LinkedAccount = acc
-                    };
-                    this.linker.AddAuthenticator(this.web, this.LinkResponse);
+                    this.Logout();
+                    return;
                 }
-                else
+
+                this.linker = new AuthenticatorLinker(Storage.GetSessionData())
                 {
-                    Storage.Logout();
-                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        this.Frame.Navigate(typeof(LoginPage));
-                    });
-                }
+                    LinkedAccount = acc
+                };
+                this.linker.AddAuthenticator(this.web, this.LinkResponse);
+            });
+        }
+
+        private async void Logout()
+        {
+            Storage.Logout();
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                this.Frame.Navigate(typeof(LoginPage));
             });
         }
 

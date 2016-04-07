@@ -113,11 +113,11 @@ namespace UnofficialSteamAuthenticator
 
         private void BackPressed(object s, BackPressedEventArgs args)
         {
-            if (this.ConfirmationWeb.Visibility == Visibility.Visible && this.ConfirmationWeb.CanGoBack && this.confWebUrl != this.confUrl)
-            {
-                this.ConfirmationWeb.GoBack();
-                args.Handled = true;
-            }
+            if (this.ConfirmationWeb.Visibility != Visibility.Visible || !this.ConfirmationWeb.CanGoBack || this.confWebUrl == this.confUrl)
+                return;
+
+            this.ConfirmationWeb.GoBack();
+            args.Handled = true;
         }
 
         internal void HandleUri(Uri uri)
