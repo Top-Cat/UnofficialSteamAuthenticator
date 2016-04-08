@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnofficialSteamAuthenticator.Lib</RootNamespace>
-    <AssemblyName>UnofficalSteamAuthenticator.Lib</AssemblyName>
+    <AssemblyName>UnofficialSteamAuthenticator.Lib</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>

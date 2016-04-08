@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.Tests.SteamAuth
+namespace UnofficialSteamAuthenticator.Tests.SteamAuth
 {
     [TestClass]
     public class UtilTest

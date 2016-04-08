@@ -28,7 +28,7 @@
             <DisplayName>Steam Mobile Handler</DisplayName>
           </Protocol>
         </Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="UnofficalSteamAuthenticator.NotificationTask.BackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="UnofficialSteamAuthenticator.NotificationTask.BackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>

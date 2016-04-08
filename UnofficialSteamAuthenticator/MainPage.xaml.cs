@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Web;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
-using UnofficalSteamAuthenticator.NotificationTask;
+using UnofficialSteamAuthenticator.NotificationTask;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib;

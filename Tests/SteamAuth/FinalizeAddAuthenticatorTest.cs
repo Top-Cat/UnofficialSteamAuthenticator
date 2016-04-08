@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UnofficalSteamAuthenticator.Tests.Mock;
+using UnofficialSteamAuthenticator.Tests.Mock;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.Tests.SteamAuth
+namespace UnofficialSteamAuthenticator.Tests.SteamAuth
 {
     [TestClass]
     public class FinalizeAddAuthenticatorTest

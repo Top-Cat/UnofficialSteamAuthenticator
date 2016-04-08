@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using UnofficialSteamAuthenticator;
 using UnofficialSteamAuthenticator.Lib;
 
-namespace UnofficalSteamAuthenticator.Tests
+namespace UnofficialSteamAuthenticator.Tests
 {
     [TestClass]
     public class FileEncryptorTest
