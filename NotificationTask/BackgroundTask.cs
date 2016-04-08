@@ -55,11 +55,10 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                 });
             }
 
-            if (locks.Count > 0)
+            if (locks.Count == 0 || WaitHandle.WaitAll(locks.ToArray(), TimeSpan.FromSeconds(15)))
             {
-                WaitHandle.WaitAll(locks.ToArray());
+                SetBadgeCount(notifCount);
             }
-            SetBadgeCount(notifCount);
         }
 
         public static async void Register()
