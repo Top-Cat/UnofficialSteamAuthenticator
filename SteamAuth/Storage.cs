@@ -6,8 +6,17 @@ using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Lib
 {
+    /// <summary>
+    ///     Handles storing and retreiving user data
+    /// </summary>
     public class Storage
     {
+        /// <summary>
+        ///     Gets steam guard account information by username
+        ///     Used to generate codes when re-logging in before the user's steamid is known
+        /// </summary>
+        /// <param name="username">Steam account username of user</param>
+        /// <returns>The SteamGuardAccount of the user or null if one cannot be found</returns>
         public static SteamGuardAccount GetSteamGuardAccount(string username)
         {
             SteamGuardAccount response = null;
@@ -26,9 +35,15 @@ namespace UnofficialSteamAuthenticator.Lib
             return response;
         }
 
+        /// <summary>
+        ///     Gets steam guard account information by steamid
+        ///     Used to get the secrets of enrolled, logged in users
+        /// </summary>
+        /// <param name="steamId">The steamId of the user</param>
+        /// <returns>The SteamGuardAccount of the user, an empty object may be returned if none is present</returns>
         public static SteamGuardAccount GetSteamGuardAccount(ulong steamId)
         {
-            SteamGuardAccount response = null;
+            SteamGuardAccount response = new SteamGuardAccount();
 
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("steamGuard-" + steamId))
@@ -36,8 +51,6 @@ namespace UnofficialSteamAuthenticator.Lib
                 var data = (string) localSettings.Values["steamGuard-" + steamId];
                 response = JsonConvert.DeserializeObject<SteamGuardAccount>(data);
             }
-            // Make sure this can't return null
-            response = response ?? new SteamGuardAccount();
 
             Dictionary<ulong, SessionData> accs = GetAccounts();
             if (accs.ContainsKey(steamId))
@@ -53,6 +66,11 @@ namespace UnofficialSteamAuthenticator.Lib
             return response;
         }
 
+        /// <summary>
+        ///     Gets steam guard account information of the current active user
+        ///     Most commonly used to prevent the need to pass a steamid everywhere
+        /// </summary>
+        /// <returns>The SteamGuardAccount of the user or null if no users are logged in</returns>
         public static SteamGuardAccount GetSteamGuardAccount()
         {
             SessionData session = GetSessionData();
@@ -65,6 +83,11 @@ namespace UnofficialSteamAuthenticator.Lib
             return response;
         }
 
+        /// <summary>
+        ///     Commits a SteamGuardAccount to storage
+        ///     Make sure to call this after making any changes to the account that should persist
+        /// </summary>
+        /// <param name="account">The account to save</param>
         public static void PushStore(SteamGuardAccount account)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -72,6 +95,12 @@ namespace UnofficialSteamAuthenticator.Lib
             localSettings.Values["steamUser-" + account.AccountName] = account.Session.SteamID;
         }
 
+        /// <summary>
+        ///     Set the current active user
+        ///     Called by the user selection screen before forwarding into single user mode
+        ///     Also updates the LastCurrent time of the user, used for storting
+        /// </summary>
+        /// <param name="steamid">The steamid of the user to set active</param>
         public static void SetCurrentUser(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -85,6 +114,11 @@ namespace UnofficialSteamAuthenticator.Lib
             PushStore(data);
         }
 
+        /// <summary>
+        ///     Get the session data of the current active user
+        ///     Session data is a simple login before authenticator linking with keys to call the apis
+        /// </summary>
+        /// <returns>The current user's session data</returns>
         public static SessionData GetSessionData()
         {
             Dictionary<ulong, SessionData> response = GetAccounts();
@@ -104,6 +138,11 @@ namespace UnofficialSteamAuthenticator.Lib
             return response.Count > 0 ? response.First().Value : null;
         }
 
+        /// <summary>
+        ///     Get all the logged in accounts
+        ///     Used to display the user list
+        /// </summary>
+        /// <returns>A dictionary of logged in accounts steamid => SessionData</returns>
         public static Dictionary<ulong, SessionData> GetAccounts()
         {
             var response = new Dictionary<ulong, SessionData>();
@@ -128,6 +167,11 @@ namespace UnofficialSteamAuthenticator.Lib
             return response;
         }
 
+        /// <summary>
+        ///     Commits SessionData to storage
+        ///     Make sure to call this after making any changes to the session that should persist
+        /// </summary>
+        /// <param name="session">The session to save</param>
         public static void PushStore(SessionData session)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -138,6 +182,11 @@ namespace UnofficialSteamAuthenticator.Lib
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
 
+        /// <summary>
+        ///     Deletes the session data for a user by steamId
+        ///     Does not remove any SteamGuardAccount information
+        /// </summary>
+        /// <param name="steamid">The steamId of the user to logout</param>
         public static void Logout(ulong steamid)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -148,6 +197,9 @@ namespace UnofficialSteamAuthenticator.Lib
             localSettings.Values["sessionJson"] = JsonConvert.SerializeObject(accounts);
         }
 
+        /// <summary>
+        ///     Logs out the current active user
+        /// </summary>
         public static void Logout()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;

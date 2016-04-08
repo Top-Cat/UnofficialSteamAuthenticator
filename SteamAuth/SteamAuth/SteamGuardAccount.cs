@@ -100,7 +100,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         ///     Refreshes the Steam session. Necessary to perform confirmations if your session has expired or changed.
         /// </summary>
         /// <returns></returns>
-        public void RefreshSession(SteamWeb web, BFCallback callback)
+        public void RefreshSession(SteamWeb web, BfCallback callback)
         {
             string url = ApiEndpoints.MOBILEAUTH_GETWGTOKEN;
             var postData = new Dictionary<string, string>();
@@ -228,7 +228,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                     if (response == null || code != HttpStatusCode.OK)
                     {
                         // Forbidden = family view, NotFound = bad token
-                        callback(ret, code == HttpStatusCode.Forbidden ? null : new WGTokenInvalidException());
+                        callback(ret, code == HttpStatusCode.Forbidden ? null : new WgTokenInvalidException());
                         return;
                     }
 
