@@ -18,11 +18,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
     public delegate void BCallback(bool response);
 
-    public delegate void BFCallback(Success response);
+    public delegate void BfCallback(Success response);
 
     public delegate void HasPhoneCallback(AuthenticatorLinker.PhoneStatus response);
 
-    public delegate void FcCallback(List<Confirmation> response, WGTokenInvalidException ex);
+    public delegate void FcCallback(List<Confirmation> response, WgTokenInvalidException ex);
 
     public delegate void SummaryCallback(Players players);
 

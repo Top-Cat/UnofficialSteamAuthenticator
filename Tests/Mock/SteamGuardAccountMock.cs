@@ -31,7 +31,7 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
             makeRequest((string) this.GetResponse(web)());
         }
 
-        public void RefreshSession(SteamWeb web, BFCallback callback)
+        public void RefreshSession(SteamWeb web, BfCallback callback)
         {
             throw new NotImplementedException();
         }
