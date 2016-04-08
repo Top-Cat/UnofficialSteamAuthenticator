@@ -1,7 +1,7 @@
 ﻿using System;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.Tests.Mock
+namespace UnofficialSteamAuthenticator.Tests.Mock
 {
     internal class SteamGuardAccountMock : Mock, ISteamSecrets
     {

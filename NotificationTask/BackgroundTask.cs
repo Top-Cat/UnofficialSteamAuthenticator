@@ -8,7 +8,7 @@ using Windows.UI.Notifications;
 using UnofficialSteamAuthenticator.Lib;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.NotificationTask
+namespace UnofficialSteamAuthenticator.NotificationTask
 {
     public sealed class BackgroundTask : IBackgroundTask
     {
@@ -74,7 +74,7 @@ namespace UnofficalSteamAuthenticator.NotificationTask
             var taskBuilder = new BackgroundTaskBuilder
             {
                 Name = TaskName,
-                TaskEntryPoint = "UnofficalSteamAuthenticator.NotificationTask.BackgroundTask"
+                TaskEntryPoint = "UnofficialSteamAuthenticator.NotificationTask.BackgroundTask"
             };
             taskBuilder.SetTrigger(new TimeTrigger(15, false));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
