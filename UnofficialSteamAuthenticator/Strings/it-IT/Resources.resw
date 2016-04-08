@@ -261,24 +261,24 @@ Non condividerlo con nessuno.</value>
     <value>La password che hai inserito è troppo corta</value>
   </data>
   <data name="Settings_Headline.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="SettingsButton.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="Settings_Exit.Content" xml:space="preserve">
-    <value>Exit App</value>
+    <value>Esci dall'app</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>You will need to restart the app for this to take effect</value>
+    <value>Dovrai riavviare l'app affinché questo abbia effetto</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Pin errato</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Inserisci il Pin della Family View</value>
   </data>
 </root>

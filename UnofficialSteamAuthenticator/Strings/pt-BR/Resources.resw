@@ -272,9 +272,9 @@
     <value>Você precisará de reiniciar o app para que esta alteração seja aplicada</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Pin inválido</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Digite o Pin do Modo Família</value>
   </data>
 </root>
