@@ -272,9 +272,9 @@
     <value>Aby se projevily změny, restartujte prosím aplikaci</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Nesprávný Pin</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Zadejte pin kód pro Rodinné zobrazení</value>
   </data>
 </root>
