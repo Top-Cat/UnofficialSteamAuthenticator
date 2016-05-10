@@ -1,44 +1,58 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib.Models.SteamAuth;
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 {
-
     /// <summary>
-    /// Handles the linking process for a new mobile authenticator.
+    ///     Handles the linking process for a new mobile authenticator.
     /// </summary>
     public class AuthenticatorLinker
     {
-       
+        public enum FinalizeResult
+        {
+            BadSMSCode,
+            UnableToGenerateCorrectCodes,
+            Success,
+            GeneralFailure
+        }
+
+        public enum LinkResult
+        {
+            MustProvidePhoneNumber, //No phone number on the account
+            MustRemovePhoneNumber, //A phone number is already on the account
+            AwaitingFinalization, //Must provide an SMS code
+            GeneralFailure, //General failure (really now!)
+            AuthenticatorPresent,
+            FamilyViewEnabled
+        }
+
+        public enum PhoneStatus
+        {
+            Attached,
+            Detatched,
+            FamilyView
+        }
+
+        private readonly CookieContainer cookies;
+
+        private readonly SessionData session;
 
         /// <summary>
-        /// Set to register a new phone number when linking. If a phone number is not set on the account, this must be set. If a phone number is set on the account, this must be null.
-        /// </summary>
-        public string PhoneNumber = null;
-
-        public string Pin = null;
-
-        /// <summary>
-        /// Randomly-generated device ID. Should only be generated once per linker.
-        /// </summary>
-        public string DeviceID { get; private set; }
-
-        /// <summary>
-        /// After the initial link step, if successful, this will be the SteamGuard data for the account. PLEASE save this somewhere after generating it; it's vital data.
-        /// </summary>
-        public ISteamSecrets LinkedAccount { get; set; }
-
-        /// <summary>
-        /// True if the authenticator has been fully finalized.
+        ///     True if the authenticator has been fully finalized.
         /// </summary>
         public bool Finalized = false;
 
-        private readonly SessionData session;
-        private readonly CookieContainer cookies;
+
+        /// <summary>
+        ///     Set to register a new phone number when linking. If a phone number is not set on the account, this must be set. If
+        ///     a phone number is set on the account, this must be null.
+        /// </summary>
+        public string PhoneNumber = null;
+
+        public string Pin;
 
         public AuthenticatorLinker(SessionData session)
         {
@@ -48,6 +62,17 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             this.cookies = new CookieContainer();
             session.AddCookies(this.cookies);
         }
+
+        /// <summary>
+        ///     Randomly-generated device ID. Should only be generated once per linker.
+        /// </summary>
+        public string DeviceID { get; }
+
+        /// <summary>
+        ///     After the initial link step, if successful, this will be the SteamGuard data for the account. PLEASE save this
+        ///     somewhere after generating it; it's vital data.
+        /// </summary>
+        public ISteamSecrets LinkedAccount { get; set; }
 
         public void AddAuthenticator(IWebRequest web, LinkCallback callback)
         {
@@ -94,7 +119,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                         }
 
                         var addAuthenticatorResponse = JsonConvert.DeserializeObject<WebResponse<SteamGuardAccount>>(response);
-                        if (addAuthenticatorResponse == null || addAuthenticatorResponse.Response == null)
+                        if (addAuthenticatorResponse?.Response == null)
                         {
                             callback(LinkResult.GeneralFailure);
                             return;
@@ -125,7 +150,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 if (hasPhone == PhoneStatus.Detatched)
                 {
                     this._addPhoneNumber(web, numberAddedCallback);
-                } else
+                }
+                else
                 {
                     numberAddedCallback(true);
                 }
@@ -161,7 +187,9 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
             };
             var tries = 0;
 
-            Callback makeRequest = r => { };
+            Callback makeRequest = r =>
+            {
+            };
 
             WebCallback reqCallback = (response, code) =>
             {
@@ -217,9 +245,11 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 callback(FinalizeResult.Success);
             };
 
-            makeRequest = response => {
+            makeRequest = response =>
+            {
                 postData["authenticator_code"] = response;
-                TimeAligner.GetSteamTime(web, steamTime => {
+                TimeAligner.GetSteamTime(web, steamTime =>
+                {
                     postData["authenticator_time"] = steamTime.ToString();
 
                     web.MobileLoginRequest(ApiEndpoints.STEAMAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", postData, reqCallback);
@@ -258,7 +288,8 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 ["sessionid"] = this.session.SessionID
             };
 
-            web.Request(ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, this.cookies, (response, code) => {
+            web.Request(ApiEndpoints.COMMUNITY_BASE + "/steamguard/phoneajax", "POST", postData, this.cookies, (response, code) =>
+            {
                 if (response == null || code != HttpStatusCode.OK)
                 {
                     callback(false);
@@ -340,31 +371,6 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
                 var successResponse = JsonConvert.DeserializeObject<SuccessResponse>(response);
                 callback(successResponse.Success);
             });
-        }
-
-        public enum PhoneStatus
-        {
-            Attached,
-            Detatched,
-            FamilyView
-        }
-
-        public enum LinkResult
-        {
-            MustProvidePhoneNumber, //No phone number on the account
-            MustRemovePhoneNumber, //A phone number is already on the account
-            AwaitingFinalization, //Must provide an SMS code
-            GeneralFailure, //General failure (really now!)
-            AuthenticatorPresent,
-            FamilyViewEnabled
-        }
-
-        public enum FinalizeResult
-        {
-            BadSMSCode,
-            UnableToGenerateCorrectCodes,
-            Success,
-            GeneralFailure
         }
     }
 }

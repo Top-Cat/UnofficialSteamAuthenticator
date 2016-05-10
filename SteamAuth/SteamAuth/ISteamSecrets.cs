@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
@@ -46,7 +42,7 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
         DateTime DisplayCache { get; }
 
         /// <summary>
-        /// Set to true if the authenticator has actually been applied to the account.
+        ///     Set to true if the authenticator has actually been applied to the account.
         /// </summary>
         [JsonProperty("fully_enrolled")]
         bool FullyEnrolled { get; set; }
@@ -55,5 +51,6 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
         void PushStore();
         void GenerateSteamGuardCode(IWebRequest web, Callback makeRequest);
+        void RefreshSession(SteamWeb web, BfCallback callback);
     }
 }

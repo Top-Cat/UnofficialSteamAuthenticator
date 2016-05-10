@@ -9,8 +9,8 @@
     <ProjectGuid>{B7D850FE-A53A-4B10-B2E2-B31C13D4642A}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnofficalSteamAuthenticator.NotificationTask</RootNamespace>
-    <AssemblyName>UnofficalSteamAuthenticator.NotificationTask</AssemblyName>
+    <RootNamespace>UnofficialSteamAuthenticator.NotificationTask</RootNamespace>
+    <AssemblyName>UnofficialSteamAuthenticator.NotificationTask</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>

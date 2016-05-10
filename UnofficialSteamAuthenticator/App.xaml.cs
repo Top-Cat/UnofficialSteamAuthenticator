@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
-using UnofficalSteamAuthenticator.NotificationTask;
+using UnofficialSteamAuthenticator.NotificationTask;
 using UnofficialSteamAuthenticator.Lib;
 
 // The WebView Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
