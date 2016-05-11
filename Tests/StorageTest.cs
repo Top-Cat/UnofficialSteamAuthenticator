@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 using UnofficialSteamAuthenticator.Lib;
 
-namespace UnofficalSteamAuthenticator.Tests
+namespace UnofficialSteamAuthenticator.Tests
 {
     [TestClass]
     public class StorageTest

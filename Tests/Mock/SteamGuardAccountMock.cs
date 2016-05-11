@@ -1,7 +1,7 @@
 ﻿using System;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.Tests.Mock
+namespace UnofficialSteamAuthenticator.Tests.Mock
 {
     internal class SteamGuardAccountMock : Mock, ISteamSecrets
     {
@@ -29,6 +29,11 @@ namespace UnofficalSteamAuthenticator.Tests.Mock
         {
             this.RegisterCall(web, makeRequest)();
             makeRequest((string) this.GetResponse(web)());
+        }
+
+        public void RefreshSession(SteamWeb web, BfCallback callback)
+        {
+            throw new NotImplementedException();
         }
     }
 }

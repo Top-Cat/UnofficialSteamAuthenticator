@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnofficialSteamAuthenticator.Lib</RootNamespace>
-    <AssemblyName>UnofficalSteamAuthenticator.Lib</AssemblyName>
+    <AssemblyName>UnofficialSteamAuthenticator.Lib</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -89,6 +89,7 @@
     <Compile Include="Models\Sda\ManifestEntry.cs" />
     <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />
     <Compile Include="Models\SteamAuth\FinalizeAuthenticatorResponse.cs" />
+    <Compile Include="Models\SteamAuth\UnlinkResponse.cs" />
     <Compile Include="Models\SteamAuth\HasPhoneResponse.cs" />
     <Compile Include="Models\SteamAuth\LoginResponse.cs" />
     <Compile Include="Models\SteamAuth\OAuth.cs" />

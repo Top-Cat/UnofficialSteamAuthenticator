@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.Tests.Mock
+namespace UnofficialSteamAuthenticator.Tests.Mock
 {
     public class SteamWebMock : Mock, IWebRequest
     {

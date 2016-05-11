@@ -2,7 +2,7 @@
 
 namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 {
-    public class WGTokenInvalidException : Exception
+    public class WgTokenInvalidException : Exception
     {
     }
 }

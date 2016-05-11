@@ -28,7 +28,22 @@ namespace UnofficialSteamAuthenticator
         private void NavigateBack(object s, BackPressedEventArgs args)
         {
             args.Handled = true;
-            this.Frame.Navigate(typeof(MainPage));
+            this.Back();
+        }
+
+        private async void Back()
+        {
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (this.Frame.CanGoBack)
+                {
+                    this.Frame.GoBack();
+                }
+                else
+                {
+                    this.Frame.Navigate(typeof(MainPage));
+                }
+            });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,11 +53,42 @@ namespace UnofficialSteamAuthenticator
             this.BtnContinue.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.ErrorLabel.Visibility = this.FamilyGrid.Visibility = Visibility.Collapsed;
             this.Progress.Visibility = Visibility.Visible;
 
-            this.linker = new AuthenticatorLinker(Storage.GetSessionData())
+            // Always refresh session before trying linking to prevent confusing responses from steam
+            SteamGuardAccount acc = Storage.GetSteamGuardAccount();
+            if (acc == null)
             {
-                LinkedAccount = Storage.GetSteamGuardAccount()
-            };
-            this.linker.AddAuthenticator(this.web, this.LinkResponse);
+                this.Logout();
+                return;
+            }
+
+            acc.RefreshSession(this.web, success =>
+            {
+                switch (success)
+                {
+                    case Success.Failure:
+                        this.Logout();
+                        break;
+                    case Success.Error:
+                        this.Back();
+                        break;
+                    case Success.Success:
+                        this.linker = new AuthenticatorLinker(Storage.GetSessionData())
+                        {
+                            LinkedAccount = acc
+                        };
+                        this.linker.AddAuthenticator(this.web, this.LinkResponse);
+                        break;
+                }
+            });
+        }
+
+        private async void Logout()
+        {
+            Storage.Logout();
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+            });
         }
 
         private void BtnContinue_Click(object sender, RoutedEventArgs e)
@@ -50,6 +96,7 @@ namespace UnofficialSteamAuthenticator
             this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = this.FamilyPin.IsTabStop = false;
             this.ErrorLabel.Visibility = this.BtnContinue.Visibility = Visibility.Collapsed;
             this.Progress.Visibility = Visibility.Visible;
+            this.LayoutRoot.RowDefinitions[1].Height = GridLength.Auto;
             this.PhoneNum.IsTabStop = this.SmsCode.IsTabStop = this.FamilyPin.IsTabStop = true;
 
             if (this.PhoneNumGrid.Visibility == Visibility.Visible)
@@ -114,6 +161,7 @@ namespace UnofficialSteamAuthenticator
         {
             bool phoneWasVis = this.PhoneNumGrid.Visibility == Visibility.Visible;
             bool familyWasVis = this.FamilyGrid.Visibility == Visibility.Visible;
+            this.LayoutRoot.RowDefinitions[1].Height = GridLength.Auto;
             this.Progress.Visibility = this.ErrorLabel.Visibility = this.SmsGrid.Visibility = this.PhoneNumGrid.Visibility = this.RevocationGrid.Visibility = this.FamilyGrid.Visibility = Visibility.Collapsed;
 
             switch (linkResponse)
@@ -158,6 +206,7 @@ namespace UnofficialSteamAuthenticator
                     this.linker.LinkedAccount.PushStore();
 
                     this.RevocationGrid.Visibility = Visibility.Visible;
+                    this.LayoutRoot.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
                     this.RevocationCode.Text = this.linker.LinkedAccount.RevocationCode;
                     break;
             }

@@ -276,9 +276,9 @@ Zapisz go i nikomu nie udostępniaj.</value>
     <value>Aby zmiany miały miejsce, musisz ponownie uruchomić aplikację</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Nieprawidłowy kod pin</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Wpisz kod pin rodzinnego widoku</value>
   </data>
 </root>

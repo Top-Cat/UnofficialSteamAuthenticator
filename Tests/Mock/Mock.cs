@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace UnofficalSteamAuthenticator.Tests.Mock
+namespace UnofficialSteamAuthenticator.Tests.Mock
 {
     public class Mock
     {

@@ -8,7 +8,7 @@ using Windows.UI.Notifications;
 using UnofficialSteamAuthenticator.Lib;
 using UnofficialSteamAuthenticator.Lib.SteamAuth;
 
-namespace UnofficalSteamAuthenticator.NotificationTask
+namespace UnofficialSteamAuthenticator.NotificationTask
 {
     public sealed class BackgroundTask : IBackgroundTask
     {
@@ -34,7 +34,7 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                     {
                         acc.RefreshSession(web, success =>
                         {
-                            if (!success)
+                            if (success == Success.Failure)
                             {
                                 Storage.Logout(acc.Session.SteamID);
                             }
@@ -55,11 +55,10 @@ namespace UnofficalSteamAuthenticator.NotificationTask
                 });
             }
 
-            if (locks.Count > 0)
+            if (locks.Count == 0 || WaitHandle.WaitAll(locks.ToArray(), TimeSpan.FromSeconds(15)))
             {
-                WaitHandle.WaitAll(locks.ToArray());
+                SetBadgeCount(notifCount);
             }
-            SetBadgeCount(notifCount);
         }
 
         public static async void Register()
@@ -75,7 +74,7 @@ namespace UnofficalSteamAuthenticator.NotificationTask
             var taskBuilder = new BackgroundTaskBuilder
             {
                 Name = TaskName,
-                TaskEntryPoint = "UnofficalSteamAuthenticator.NotificationTask.BackgroundTask"
+                TaskEntryPoint = "UnofficialSteamAuthenticator.NotificationTask.BackgroundTask"
             };
             taskBuilder.SetTrigger(new TimeTrigger(15, false));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
