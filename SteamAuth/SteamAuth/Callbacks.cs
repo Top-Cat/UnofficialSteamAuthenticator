@@ -14,4 +14,5 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
     public delegate void Callback(string response);
     public delegate void LoginCallback(LoginResult result);
     public delegate void LongCallback(long time);
+    public delegate void AddFileCallback(int callstatus);
 }

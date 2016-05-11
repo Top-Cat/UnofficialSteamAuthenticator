@@ -8,6 +8,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Lib.Models.Sda;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using System.IO;
 
 namespace UnofficialSteamAuthenticator.Lib
 {
@@ -163,6 +165,58 @@ namespace UnofficialSteamAuthenticator.Lib
             ContentDialogResult result = await dialog.ShowAsync();
 
             return result == ContentDialogResult.Primary ? tb.Text : string.Empty;
+        }
+        public static async void LoadFile(StorageFile toload, AddFileCallback callback)
+        {
+            // asks user for password
+            string password = await GetPassword();
+            // retrieves folder using path to manifest
+            StorageFolder stfolder = await StorageFolder.GetFolderFromPathAsync(toload.Path);
+            string manifestContent;
+            // reads manifest to string
+            using (StreamReader sRead = new StreamReader(await toload.OpenStreamForReadAsync()))
+                manifestContent = await sRead.ReadToEndAsync();
+            // makes interface, to make no problem with checking password
+            IStorageFolder folder = stfolder;
+            // checks password for encrypted files.
+            bool correct = await CheckPassword(JsonConvert.DeserializeObject<Manifest>(manifestContent), folder, password);
+            // if not, return error code.
+            if (!correct)
+            {
+                callback(2);
+                return;
+            }
+            // If file password is correct - continue
+            try
+            {
+                // for each of users in json file
+                foreach (ManifestEntry entry in JsonConvert.DeserializeObject<Manifest>(manifestContent).Entries)
+                {
+                    // retrieves file
+                    StorageFile entryFile = await folder.CreateFileAsync(entry.Filename, CreationCollisionOption.OpenIfExists);
+                    // gets file content
+                    string encrypted = await FileIO.ReadTextAsync(entryFile);
+                    // decrypts file
+                    string decrypted = FileEncryptor.DecryptData(password, entry.Salt, entry.Iv, encrypted);
+                    // throws exception if decryption went wrong
+                    if (decrypted==null)
+                    {
+                        throw new Exception();
+                    }
+                    // converts file to SteamGuardAccount object...
+                    SteamGuardAccount toadd = JsonConvert.DeserializeObject<SteamGuardAccount>(decrypted);
+                    // ... and finally adds it to app.
+                    Storage.PushStore(toadd);
+                }
+                // if no exception caught - return success code.
+                callback(1);
+            }
+            catch (Exception)
+            {
+                // caught exception == set error status and terminate void. 
+                callback(2);
+                return;
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib;
 using Windows.Storage;
 using System.IO;
-using Newtonsoft.Json;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Activation;
 
@@ -193,63 +192,55 @@ namespace UnofficialSteamAuthenticator
             this.Frame.Navigate(typeof(SettingsPage));
         }
 
-        #region loadMAFile
+        #region loadJson
         CoreApplicationView view = CoreApplication.GetCurrentView();
-        string loadedjson;
-        int status = 0;
-        // Integer showing status for loadButton, from recieved file.
+        StorageFile loadedjson;
+        int callstatus = 0;
+        bool gotjson;
         // 0 - none
-        // 1 - file loaded properly.
-        // 2 - error.
+        // 1 - file added properly
+        // 2 - error
         private async void loadButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog msgbox = new MessageDialog("Pick .maFile to work with.");
-            SteamGuardAccount recieved;
+            MessageDialog msgbox = new MessageDialog("Pick manifest file with account files.");
             FileOpenPicker openPicker = new FileOpenPicker();
+            AddFileCallback filecallback = new AddFileCallback(getLoadStatus);
             await msgbox.ShowAsync();
             openPicker.ViewMode = PickerViewMode.Thumbnail;
             openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            openPicker.FileTypeFilter.Add(".maFile");
+            openPicker.FileTypeFilter.Add(".json");
             openPicker.PickSingleFileAndContinue();
             view.Activated += viewActivated;
-            /*
-            While loop, to stop code here until recieved file.
-            if not - stops void.
-            TopCat - if you'll find better way - change it ;)
-            */
-            while (true)
-            {
-                if (status==1)
-                {
-                    break;
-                }
-                if (status==2)
-                {
-                    return;
-                }
-            }
             /*
             If file is properly loaded, we go to moving it to SteamGuardAccount object.
             Even if it is empty, or couldn't be properly moved to json format - app
             catches it and stops loading progress.
              */
-            try
+            if (gotjson)
             {
-                recieved = JsonConvert.DeserializeObject<SteamGuardAccount>(loadedjson);
-                Storage.PushStore(recieved);
-                msgbox.Content = ("File loaded successfully.");
-                await msgbox.ShowAsync();
+                SdaStorage.LoadFile(loadedjson, filecallback);
+                if (callstatus==1)
+                {
+                    msgbox.Content = "All accounts loaded successfully.";
+                    await msgbox.ShowAsync();
+                }
+                else
+                {
+                    msgbox.Content = "Error occured during loading accounts.";
+                    await msgbox.ShowAsync();
+                }
             }
-            catch (Exception)
-            {
-                msgbox.Content = ("Error loading account from file");
-                await msgbox.ShowAsync();
-            }
+            
             /*
             TODO:
-            If loaded properly, I don't exactly know how to "reload" your account
+            1. If loaded properly, I don't exactly know how to "reload" your account
             list. This code seems a bit too complicated for me, so I don't touch it.
+            2. Add resources with translated texts.
             */
+        }
+        public void getLoadStatus(int status)
+        {
+            callstatus = status;
         }
         /*
         This void occurs when app is unfreezed by file picker. It checks the file
@@ -268,21 +259,13 @@ namespace UnofficialSteamAuthenticator
                     if (args.Files.Count == 0) return;
                     view.Activated -= viewActivated;
                     StorageFile file = args.Files[0];
-                    using (StreamReader sRead = new StreamReader(await file.OpenStreamForReadAsync()))
-                    {
-                        loadedjson = await sRead.ReadToEndAsync();
-                        if (loadedjson == null)
-                        {
-                            status = 2;
-                        }
-                    }
+                    loadedjson = file;
                 }
             }
             catch (Exception)
             {
                 MessageDialog msgbox = new MessageDialog("Error loading file.");
                 await msgbox.ShowAsync();
-                status = 2;
             }
             
         }
