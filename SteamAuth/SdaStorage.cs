@@ -150,6 +150,11 @@ namespace UnofficialSteamAuthenticator.Lib
 
             return result == ContentDialogResult.Primary ? tb.Text : string.Empty;
         }
+        /// <summary>
+        /// Adds all accounts from specified Manifest file.
+        /// </summary>
+        /// <param name="toload">File to load as Manifest.</param>
+        /// <param name="callback">Callback to return status.</param>
         public static async void LoadFile(StorageFile toload, AddFileCallback callback)
         {
             // asks user for password
