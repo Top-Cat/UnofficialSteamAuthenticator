@@ -191,12 +191,11 @@ namespace UnofficialSteamAuthenticator
         {
             this.Frame.Navigate(typeof(SettingsPage));
         }
-
-        #region loadJson
+        
         CoreApplicationView view = CoreApplication.GetCurrentView();
         StorageFile loadedjson;
-        int callstatus = 0;
-        bool gotjson;
+        Exception callerror = null;
+        Exception errorwithjson;
         // 0 - none
         // 1 - file added properly
         // 2 - error
@@ -216,19 +215,24 @@ namespace UnofficialSteamAuthenticator
             Even if it is empty, or couldn't be properly moved to json format - app
             catches it and stops loading progress.
              */
-            if (gotjson)
+            if (errorwithjson==null)
             {
                 SdaStorage.LoadFile(loadedjson, filecallback);
-                if (callstatus==1)
+                if (callerror==null)
                 {
                     msgbox.Content = "All accounts loaded successfully.";
                     await msgbox.ShowAsync();
                 }
                 else
                 {
-                    msgbox.Content = "Error occured during loading accounts.";
+                    msgbox.Content = callerror.Message;
                     await msgbox.ShowAsync();
                 }
+            }
+            else
+            {
+                msgbox.Content = errorwithjson.Message;
+                await msgbox.ShowAsync();
             }
             
             /*
@@ -238,9 +242,9 @@ namespace UnofficialSteamAuthenticator
             2. Add resources with translated texts.
             */
         }
-        public void getLoadStatus(int status)
+        public void getLoadStatus(Exception status)
         {
-            callstatus = status;
+            callerror = status;
         }
         /*
         This void occurs when app is unfreezed by file picker. It checks the file
@@ -260,15 +264,13 @@ namespace UnofficialSteamAuthenticator
                     view.Activated -= viewActivated;
                     StorageFile file = args.Files[0];
                     loadedjson = file;
+                    errorwithjson = null;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageDialog msgbox = new MessageDialog("Error loading file.");
-                await msgbox.ShowAsync();
+                errorwithjson = ex;
             }
-            
         }
-        #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System;
 using UnofficialSteamAuthenticator.Lib.Models;
 using UnofficialSteamAuthenticator.Lib.Models.SteamAuth;
 
@@ -35,5 +36,6 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
     public delegate void LongCallback(long time);
 
     internal delegate void ConfirmationCallback(ConfirmationDetailsResponse time);
-    public delegate void AddFileCallback(int callstatus);
+
+    public delegate void AddFileCallback(Exception callstatus);
 }

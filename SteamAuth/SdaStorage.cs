@@ -172,7 +172,7 @@ namespace UnofficialSteamAuthenticator.Lib
             // if not, return error code.
             if (!correct)
             {
-                callback(2);
+                callback(new Exception("The given password incorrect."));
                 return;
             }
             // If file password is correct - continue
@@ -190,7 +190,7 @@ namespace UnofficialSteamAuthenticator.Lib
                     // throws exception if decryption went wrong
                     if (decrypted==null)
                     {
-                        throw new Exception();
+                        throw new Exception("Error occured durning decryption process.");
                     }
                     // converts file to SteamGuardAccount object...
                     SteamGuardAccount toadd = JsonConvert.DeserializeObject<SteamGuardAccount>(decrypted);
@@ -198,12 +198,12 @@ namespace UnofficialSteamAuthenticator.Lib
                     Storage.PushStore(toadd);
                 }
                 // if no exception caught - return success code.
-                callback(1);
+                callback(null);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // caught exception == set error status and terminate void. 
-                callback(2);
+                callback(ex);
                 return;
             }
         }
