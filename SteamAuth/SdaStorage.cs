@@ -185,8 +185,16 @@ namespace UnofficialSteamAuthenticator.Lib
                     StorageFile entryFile = await folder.CreateFileAsync(entry.Filename, CreationCollisionOption.OpenIfExists);
                     // gets file content
                     string encrypted = await FileIO.ReadTextAsync(entryFile);
-                    // decrypts file
-                    string decrypted = FileEncryptor.DecryptData(password, entry.Salt, entry.Iv, encrypted);
+                    // decrypts file if password is not empty
+                    string decrypted;
+                    if (password.Length != 0)
+                    {
+                        decrypted = FileEncryptor.DecryptData(password, entry.Salt, entry.Iv, encrypted);
+                    }
+                    else
+                    {
+                        decrypted = encrypted;
+                    }
                     // throws exception if decryption went wrong
                     if (decrypted==null)
                     {
