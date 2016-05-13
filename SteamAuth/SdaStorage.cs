@@ -172,8 +172,7 @@ namespace UnofficialSteamAuthenticator.Lib
             // if not, return error code.
             if (!correct)
             {
-                callback(new Exception("The given password incorrect."));
-                return;
+                throw new AddFileException("PasswordIncorrect");
             }
             // If file password is correct - continue
             try
@@ -183,6 +182,10 @@ namespace UnofficialSteamAuthenticator.Lib
                 {
                     // retrieves file
                     StorageFile entryFile = await folder.CreateFileAsync(entry.Filename, CreationCollisionOption.OpenIfExists);
+                    if (entryFile==null)
+                    {
+                        throw new AddFileException("AccountNull");
+                    }
                     // gets file content
                     string encrypted = await FileIO.ReadTextAsync(entryFile);
                     // decrypts file if password is not empty
@@ -198,7 +201,7 @@ namespace UnofficialSteamAuthenticator.Lib
                     // throws exception if decryption went wrong
                     if (decrypted==null)
                     {
-                        throw new Exception("Error occured durning decryption process.");
+                        throw new AddFileException("EncryptionError");
                     }
                     // converts file to SteamGuardAccount object...
                     SteamGuardAccount toadd = JsonConvert.DeserializeObject<SteamGuardAccount>(decrypted);
@@ -208,7 +211,7 @@ namespace UnofficialSteamAuthenticator.Lib
                 // if no exception caught - return success code.
                 callback(null);
             }
-            catch (Exception ex)
+            catch (AddFileException ex)
             {
                 // caught exception == set error status and terminate void. 
                 callback(ex);

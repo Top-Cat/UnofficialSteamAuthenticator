@@ -79,6 +79,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddFileException.cs" />
     <Compile Include="FileEncryptor.cs" />
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\Language.cs" />

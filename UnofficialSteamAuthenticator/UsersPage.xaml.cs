@@ -194,14 +194,14 @@ namespace UnofficialSteamAuthenticator
         
         CoreApplicationView view = CoreApplication.GetCurrentView();
         StorageFile loadedjson;
-        Exception callerror = null;
+        AddFileException callerror = null;
         Exception errorwithjson;
         // 0 - none
         // 1 - file added properly
         // 2 - error
         private async void loadButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog msgbox = new MessageDialog("Pick manifest file with account files.");
+            MessageDialog msgbox = new MessageDialog(StringResourceLoader.GetString("AddAccount_PickFile"));
             FileOpenPicker openPicker = new FileOpenPicker();
             AddFileCallback filecallback = new AddFileCallback(getLoadStatus);
             await msgbox.ShowAsync();
@@ -215,34 +215,31 @@ namespace UnofficialSteamAuthenticator
             Even if it is empty, or couldn't be properly moved to json format - app
             catches it and stops loading progress.
              */
-            if (errorwithjson==null)
+            switch (callerror.Message)
             {
-                SdaStorage.LoadFile(loadedjson, filecallback);
-                if (callerror==null)
-                {
-                    msgbox.Content = "All accounts loaded successfully.";
-                    await msgbox.ShowAsync();
-                }
-                else
-                {
-                    msgbox.Content = callerror.Message;
-                    await msgbox.ShowAsync();
-                }
+                default:
+                    break;
+                case null:
+                    msgbox.Content = StringResourceLoader.GetString("AddAccount_Success");
+                    break;
+                case "PasswordIncorrect":
+                    msgbox.Content = StringResourceLoader.GetString("AddAccount_ErrorPassword");
+                    break;
+                case "EncryptionError":
+                    msgbox.Content = StringResourceLoader.GetString("AddAccount_ErrorEncryption");
+                    break;
+                case "AccountNull":
+                    msgbox.Content = StringResourceLoader.GetString("AddAccount_ErrorAccount");
+                    break;
             }
-            else
-            {
-                msgbox.Content = errorwithjson.Message;
-                await msgbox.ShowAsync();
-            }
-            
+            await msgbox.ShowAsync();
             /*
             TODO:
             1. If loaded properly, I don't exactly know how to "reload" your account
             list. This code seems a bit too complicated for me, so I don't touch it.
-            2. Add resources with translated texts.
             */
         }
-        public void getLoadStatus(Exception status)
+        public void getLoadStatus(AddFileException status)
         {
             callerror = status;
         }
@@ -252,7 +249,7 @@ namespace UnofficialSteamAuthenticator
         This crap is indeed on WP 8.1. On WP10 we could use FileOpenPicker.PickSingleFileAsync()
         and get file in one void. 
         */
-        private async void viewActivated(CoreApplicationView sender, IActivatedEventArgs args1)
+        private void viewActivated(CoreApplicationView sender, IActivatedEventArgs args1)
         {
             FileOpenPickerContinuationEventArgs args = args1 as FileOpenPickerContinuationEventArgs;
 

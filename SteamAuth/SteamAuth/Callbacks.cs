@@ -37,5 +37,5 @@ namespace UnofficialSteamAuthenticator.Lib.SteamAuth
 
     internal delegate void ConfirmationCallback(ConfirmationDetailsResponse time);
 
-    public delegate void AddFileCallback(Exception callstatus);
+    public delegate void AddFileCallback(AddFileException callstatus);
 }

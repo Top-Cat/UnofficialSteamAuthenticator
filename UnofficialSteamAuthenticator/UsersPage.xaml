@@ -69,7 +69,10 @@
                               Click="NewUser_Click"
                               Icon="Add"
                               Label="Add new" />
-                <AppBarButton x:Name="appBarButton" Icon="Download" Label="Load file" Click="loadButton_Click"/>
+                <AppBarButton x:Uid="AddAccountButton" 
+                              Icon="Download"
+                              Label="Load file"
+                              Click="loadButton_Click"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Uid="SettingsButton"
