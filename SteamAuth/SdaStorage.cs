@@ -152,24 +152,6 @@ namespace UnofficialSteamAuthenticator.Lib
             return result == ContentDialogResult.Primary ? tb.Text : string.Empty;
         }
 
-        public struct LoadFileResult
-        {
-            public ELoadFileResult ResultStatus;
-            public int Loaded;
-
-            public LoadFileResult(ELoadFileResult resultStatus, int loaded)
-            {
-                this.ResultStatus = resultStatus;
-                this.Loaded = loaded;
-            }
-        }
-
-        public enum ELoadFileResult
-        {
-            PasswordIncorrect,
-            Success
-        }
-
         /// <summary>
         ///     Adds all accounts from specified Manifest file.
         /// </summary>
