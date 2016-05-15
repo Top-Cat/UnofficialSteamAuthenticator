@@ -37,14 +37,14 @@ namespace UnofficialSteamAuthenticator
             BackgroundTask.Register();
         }
 
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected override async void OnActivated(IActivatedEventArgs args)
         {
+            var rootFrame = (Frame) Window.Current.Content;
+
             switch (args.Kind)
             {
                 case ActivationKind.Protocol:
                     var protocolArgs = (ProtocolActivatedEventArgs) args;
-
-                    var rootFrame = (Frame) Window.Current.Content;
 
                     if (rootFrame.Content is MainPage)
                     {
@@ -62,8 +62,24 @@ namespace UnofficialSteamAuthenticator
                     if (pickFolderArgs.Folder == null) // Probably cancelled
                         return;
 
-                    var usr = (ulong) pickFolderArgs.ContinuationData["user"];
-                    SdaStorage.SaveMaFile(usr, pickFolderArgs.Folder);
+                    object userObj = pickFolderArgs.ContinuationData.ContainsKey("user") ? pickFolderArgs.ContinuationData["user"] : null;
+                    if (userObj is ulong)
+                    {
+                        var usr = (ulong) userObj;
+
+                        SdaStorage.SaveMaFile(usr, pickFolderArgs.Folder);
+                    }
+                    else
+                    {
+                        if (await SdaStorage.ImportMaFile(pickFolderArgs))
+                        {
+                            if (rootFrame.Content is UsersPage)
+                            {
+                                var usersPage = (UsersPage) rootFrame.Content;
+                                usersPage.ReloadList();
+                            }
+                        }
+                    }
                     break;
             }
         }

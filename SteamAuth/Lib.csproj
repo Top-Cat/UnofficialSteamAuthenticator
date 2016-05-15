@@ -85,6 +85,8 @@
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Players.cs" />
+    <Compile Include="Models\Sda\ELoadFileResult.cs" />
+    <Compile Include="Models\Sda\LoadFileResult.cs" />
     <Compile Include="Models\Sda\Manifest.cs" />
     <Compile Include="Models\Sda\ManifestEntry.cs" />
     <Compile Include="Models\SteamAuth\ConfirmationDetailsResponse.cs" />

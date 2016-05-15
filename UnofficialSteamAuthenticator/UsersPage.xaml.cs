@@ -32,6 +32,11 @@ namespace UnofficialSteamAuthenticator
         {
             HardwareButtons.BackPressed += this.BackPressed;
 
+            this.ReloadList();
+        }
+
+        public void ReloadList()
+        {
             this.listElems.Clear();
 
             this.steamGuardUpdate_Tick(null, null);
@@ -153,7 +158,10 @@ namespace UnofficialSteamAuthenticator
             if (selectedOne == null)
                 return;
 
-            var folderPicker = new FolderPicker();
+            var folderPicker = new FolderPicker()
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
             folderPicker.ContinuationData["user"] = selectedOne.SteamId;
             folderPicker.PickFolderAndContinue();
         }
@@ -186,6 +194,15 @@ namespace UnofficialSteamAuthenticator
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsPage));
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openPicker = new FolderPicker()
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            openPicker.PickFolderAndContinue();
         }
     }
 }

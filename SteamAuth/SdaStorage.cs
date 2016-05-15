@@ -8,6 +8,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using UnofficialSteamAuthenticator.Lib.Models.Sda;
+using UnofficialSteamAuthenticator.Lib.SteamAuth;
+using System.IO;
+using Windows.ApplicationModel.Activation;
 
 namespace UnofficialSteamAuthenticator.Lib
 {
@@ -124,19 +127,19 @@ namespace UnofficialSteamAuthenticator.Lib
             return true;
         }
 
-        private static async Task<string> GetPassword()
+        private static async Task<string> GetPassword(string i18NPrefix = "Encryption")
         {
             var tb = new TextBox();
             var dialog = new ContentDialog
             {
-                Title = StringResourceLoader.GetString("Encryption_Promt_Title")
+                Title = StringResourceLoader.GetString(i18NPrefix + "_Promt_Title")
             };
 
             var panel = new StackPanel();
 
             panel.Children.Add(new TextBlock
             {
-                Text = StringResourceLoader.GetString("Encryption_Promt_Message"),
+                Text = StringResourceLoader.GetString(i18NPrefix + "_Promt_Message"),
                 TextWrapping = TextWrapping.Wrap
             });
             panel.Children.Add(tb);
@@ -147,6 +150,85 @@ namespace UnofficialSteamAuthenticator.Lib
             ContentDialogResult result = await dialog.ShowAsync();
 
             return result == ContentDialogResult.Primary ? tb.Text : string.Empty;
+        }
+
+        /// <summary>
+        ///     Adds all accounts from specified Manifest file.
+        /// </summary>
+        /// <param name="folder">Folder containing Manifest.</param>
+        public static async Task<LoadFileResult> LoadFile(StorageFolder folder)
+        {
+            StorageFile toload = await folder.GetFileAsync("manifest.json");
+
+            // asks user for password
+            string password = await GetPassword("Decryption");
+
+            string manifestJson = await FileIO.ReadTextAsync(toload);
+            Manifest manifest = JsonConvert.DeserializeObject<Manifest>(manifestJson) ?? new Manifest();
+
+            // checks password for encrypted files.
+            if (!await CheckPassword(manifest, folder, password))
+            {
+                return new LoadFileResult(ELoadFileResult.PasswordIncorrect, 0);
+            }
+
+            int loaded = 0;
+            foreach (ManifestEntry entry in manifest.Entries)
+            {
+                try
+                {
+                    // retrieves file
+                    StorageFile entryFile = await folder.GetFileAsync(entry.Filename);
+
+                    string encrypted = await FileIO.ReadTextAsync(entryFile);
+                    string decrypted = password.Length != 0 ? FileEncryptor.DecryptData(password, entry.Salt, entry.Iv, encrypted) : encrypted;
+
+                    if (decrypted == null)
+                    {
+                        continue;
+                    }
+
+                    var toadd = JsonConvert.DeserializeObject<SteamGuardAccount>(decrypted);
+                    SteamGuardAccount old = Storage.GetSteamGuardAccount(toadd.Session.SteamID);
+
+                    // Only update if the file was linked more recently than ours
+                    // or our current file isn't linked
+                    if ((toadd.FullyEnrolled && toadd.ServerTime > old.ServerTime) || !old.FullyEnrolled)
+                    {
+                        Storage.PushStore(toadd);
+                        loaded++;
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    // Oh well
+                }
+            }
+
+            // if no error returned - return success
+            return new LoadFileResult(ELoadFileResult.Success, loaded);
+        }
+
+        public static async Task<bool> ImportMaFile(FolderPickerContinuationEventArgs args)
+        {
+            LoadFileResult res = await LoadFile(args.Folder);
+
+            var msgbox = new MessageDialog(StringResourceLoader.GetString("AddAccount_PickFile"));
+            switch (res.ResultStatus)
+            {
+                case ELoadFileResult.Success:
+                    msgbox.Content = string.Format(
+                        StringResourceLoader.GetString("AddAccount_Success"),
+                        res.Loaded
+                    );
+                    break;
+                case ELoadFileResult.PasswordIncorrect:
+                    msgbox.Content = StringResourceLoader.GetString("AddAccount_ErrorPassword");
+                    break;
+            }
+            await msgbox.ShowAsync();
+
+            return res.ResultStatus == ELoadFileResult.Success;
         }
     }
 }
