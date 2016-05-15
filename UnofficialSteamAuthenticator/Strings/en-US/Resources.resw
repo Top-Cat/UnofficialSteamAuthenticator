@@ -293,9 +293,6 @@ Do not share it with anyone.</value>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
     <value>The given password incorrect.</value>
   </data>
-  <data name="AddAccount_PickFile" xml:space="preserve">
-    <value>Pick manifest file with account files.</value>
-  </data>
   <data name="AddAccount_Success" xml:space="preserve">
     <value>{0} account(s) loaded successfully.</value>
   </data>

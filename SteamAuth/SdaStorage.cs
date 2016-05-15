@@ -213,20 +213,20 @@ namespace UnofficialSteamAuthenticator.Lib
         {
             LoadFileResult res = await LoadFile(args.Folder);
 
-            var msgbox = new MessageDialog(StringResourceLoader.GetString("AddAccount_PickFile"));
+            var msg = "";
             switch (res.ResultStatus)
             {
                 case ELoadFileResult.Success:
-                    msgbox.Content = string.Format(
+                    msg = string.Format(
                         StringResourceLoader.GetString("AddAccount_Success"),
                         res.Loaded
                     );
                     break;
                 case ELoadFileResult.PasswordIncorrect:
-                    msgbox.Content = StringResourceLoader.GetString("AddAccount_ErrorPassword");
+                    msg = StringResourceLoader.GetString("AddAccount_ErrorPassword");
                     break;
             }
-            await msgbox.ShowAsync();
+            await new MessageDialog(msg).ShowAsync();
 
             return res.ResultStatus == ELoadFileResult.Success;
         }
