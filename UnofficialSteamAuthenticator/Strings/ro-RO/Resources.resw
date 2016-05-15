@@ -59,226 +59,239 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Eroare</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>Nu ați reușit să deconectați autentificatorul!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anulare</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will incur trade holds for at least 7 days.</value>
+    <value>Ești sigur? Acest lucru va reține tranzacțiile pentru cel puțin 7 zile.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>Deconectare?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>Conturi</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>Conectare</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Conecteaza-te</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>Adaugă autentificator</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
+    <value>Introduceţi numărul de telefon în următorul format: +{cC} phoneNumber (ex. +1 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam username</value>
+    <value>Nume de utilizator Steam</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Parolă</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list.</value>
+    <value>Eşti sigur? Acest lucru va elimina acest cont din lista de utilizatori.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Logout?</value>
+    <value>Deconectare?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Yes</value>
+    <value>Da</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>No</value>
+    <value>Nu</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Enter email code</value>
+    <value>Introduceţi codul de e-mail</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Enter the characters</value>
+    <value>Introduceţi caracterele</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Enter authenticator code</value>
+    <value>Introduceţi codul de autentificare</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Eroare necunoscută</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Eroare necunoscută</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Invalid Login</value>
+    <value>Conectare invalidă</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Too many failures</value>
+    <value>Prea multe greșeli</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Need 2FA</value>
+    <value>Nevoie de 2FA</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>Ești om?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Link authenticator</value>
+    <value>Adaugă autentificator</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
     <value>Link</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>You need to set up this device as an authenticator before you can get steam guard codes or confirm trades.</value>
+    <value>Trebuie să setați acest dispozitiv ca o autentificator înainte de a obţine coduri Steam Guard sau de a confirma tranzacții.</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>Code</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmare</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
     <value>Chat</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Schimbă contul</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Logout</value>
+    <value>Deconectare</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>Despre</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Unlink</value>
+    <value>Deconectare</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuă</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Enter SMS Code</value>
+    <value>Introduceți codul SMS</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Eroare</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unknown error linking authenticator.</value>
+    <value>Eroare necunoscută legată de autentificator.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Eroare</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
+    <value>Aveţi deja un alt dispozitiv setat ca autentificator. Eliminati-l din contul dvs și încercați din nou.</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Introduceți un număr de telefon</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Bad Code</value>
+    <value>Cod greșit</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
+    <value>Autentificatorul mobil nu a fost inca setat.
 
-Before finalizing the authenticator, please write down your revocation code.</value>
+Înainte de finalizarea setării autentificatorului, vă rugăm să notați codul de revocare.</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
-
-Do not share it with anyone.</value>
+    <value>Veţi avea nevoie de acest cod pentru a recupera contul de Steam dacă ați pierdut telefonul. Nu-l veți putea vedea din nou după acest pas, așa că vă rog să-l scrieți acum. Să nu-l împărtășiți cu nimeni.</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>Se generează codul...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>Informații despre aplicație</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versiune</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
     <value>Creator</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Sursă</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Adăugați</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>Schimbă</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>Autentificator mobil pentru logare şi tranzacţionare pe Steam</value>
   </data>
   <data name="ExportFlyout.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>Exportaţi</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>Deconectare</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
-    <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
+    <value>Cheia de acces introdusă nu corespunde cu cea a conturilor criptate existente. Încercați din nou sau selectaţi o destinaţie diferită.</value>
   </data>
   <data name="Encryption_BadPassword_Title" xml:space="preserve">
-    <value>Bad passkey</value>
+    <value>Cheie de acces greșită</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>Please enter an encryption passkey at least 3 characters long</value>
+    <value>Vă rugăm să introduceţi un cod de acces pentru criptare de cel puţin 3 caractere</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
-    <value>Encrypt</value>
+    <value>Criptează</value>
+  </data>
+  <data name="Decryption_Promt_Message" xml:space="preserve">
+    <value>Please enter your encryption passkey</value>
+  </data>
+  <data name="Decryption_Promt_Title" xml:space="preserve">
+    <value>Decrypt</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
-    <value>Failed to export maFiles</value>
+    <value>Nu s-a putut exporta maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Eroare</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
-    <value>maFiles successfully exported</value>
+    <value>maFiles exportate cu succes</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>Succes</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
-    <value>The passkey you entered was too short</value>
+    <value>Codul de acces pe care l-aţi introdus a fost prea scurt</value>
   </data>
   <data name="Settings_Headline.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Setări</value>
   </data>
   <data name="SettingsButton.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>Setări</value>
   </data>
   <data name="Settings_Exit.Content" xml:space="preserve">
-    <value>Exit App</value>
+    <value>Ieşiți din aplicație</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Limbă</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>You will need to restart the app for this to take effect</value>
+    <value>Va trebui să reporniţi aplicaţia pentru ca acest lucru să aibă efect</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Pin invalid</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Introduceţi Pin-ul Family View</value>
+  </data>
+  <data name="AddAccountButton.Label" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="AddAccount_ErrorPassword" xml:space="preserve">
+    <value>The given password incorrect.</value>
+  </data>
+  <data name="AddAccount_Success" xml:space="preserve">
+    <value>{0} account(s) loaded successfully.</value>
   </data>
 </root>

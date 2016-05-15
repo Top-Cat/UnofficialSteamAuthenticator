@@ -59,226 +59,239 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>无法取消关联身份验证器 ！</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
-    <value>OK</value>
+    <value>是</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will incur trade holds for at least 7 days.</value>
+    <value>是否确定？这将会导致交易保存至少 7 天。</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>取消关联？</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>帐户</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>登录</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>注册</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>添加身份验证器</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
-    <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
+    <value>按以下格式输入电话号码: +{cC} 电话号码 (例如 +86 123-456-7890)。</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam username</value>
+    <value>Steam 账户名</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>密码</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list.</value>
+    <value>是否确定？这将从用户列表中删除此帐户。</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Logout?</value>
+    <value>注销？</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Yes</value>
+    <value>是</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>No</value>
+    <value>否</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Enter email code</value>
+    <value>输入邮箱收到的代码</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Enter the characters</value>
+    <value>输入图片上的字符</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Enter authenticator code</value>
+    <value>输入验证器生成的代码</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>未知的错误</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>未知的错误</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Invalid Login</value>
+    <value>登陆信息无效</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
-    <value>Too many failures</value>
+    <value>失败次数过多</value>
   </data>
   <data name="Need2Fa" xml:space="preserve">
-    <value>Need 2FA</value>
+    <value>需要二次验证</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>确保是真人在操作</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
-    <value>Link authenticator</value>
+    <value>关联验证器</value>
   </data>
   <data name="BtnLink.Content" xml:space="preserve">
-    <value>Link</value>
+    <value>关联</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>You need to set up this device as an authenticator before you can get steam guard codes or confirm trades.</value>
+    <value>您需要设置此设备为身份验证器然后您可以得到Steam验证码或确认交易。</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
-    <value>Guard</value>
+    <value>保护</value>
   </data>
   <data name="ConfirmationsButton.Label" xml:space="preserve">
-    <value>Confirm</value>
+    <value>确认</value>
   </data>
   <data name="MessageButton.Label" xml:space="preserve">
-    <value>Chat</value>
+    <value>聊天</value>
   </data>
   <data name="UsersButton.Label" xml:space="preserve">
-    <value>Switch account</value>
+    <value>切换帐户</value>
   </data>
   <data name="LogoutButton.Label" xml:space="preserve">
-    <value>Logout</value>
+    <value>登出</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="BtnUnlink.Content" xml:space="preserve">
-    <value>Unlink</value>
+    <value>取消关联</value>
   </data>
   <data name="BtnContinue.Content" xml:space="preserve">
-    <value>Continue</value>
+    <value>继续</value>
   </data>
   <data name="TxtSmsCode.Text" xml:space="preserve">
-    <value>Enter SMS Code</value>
+    <value>输入收到的短信代码</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
-    <value>Unknown error linking authenticator.</value>
+    <value>关联验证器时发生未知的错误</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
-    <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
+    <value>您已经将另一个设备设置为身份验证器。从您的帐户中删除它，然后重试。</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>输入电话号码</value>
   </data>
   <data name="BadCode" xml:space="preserve">
-    <value>Bad Code</value>
+    <value>错误的代码</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>The Mobile Authenticator has not yet been linked.
-
-Before finalizing the authenticator, please write down your revocation code.</value>
+    <value>移动身份验证器现在还未关联。 你必须执行这一步来完成关联：在完成关联身份验证器之前，请妥善保存您吊销代码。</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>You will need this code to recover your Steam account if you lose your phone. You will not be able to view it again after this step so please write it down now.
+    <value>如果你丢失了你的手机，您将需要此代码来恢复您的Steam帐户。你在经过此步骤后不能再次预览此代码，请妥善保存。
 
-Do not share it with anyone.</value>
+！ 不要与任何人分享它 ！</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
-    <value>Generating code...</value>
+    <value>正在生成代码...</value>
   </data>
   <data name="MainPage_AccountText_Format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="About_Headline.Text" xml:space="preserve">
-    <value>App Information</value>
+    <value>应用程序信息</value>
   </data>
   <data name="About_AppVersion.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>版本</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>Creator</value>
+    <value>创造者</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>资源</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
-    <value>Add</value>
+    <value>添加</value>
   </data>
   <data name="SwitchUserButton.Label" xml:space="preserve">
-    <value>Switch</value>
+    <value>切换</value>
   </data>
   <data name="App_Description" xml:space="preserve">
-    <value>Mobile authenticator for logging in and trading on steam</value>
+    <value>手机验证器用来验证Steam账户的登录和线上交易</value>
   </data>
   <data name="ExportFlyout.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>导出</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>注销</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
-    <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
+    <value>您输入的密钥与现有的加密帐户的不匹配。再试一次或选择一个不同的目的地。</value>
   </data>
   <data name="Encryption_BadPassword_Title" xml:space="preserve">
-    <value>Bad passkey</value>
+    <value>错误的密钥</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>Please enter an encryption passkey at least 3 characters long</value>
+    <value>请输入加密密钥至少 3 个字符长</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
-    <value>Encrypt</value>
+    <value>加密</value>
+  </data>
+  <data name="Decryption_Promt_Message" xml:space="preserve">
+    <value>Please enter your encryption passkey</value>
+  </data>
+  <data name="Decryption_Promt_Title" xml:space="preserve">
+    <value>Decrypt</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
-    <value>Failed to export maFiles</value>
+    <value>未能导出 maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
-    <value>maFiles successfully exported</value>
+    <value>maFiles 成功导出</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>成功!</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
-    <value>The passkey you entered was too short</value>
+    <value>您输入的密钥太短</value>
   </data>
   <data name="Settings_Headline.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="SettingsButton.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="Settings_Exit.Content" xml:space="preserve">
-    <value>Exit App</value>
+    <value>退出应用程序</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>You will need to restart the app for this to take effect</value>
+    <value>您将需要重新启动程序才能达到这个效果</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Pin 无效</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>输入隐私保护pin码</value>
+  </data>
+  <data name="AddAccountButton.Label" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="AddAccount_ErrorPassword" xml:space="preserve">
+    <value>The given password incorrect.</value>
+  </data>
+  <data name="AddAccount_Success" xml:space="preserve">
+    <value>{0} account(s) loaded successfully.</value>
   </data>
 </root>

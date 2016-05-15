@@ -231,7 +231,7 @@ Teile diesen Code mit niemandem.</value>
     <value>Export</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
-    <value>Logout</value>
+    <value>Abmelden</value>
   </data>
   <data name="Encryption_BadPassword_Message" xml:space="preserve">
     <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
@@ -245,11 +245,17 @@ Teile diesen Code mit niemandem.</value>
   <data name="Encryption_Promt_Title" xml:space="preserve">
     <value>Encrypt</value>
   </data>
+  <data name="Decryption_Promt_Message" xml:space="preserve">
+    <value>Please enter your encryption passkey</value>
+  </data>
+  <data name="Decryption_Promt_Title" xml:space="preserve">
+    <value>Decrypt</value>
+  </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Failed to export maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Fehler</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
     <value>maFiles successfully exported</value>
@@ -280,5 +286,14 @@ Teile diesen Code mit niemandem.</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
     <value>Enter Family View Pin</value>
+  </data>
+  <data name="AddAccountButton.Label" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="AddAccount_ErrorPassword" xml:space="preserve">
+    <value>The given password incorrect.</value>
+  </data>
+  <data name="AddAccount_Success" xml:space="preserve">
+    <value>{0} account(s) loaded successfully.</value>
   </data>
 </root>
