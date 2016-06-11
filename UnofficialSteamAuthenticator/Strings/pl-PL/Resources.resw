@@ -246,10 +246,10 @@ Zapisz go i nikomu nie udostępniaj.</value>
     <value>Zaszyfruj</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Wpisz hasło do zaszyfrowanych kont</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Odszyfruj</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Wystąpił błąd podczas zapisu pliku maFile</value>
@@ -288,12 +288,12 @@ Zapisz go i nikomu nie udostępniaj.</value>
     <value>Wpisz kod pin rodzinnego widoku</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Importuj</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>Podane hasło jest nieprawidłowe.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>Dodano {0} konto/a.</value>
   </data>
 </root>

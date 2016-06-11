@@ -242,10 +242,10 @@
     <value>Encriptar</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Por favor insira a sua senha encriptada</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Desencriptar</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Falha ao exportar maFiles</value>
@@ -284,12 +284,12 @@
     <value>Digite o Pin do Modo Família</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Importar</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>A senha que você inseriu está incorreta.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>{0} conta(s) importada(s) com sucesso.</value>
   </data>
 </root>

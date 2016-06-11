@@ -242,10 +242,10 @@
     <value>Encriptar</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Por favor, digite sua senha de encriptação</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Desencriptar</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Falha ao exportar maFiles</value>
@@ -275,7 +275,7 @@
     <value>Língua</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>Você precisará de reiniciar a aplicação para que esta alteração seja aplicada</value>
+    <value>Você precisará de reiniciar a aplicação para que a(s) alteração(alterações) seja(m) aplicada(s)</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
     <value>PIN inválido</value>
@@ -284,12 +284,12 @@
     <value>Digite o PIN do modo Família</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Importar</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>A palavra-chave introduzida está incorreta.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>A(s) conta(s) {0} foi(foram) importada(s) com sucesso.</value>
   </data>
 </root>
