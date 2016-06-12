@@ -65,7 +65,7 @@
     <value>无法取消关联身份验证器 ！</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
-    <value>是</value>
+    <value>确定</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
     <value>取消</value>
@@ -143,7 +143,7 @@
     <value>关联</value>
   </data>
   <data name="TxtLinkAuthenticatorSummary.Text" xml:space="preserve">
-    <value>您需要设置此设备为身份验证器然后您可以得到Steam验证码或确认交易。</value>
+    <value>您需要设置此设备为身份验证器，您就可以获取Steam验证码或确认交易。</value>
   </data>
   <data name="SteamGuardButton.Label" xml:space="preserve">
     <value>保护</value>
@@ -191,12 +191,14 @@
     <value>错误的代码</value>
   </data>
   <data name="TxtRevocationExp1.Text" xml:space="preserve">
-    <value>移动身份验证器现在还未关联。 你必须执行这一步来完成关联：在完成关联身份验证器之前，请妥善保存您吊销代码。</value>
+    <value>移动身份验证器现在还未被关联。
+
+在完成关联身份验证器之前，请妥善保存您的吊销代码。</value>
   </data>
   <data name="TxtRevocationExp2.Text" xml:space="preserve">
-    <value>如果你丢失了你的手机，您将需要此代码来恢复您的Steam帐户。你在经过此步骤后不能再次预览此代码，请妥善保存。
+    <value>如果您丢失了您的手机，您将需要此代码来恢复您的Steam帐户。您在经过此步骤后将不能再次查看此代码，请妥善保存。
 
-！ 不要与任何人分享它 ！</value>
+请不要与任何人分享它 ！</value>
   </data>
   <data name="GeneratingCode_Ellipsis" xml:space="preserve">
     <value>正在生成代码...</value>
@@ -211,10 +213,10 @@
     <value>版本</value>
   </data>
   <data name="About_AppCreator.Text" xml:space="preserve">
-    <value>创造者</value>
+    <value>创建者</value>
   </data>
   <data name="About_AppSource.Text" xml:space="preserve">
-    <value>资源</value>
+    <value>源代码</value>
   </data>
   <data name="NewUserButton.Label" xml:space="preserve">
     <value>添加</value>
@@ -238,16 +240,16 @@
     <value>错误的密钥</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>请输入加密密钥至少 3 个字符长</value>
+    <value>请输入加密密钥，该密钥至少 3 个字符长</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
     <value>加密</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>请输入你的加密密钥</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>解码</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>未能导出 maFiles</value>
@@ -259,7 +261,7 @@
     <value>maFiles 成功导出</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>成功!</value>
+    <value>成功</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
     <value>您输入的密钥太短</value>
@@ -277,21 +279,21 @@
     <value>语言</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>您将需要重新启动程序才能达到这个效果</value>
+    <value>您将需要重新启动程序才能保存更改</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
     <value>Pin 无效</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>输入隐私保护pin码</value>
+    <value>输入隐私保护 Pin 码</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>导入</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>输入的密码不正确。</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>{0} 个账户已成功加载。</value>
   </data>
 </root>

@@ -291,7 +291,7 @@ Non condividerlo con nessuno.</value>
     <value>Import</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>The given password was incorrect.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
     <value>{0} account(s) loaded successfully.</value>

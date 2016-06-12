@@ -59,73 +59,73 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Authenticator_Unlink_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Hata</value>
   </data>
   <data name="Authenticator_Unlink_Failed_Message" xml:space="preserve">
-    <value>Failed to unlink authenticator!</value>
+    <value>Kimlik doğrulayıcı bağlantısını kaldırmak başarısız oldu!</value>
   </data>
   <data name="UiCommand_Ok_Text" xml:space="preserve">
-    <value>OK</value>
+    <value>TAMAM</value>
   </data>
   <data name="UiCommand_Cancel_Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>İptal</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Message" xml:space="preserve">
     <value>Are you sure? This will incur trade holds for at least 7 days.</value>
   </data>
   <data name="Authenticator_Unlink_Prompt_Title" xml:space="preserve">
-    <value>Unlink?</value>
+    <value>Bağlantı kaldırırılsın mı?</value>
   </data>
   <data name="AccountsHeadline.Text" xml:space="preserve">
-    <value>Accounts</value>
+    <value>Hesaplar</value>
   </data>
   <data name="LoginHeadline.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>Giriş Yap</value>
   </data>
   <data name="LoginBtn.Content" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Giriş yap</value>
   </data>
   <data name="TxtAddAuthenticator.Text" xml:space="preserve">
-    <value>Add authenticator</value>
+    <value>Kimlik doğrulayıcı ekle</value>
   </data>
   <data name="TxtPhoneNumber.Text" xml:space="preserve">
     <value>Enter your phone number in the following format: +{cC} phoneNumber (e.g. +1 123-456-7890).</value>
   </data>
   <data name="TxtUsername.Text" xml:space="preserve">
-    <value>Steam username</value>
+    <value>Steam kullanıcı adı</value>
   </data>
   <data name="TxtPassword.Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Şifre</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
     <value>Are you sure? This will remove this account from the user list.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
-    <value>Logout?</value>
+    <value>Çıkış yapılsın mı?</value>
   </data>
   <data name="UiCommand_Yes_Text" xml:space="preserve">
-    <value>Yes</value>
+    <value>Evet</value>
   </data>
   <data name="UiCommand_No_Text" xml:space="preserve">
-    <value>No</value>
+    <value>Hayır</value>
   </data>
   <data name="TxtEnterEmailCode.Text" xml:space="preserve">
-    <value>Enter email code</value>
+    <value>E-posta kodunu girin</value>
   </data>
   <data name="TxtEnterTheCaptcha.Text" xml:space="preserve">
-    <value>Enter the characters</value>
+    <value>Karakterleri girin</value>
   </data>
   <data name="TxtEnterTwoFactor.Text" xml:space="preserve">
-    <value>Enter authenticator code</value>
+    <value>Kimlik doğrulayıcı kodunu girin</value>
   </data>
   <data name="LoginResult_GeneralFailure_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Bilinmeyen Hata</value>
   </data>
   <data name="LoginResult_BadRSA_Text" xml:space="preserve">
-    <value>Unknown Error</value>
+    <value>Bilinmeyen Hata</value>
   </data>
   <data name="LoginResult_BadCredentials_Text" xml:space="preserve">
-    <value>Invalid Login</value>
+    <value>Geçersiz Giriş</value>
   </data>
   <data name="LoginResult_TooManyFailedLogins_Text" xml:space="preserve">
     <value>Too many failures</value>
@@ -134,7 +134,7 @@
     <value>Need 2FA</value>
   </data>
   <data name="AreYouHuman" xml:space="preserve">
-    <value>Are you human?</value>
+    <value>İnsan mısınız?</value>
   </data>
   <data name="TxtLinkAuthenticatorHeadline.Text" xml:space="preserve">
     <value>Link authenticator</value>
@@ -173,13 +173,13 @@
     <value>Enter SMS Code</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Hata</value>
   </data>
   <data name="Authenticator_Link_UnknownError_Message" xml:space="preserve">
     <value>Unknown error linking authenticator.</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Hata</value>
   </data>
   <data name="Authenticator_Link_AlreadyLinked_Message" xml:space="preserve">
     <value>You already have another device set up as an authenticator. Remove it from your account and try again.</value>
@@ -255,7 +255,7 @@ Do not share it with anyone.</value>
     <value>Failed to export maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
-    <value>Error</value>
+    <value>Hata</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
     <value>maFiles successfully exported</value>
@@ -291,7 +291,7 @@ Do not share it with anyone.</value>
     <value>Import</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>The given password was incorrect.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
     <value>{0} account(s) loaded successfully.</value>

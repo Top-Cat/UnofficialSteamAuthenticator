@@ -98,7 +98,7 @@
     <value>Пароль</value>
   </data>
   <data name="User_Logout_Prompt_Message" xml:space="preserve">
-    <value>Are you sure? This will remove this account from the user list.</value>
+    <value>Вы уверены? Это удалит эту учетную запись из списка пользователей.</value>
   </data>
   <data name="User_Logout_Prompt_Title" xml:space="preserve">
     <value>Выйти?</value>
@@ -228,7 +228,7 @@
     <value>Мобильный аутентификатор для авторизации в Steam</value>
   </data>
   <data name="ExportFlyout.Text" xml:space="preserve">
-    <value>Export</value>
+    <value>Экспорт</value>
   </data>
   <data name="LogoutFlyout.Text" xml:space="preserve">
     <value>Выйти</value>
@@ -237,63 +237,63 @@
     <value>The passkey you entered does not match that of the existing encrypted accounts. Try again or choose a different destination.</value>
   </data>
   <data name="Encryption_BadPassword_Title" xml:space="preserve">
-    <value>Bad passkey</value>
+    <value>Неверный код</value>
   </data>
   <data name="Encryption_Promt_Message" xml:space="preserve">
-    <value>Please enter an encryption passkey at least 3 characters long</value>
+    <value>Пожалуйста, введите код, состоящий не менее чем 3 символов</value>
   </data>
   <data name="Encryption_Promt_Title" xml:space="preserve">
-    <value>Encrypt</value>
+    <value>Шифрование</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Пожалуйста, введите ключ шифрования</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Расшифровать</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
-    <value>Failed to export maFiles</value>
+    <value>Не удалось экспортировать maFiles</value>
   </data>
   <data name="Export_Failed_Title" xml:space="preserve">
     <value>Ошибка</value>
   </data>
   <data name="Export_Success_Message" xml:space="preserve">
-    <value>maFiles successfully exported</value>
+    <value>maFiles успешно загружены</value>
   </data>
   <data name="Export_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>Успех</value>
   </data>
   <data name="Encryption_ShortPassword_Message" xml:space="preserve">
-    <value>The passkey you entered was too short</value>
+    <value>Вы ввели слишком короткий пароль</value>
   </data>
   <data name="Settings_Headline.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="SettingsButton.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="Settings_Exit.Content" xml:space="preserve">
-    <value>Exit App</value>
+    <value>Закрыть приложение</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
     <value>Язык</value>
   </data>
   <data name="Settings_Language_Sub.Text" xml:space="preserve">
-    <value>You will need to restart the app for this to take effect</value>
+    <value>Вам нужно будет перезапустить приложение, чтобы изменения вступили в силу</value>
   </data>
   <data name="FamilyPinIncorrect" xml:space="preserve">
-    <value>Invalid Pin</value>
+    <value>Неверный PIN</value>
   </data>
   <data name="TxtFamilyPin.Text" xml:space="preserve">
-    <value>Enter Family View Pin</value>
+    <value>Введите PIN семейного просмотра</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Импорт</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password incorrect.</value>
+    <value>Неверный пароль.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>{0} аккаунт(а/ов) успешно загружен(ы).</value>
   </data>
 </root>
