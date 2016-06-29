@@ -242,10 +242,10 @@
     <value>Zašifrovat</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Vložte prosím svůj šifrovací klíč</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Dešifrovat</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Nepodařilo se exportovat maFiles</value>
@@ -284,12 +284,12 @@
     <value>Zadejte pin kód pro Rodinné zobrazení</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Importovat</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password was incorrect.</value>
+    <value>Zadané heslo nebylo správné.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>{0} účty/ů úspěšně načteny/o.</value>
   </data>
 </root>
