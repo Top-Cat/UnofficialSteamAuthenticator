@@ -246,10 +246,10 @@ Ne le partagez à personne.</value>
     <value>Crypter</value>
   </data>
   <data name="Decryption_Promt_Message" xml:space="preserve">
-    <value>Please enter your encryption passkey</value>
+    <value>Veuillez entrer votre mot de passe crypté</value>
   </data>
   <data name="Decryption_Promt_Title" xml:space="preserve">
-    <value>Decrypt</value>
+    <value>Décrypter</value>
   </data>
   <data name="Export_Failed_Message" xml:space="preserve">
     <value>Échec lors de l'exportation de maFiles</value>
@@ -288,12 +288,12 @@ Ne le partagez à personne.</value>
     <value>Entrez le code PIN de la vue famille</value>
   </data>
   <data name="AddAccountButton.Label" xml:space="preserve">
-    <value>Import</value>
+    <value>Importer</value>
   </data>
   <data name="AddAccount_ErrorPassword" xml:space="preserve">
-    <value>The given password was incorrect.</value>
+    <value>Le mot de passe est incorrecte.</value>
   </data>
   <data name="AddAccount_Success" xml:space="preserve">
-    <value>{0} account(s) loaded successfully.</value>
+    <value>{0} compte(s) charger avec succès.</value>
   </data>
 </root>
